@@ -9,10 +9,9 @@ const CustomCursor = () => {
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
-  // Smooth springs for the cursor ring
-  const springConfig = { damping: 25, stiffness: 150 };
-  const ringX = useSpring(mouseX, springConfig);
-  const ringY = useSpring(mouseY, springConfig);
+  // Smooth but fast spring for the trail
+  const trailX = useSpring(mouseX, { damping: 40, stiffness: 300 });
+  const trailY = useSpring(mouseY, { damping: 40, stiffness: 300 });
 
   useEffect(() => {
     const handleMouseMove = (e) => {
@@ -53,27 +52,48 @@ const CustomCursor = () => {
 
   if (!isVisible) return null;
 
+  // Modern minimalist arrow path
+  const arrowPath = "M4 0L16.5 12.5L10 13.5L15 20L12.5 21.5L7.5 15L4 18V0Z";
+
   return (
-    <>
+    <div className="custom-cursor-container">
+      {/* Trailing Ghost Arrow */}
       <motion.div
-        className={`custom-cursor ${isHovering ? 'hovering' : ''}`}
+        className="custom-cursor-trail"
+        style={{
+          x: trailX,
+          y: trailY,
+          opacity: isHovering ? 0 : 0.3
+        }}
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d={arrowPath} stroke="var(--accent)" strokeWidth="1" />
+        </svg>
+      </motion.div>
+
+      {/* Main Arrow */}
+      <motion.div
+        className={`custom-cursor-arrow ${isHovering ? 'hovering' : ''}`}
         style={{
           x: mouseX,
           y: mouseY,
-          translateX: '-50%',
-          translateY: '-50%',
         }}
-      />
-      <motion.div
-        className={`custom-cursor-ring ${isHovering ? 'hovering' : ''}`}
-        style={{
-          x: ringX,
-          y: ringY,
-          translateX: '-50%',
-          translateY: '-50%',
-        }}
-      />
-    </>
+      >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d={arrowPath} fill="var(--accent)" />
+          <path d="M5 2L14 11L9.5 11.5L13.5 18L11.5 19L7.5 13L5 15V2Z" fill="rgba(255,255,255,0.2)" />
+        </svg>
+        
+        {/* Expansion on hover */}
+        {isHovering && (
+          <motion.div 
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1.5, opacity: 1 }}
+            className="cursor-hover-ring"
+          />
+        )}
+      </motion.div>
+    </div>
   );
 };
 

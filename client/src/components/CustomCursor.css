@@ -1,48 +1,57 @@
-.custom-cursor {
+.custom-cursor-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 12px;
-  height: 12px;
-  background-color: var(--accent);
-  border-radius: 50%;
+  inset: 0;
   pointer-events: none;
   z-index: 10000;
-  transition: transform 0.1s ease-out, opacity 0.3s ease;
+}
+
+.custom-cursor-arrow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   mix-blend-mode: difference;
 }
 
-.custom-cursor-ring {
-  position: fixed;
-  top: -14px;
-  left: -14px;
-  width: 40px;
-  height: 40px;
+.custom-cursor-trail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor-arrow svg {
+  transform-origin: top left;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.custom-cursor-arrow.hovering svg {
+  transform: scale(1.4) rotate(15deg);
+}
+
+.cursor-hover-ring {
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  width: 48px;
+  height: 48px;
   border: 1px solid var(--accent);
   border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.15s ease-out, width 0.3s ease, height 0.3s ease, top 0.3s ease, left 0.3s ease;
-  opacity: 0.5;
-}
-
-.custom-cursor.hovering {
-  transform: scale(2);
-  background-color: var(--accent);
-}
-
-.custom-cursor-ring.hovering {
-  width: 80px;
-  height: 80px;
-  top: -34px;
-  left: -34px;
-  border-width: 2px;
-  opacity: 1;
-  background-color: rgba(244, 231, 161, 0.1);
+  background: rgba(244, 231, 161, 0.1);
+  z-index: -1;
 }
 
 @media (max-width: 768px) {
-  .custom-cursor, .custom-cursor-ring {
+  .custom-cursor-container {
     display: none;
   }
 }
