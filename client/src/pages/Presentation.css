@@ -1,0 +1,472 @@
+/* =====================================================
+   DE INTERIO CAFÉ — PRESENTATION MODULE STYLES
+   ===================================================== */
+
+.pres-page {
+  background-color: #0d0805;
+  color: var(--text-on-dark);
+  min-height: 100vh;
+  padding-top: var(--nav-h);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 16:9 Aspect Ratio Presentation Player */
+.pres-container {
+  width: calc(100% - 4rem);
+  max-width: 1200px;
+  aspect-ratio: 16 / 9;
+  margin: 3rem auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(184, 154, 66, 0.25);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), var(--shadow-gold);
+  background: linear-gradient(135deg, #1c130d 0%, #120b08 50%, #080504 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Fullscreen API Styles (Triggers via browser API) */
+.pres-container:fullscreen,
+.pres-container.fullscreen {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: none !important;
+  aspect-ratio: auto !important;
+  border-radius: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #000000;
+}
+
+/* WebGL/HTML5 Canvas Background */
+.pres-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Vignette and Glass Reflection Overlays */
+.pres-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at center,
+    rgba(10, 6, 4, 0.05) 0%,
+    rgba(10, 6, 4, 0.45) 60%,
+    rgba(10, 6, 4, 0.9) 100%
+  );
+}
+
+.pres-glass-reflection {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.015) 0%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(184, 154, 66, 0.01) 100%
+  );
+}
+
+/* Content Area & Slides */
+.pres-content-wrapper {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 6rem 7rem;
+  box-sizing: border-box;
+}
+
+.pres-slide {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pres-slide__category {
+  margin-bottom: 1.5rem;
+}
+
+.pres-category-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(184, 154, 66, 0.35);
+  padding: 0.4rem 1.2rem;
+  border-radius: 50px;
+  background: rgba(184, 154, 66, 0.04);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  box-shadow: 0 0 15px rgba(184, 154, 66, 0.05);
+}
+
+.pres-slide__title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4.2vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.8);
+}
+
+.pres-slide__subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 400;
+  color: #d1b87a; /* Champagne gold tint */
+  display: block;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+.pres-slide__desc {
+  font-size: clamp(0.9rem, 1.35vw, 1.05rem);
+  line-height: 1.75;
+  color: var(--text-on-dark-muted);
+  max-width: 660px;
+  margin: 1.2rem auto 2.2rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+/* Project Stats Group */
+.pres-slide__stats {
+  display: flex;
+  gap: 3.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.pres-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.pres-stat:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: -1.75rem;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background: rgba(184, 154, 66, 0.15);
+}
+
+.pres-stat__value {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.pres-stat__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-on-dark-muted);
+}
+
+/* Glassmorphic Control Bar */
+.pres-controls {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 2rem;
+  right: 2rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(12, 8, 6, 0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(184, 154, 66, 0.22);
+  padding: 0.8rem 1.8rem;
+  border-radius: 50px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.pres-controls__left,
+.pres-controls__center,
+.pres-controls__right {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.pres-logo {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #ffffff;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pres-logo__icon {
+  color: var(--accent);
+  font-size: 0.65rem;
+  animation: floatIcon 3s ease-in-out infinite;
+}
+
+.pres-divider {
+  height: 18px;
+  width: 1px;
+  background: rgba(184, 154, 66, 0.25);
+  margin: 0 0.4rem;
+}
+
+.pres-slide-indicator {
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: var(--text-on-dark-muted);
+  letter-spacing: 0.12em;
+}
+
+/* Control Buttons */
+.pres-btn {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-on-dark-muted);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.pres-btn:hover {
+  background: rgba(184, 154, 66, 0.18);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(184, 154, 66, 0.3);
+  transform: scale(1.08);
+}
+
+.pres-btn:active {
+  transform: scale(0.96);
+}
+
+.pres-btn.active {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(184, 154, 66, 0.35);
+}
+
+/* Floating UI Restore Button */
+.pres-floating-toggle {
+  position: absolute;
+  bottom: 1.5rem;
+  right: 2rem;
+  z-index: 11;
+  background: rgba(12, 8, 6, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 154, 66, 0.25);
+  color: var(--accent);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.pres-floating-toggle:hover {
+  background: var(--accent);
+  color: #ffffff;
+  border-color: var(--accent);
+  transform: scale(1.12);
+  box-shadow: 0 0 15px rgba(184, 154, 66, 0.4);
+}
+
+/* UI Toggle State Transitions */
+.pres-container.hide-ui .pres-controls {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(25px);
+}
+
+/* Background Image Layer */
+.pres-bg-image-wrapper {
+  position: absolute;
+  inset: 0;
+  z-index: 1.5; /* Sits between canvas clear (z-index 1) and the vignette/reflections (z-index 2/3) */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.pres-bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
+/* Animations */
+@keyframes floatIcon {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+/* Widescreen & Widescreen Fullscreen scaling overrides */
+@media (min-width: 1400px) {
+  .pres-container:not(:fullscreen) {
+    max-width: 1300px;
+  }
+  .pres-slide__title {
+    font-size: 3.6rem;
+  }
+}
+
+/* Mobile & Tablet Responsiveness */
+@media (max-width: 991px) {
+  .pres-container {
+    width: calc(100% - 2rem);
+    margin: 2rem auto;
+  }
+  .pres-content-wrapper {
+    padding: 3rem 4rem 6rem;
+  }
+  .pres-slide__stats {
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .pres-container {
+    aspect-ratio: auto;
+    min-height: 520px;
+    padding: 1rem;
+    margin: 1.5rem auto;
+  }
+  .pres-container:fullscreen,
+  .pres-container.fullscreen {
+    min-height: 100vh;
+  }
+  .pres-content-wrapper {
+    padding: 2.5rem 2rem 5.5rem;
+  }
+  .pres-slide__stats {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pres-stat:not(:last-child)::after {
+    display: none;
+  }
+  .pres-slide__title {
+    margin-bottom: 0.5rem;
+  }
+  .pres-slide__desc {
+    margin: 1rem auto 1.5rem;
+  }
+  .pres-controls {
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    padding: 0.6rem 1rem;
+    gap: 0.5rem;
+  }
+  .pres-controls__left {
+    display: none; /* Hide logo and divider on small displays to prioritize control buttons */
+  }
+  .pres-controls__center {
+    width: 100%;
+    justify-content: center;
+  }
+  .pres-controls__right {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .pres-floating-toggle {
+    bottom: 1rem;
+    right: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pres-container {
+    min-height: 480px;
+  }
+  .pres-content-wrapper {
+    padding: 2rem 1rem 5rem;
+  }
+  .pres-slide__title {
+    font-size: 1.8rem;
+  }
+  .pres-slide__subtitle {
+    font-size: 1.1rem;
+  }
+  .pres-slide__desc {
+    font-size: 0.88rem;
+    line-height: 1.6;
+  }
+  .pres-slide__stats {
+    gap: 1rem;
+  }
+  .pres-stat__value {
+    font-size: 1.3rem;
+  }
+  .pres-stat__label {
+    font-size: 0.65rem;
+  }
+  .pres-controls__right {
+    position: static;
+    transform: none;
+    width: auto;
+    justify-content: flex-end;
+  }
+  .pres-controls {
+    justify-content: space-between;
+  }
+}

@@ -15,7 +15,7 @@ const QUICK_REPLIES = [
 
 const BOT_RESPONSES = {
   'consultation': 'Great! We offer free consultations. Please call us at +91 95000 78674 or fill the contact form at /contact and our team will reach out within 24 hours.',
-  'service': 'We offer Residential Design, Commercial Design, Renovation, Interior Styling, Modular Kitchens, and Design Consultations. Visit /services for full details!',
+  'service': 'We offer Signature Interior Projects, Renovation, Interior Styling, Modular Kitchens, and Design Consultations. Visit /services for full details!',
   'portfolio': 'We have 500+ completed projects! Browse our portfolio at /portfolio — residential villas, corporate offices, restaurants, and more.',
   'price': 'Our pricing depends on scope and requirements. Typically ₹2L–₹50L+. Book a free consultation and we\'ll give you a custom quote with no obligations.',
   'contact': 'You can reach us at:\n📞 +91 95000 78674\n📧 mohanaraodeinteriocafe@gmail.com\n🕐 Mon-Sat, 9AM–7PM',

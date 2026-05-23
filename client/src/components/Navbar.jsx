@@ -3,19 +3,25 @@ import { NavLink, Link, useLocation } from 'react-router-dom'
 import './Navbar.css'
 
 const SERVICES_LINKS = [
+  { path: '/services/signature-interiors', label: 'Signature Interior Projects' },
   { path: '/services/full-home', label: 'Full Home Interiors' },
   { path: '/services/specific-area', label: 'Specific Area Interiors' },
   { path: '/services/space-planning', label: 'Space Planning' },
-  { path: '/services/commercial', label: 'Commercial Interior' },
   { path: '/services/renovation', label: 'Renovation Interior' },
 ]
 
 const DESIGN_IDEAS_LINKS = [
   { path: '/design-ideas/kitchen', label: 'Kitchen' },
   { path: '/design-ideas/living-room', label: 'Living Room' },
+  { path: '/design-ideas/dining-area', label: 'Dining Area' },
+  { path: '/design-ideas/foyer-area', label: 'Foyer Area' },
+  { path: '/design-ideas/kids-bedroom', label: 'Kids Bedroom' },
   { path: '/design-ideas/master-bedroom', label: 'Master Bedroom' },
+  { path: '/design-ideas/parents-bedroom', label: 'Parents Bedroom' },
+  { path: '/design-ideas/guest-bedroom', label: 'Guest Bedroom' },
+  { path: '/design-ideas/home-office', label: 'Home Office Room' },
+  { path: '/design-ideas/balcony', label: 'Balcony / Sit-out Areas' },
   { path: '/design-ideas/bathroom', label: 'Bathroom' },
-  { path: '/design-ideas/pooja-area', label: 'Pooja Area' },
   { path: '/design-ideas', label: 'View All Ideas' },
 ]
 
@@ -75,6 +81,7 @@ export default function Navbar() {
           </div>
 
           <Link to="/portfolio" className={`navbar__link ${isActive('/portfolio')}`}>Portfolio</Link>
+          <Link to="/presentation" className={`navbar__link ${isActive('/presentation')}`}>Presentation</Link>
 
           {/* Design Ideas Dropdown */}
           <div 
@@ -100,9 +107,6 @@ export default function Navbar() {
 
         {/* Actions */}
         <div className="navbar__actions">
-          <a href="/ecatalog.pdf" download className="navbar__ecatalog" title="Download E-Catalog">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 15l-4-4h3V4h2v7h3l-4 4zM5 18h14v2H5v-2z" fill="currentColor"/></svg>
-          </a>
           <Link to="/contact" className="btn btn-primary btn-sm" id="nav-cta">BOOK CONSULTATION</Link>
           
           {/* Mobile Toggle */}
@@ -122,6 +126,7 @@ export default function Navbar() {
           <Link to="/about">About</Link>
           <Link to="/services">Services</Link>
           <Link to="/portfolio">Portfolio</Link>
+          <Link to="/presentation">Presentation</Link>
           <Link to="/design-ideas">Design Ideas</Link>
           <Link to="/testimonials">Testimonials</Link>
           <Link to="/blog">Insights</Link>

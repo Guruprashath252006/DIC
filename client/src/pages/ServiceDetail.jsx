@@ -1,10 +1,21 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Home, ScanSearch, Ruler, Building2, Hammer } from 'lucide-react'
+import { Home, ScanSearch, Ruler, Layers3, Hammer } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import './ServiceDetail.css'
 
 const SERVICES = {
+  'signature-interiors': {
+    title: 'Signature Interior Projects',
+    icon: Layers3,
+    img: '/images/services/residential.png',
+    tagline: 'Unified design for modern living and modern business.',
+    desc: 'Our signature project service brings homes, workplaces, retail environments, and hospitality spaces under one refined design framework. We combine usability, brand fit, comfort, and technical precision so the result works beautifully for normal day-to-day life as well as professional expectations.',
+    includes: ['Project Discovery and Design Brief', 'Space Planning and Zoning', 'Mood Boards and Material Direction', 'Photorealistic 3D Visualization', 'Lighting, Furniture, and Storage Strategy', 'Kitchen, Workstation, and Common Area Design', 'Brand and Lifestyle Alignment', 'Execution Drawings and Site Coordination', 'Vendor and Finish Selection', 'Final Styling and Handover'],
+    duration: '6 to 20 weeks',
+    suitable: 'Homes, offices, retail, hospitality, mixed-use spaces',
+    start: 'Custom quote based on scope'
+  },
   'full-home': {
     title: 'Full Home Interiors',
     icon: Home,
@@ -38,17 +49,6 @@ const SERVICES = {
     suitable: 'All property types',
     start: 'Rs. 25,000 onwards'
   },
-  commercial: {
-    title: 'Commercial Interior',
-    icon: Building2,
-    img: '/images/services/commercial.png',
-    tagline: 'Workspaces that inspire.',
-    desc: 'We design commercial interiors that align with your brand, boost employee productivity, and impress clients from the moment they walk in. From corporate offices and co-working spaces to retail stores, restaurants, and hospitality venues.',
-    includes: ['Brand-aligned Design', 'Office and Workspace Planning', 'Retail Store Design', 'Restaurant and Cafe Design', 'Reception and Lobby Design', 'Lighting and AV Integration', 'Ergonomic Furniture Planning', 'Signage and Branding Integration', 'Project Management', 'Handover and Documentation'],
-    duration: '6 to 16 weeks',
-    suitable: 'Offices, retail, restaurants, hotels',
-    start: 'Rs. 15L onwards'
-  },
   renovation: {
     title: 'Renovation Interior',
     icon: Hammer,
@@ -64,7 +64,11 @@ const SERVICES = {
 
 export default function ServiceDetail() {
   const { serviceId } = useParams()
-  const service = SERVICES[serviceId]
+  const normalizedServiceId = {
+    commercial: 'signature-interiors',
+    residential: 'signature-interiors',
+  }[serviceId] || serviceId
+  const service = SERVICES[normalizedServiceId]
 
   if (!service) {
     return (
@@ -92,7 +96,7 @@ export default function ServiceDetail() {
             <h1 className="display room-hero__title">{service.title}</h1>
             <p className="lead room-hero__desc">{service.desc}</p>
             <div className="room-hero__ctas">
-              <Link to="/contact" className="btn btn-primary" id={`svc-cta-${serviceId}`}>Get Free Quote</Link>
+              <Link to="/contact" className="btn btn-primary" id={`svc-cta-${normalizedServiceId}`}>Get Free Quote</Link>
               <Link to="/portfolio" className="btn btn-outline">View Projects</Link>
             </div>
           </AnimatedSection>
@@ -128,7 +132,7 @@ export default function ServiceDetail() {
             <div className="svc-meta__cta-card">
               <h3>Start Your Project</h3>
               <p className="body-sm">Get a free consultation and custom quote for your project.</p>
-              <Link to="/contact" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} id={`svc-detail-cta-${serviceId}`}>Book Free Consultation</Link>
+              <Link to="/contact" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} id={`svc-detail-cta-${normalizedServiceId}`}>Book Free Consultation</Link>
               <a href="https://wa.me/919500078674" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ width: '100%', justifyContent: 'center', marginTop: '0.75rem' }}>WhatsApp Us</a>
             </div>
           </AnimatedSection>

@@ -1,38 +1,45 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Suspense, useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
-import { 
-  Home as HomeIcon, 
-  Briefcase, 
-  Hammer, 
-  Sparkles, 
-  ArrowRight, 
-  CheckCircle2, 
-  Star,
-  Quote
+import { motion } from 'framer-motion'
+import {
+  Layers3,
+  Hammer,
+  Sparkles,
+  MessagesSquare,
+  ArrowRight,
+  CheckCircle2,
 } from 'lucide-react'
-import Spotlight from '../components/Spotlight'
 import ShinyText from '../components/ShinyText'
-import HeroVisual from '../components/HeroVisual'
 import StoryVisual from '../components/StoryVisual'
+import TestimonialsMarquee from '../components/TestimonialsMarquee'
 import { PORTFOLIO_PROJECTS } from '../data/portfolio'
 import './Home.css'
 
-/* Animated counter hook */
+const InteriorScene = React.lazy(() => import('../components/InteriorScene'))
+
 function useCounter(target, duration = 1800, start = false) {
   const [count, setCount] = useState(0)
+
   useEffect(() => {
-    if (!start) return
+    if (!start) return undefined
+
     let startTime = null
+
     const step = (timestamp) => {
       if (!startTime) startTime = timestamp
       const progress = Math.min((timestamp - startTime) / duration, 1)
       const ease = 1 - Math.pow(1 - progress, 3)
       setCount(Math.floor(ease * target))
-      if (progress < 1) requestAnimationFrame(step)
+
+      if (progress < 1) {
+        requestAnimationFrame(step)
+      }
     }
+
     requestAnimationFrame(step)
+    return undefined
   }, [target, duration, start])
+
   return count
 }
 
@@ -43,22 +50,29 @@ function StatCounter({ value, suffix, label }) {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setStarted(true); observer.disconnect() } },
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStarted(true)
+          observer.disconnect()
+        }
+      },
       { threshold: 0.5 }
     )
+
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
   }, [])
 
   return (
     <div ref={ref} className="stat">
-      <motion.span 
+      <motion.span
         initial={{ opacity: 0, y: 10 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         className="stat__number"
       >
-        {count}{suffix}
+        {count}
+        {suffix}
       </motion.span>
       <span className="stat__label">{label}</span>
     </div>
@@ -67,21 +81,15 @@ function StatCounter({ value, suffix, label }) {
 
 const SERVICES = [
   {
-    icon: <HomeIcon size={32} />,
-    title: 'Residential Design',
-    desc: 'Bespoke living spaces that reflect your personality. From concept to completion, we transform homes into sanctuaries.',
-    href: '/services',
-  },
-  {
-    icon: <Briefcase size={32} />,
-    title: 'Commercial Design',
-    desc: 'Functional, brand-aligned workspaces that inspire teams and impress clients. Offices, retail, hospitality.',
+    icon: <Layers3 size={32} />,
+    title: 'Signature Interior Projects',
+    desc: 'A unified interior service for homes, offices, retail, and hospitality spaces designed to feel elevated, usable, and execution-ready.',
     href: '/services',
   },
   {
     icon: <Hammer size={32} />,
     title: 'Renovation & Remodeling',
-    desc: 'Breathe new life into existing spaces. Structural, aesthetic, or both — we handle end-to-end renovation.',
+    desc: 'Breathe new life into existing spaces. Structural, aesthetic, or both: we handle end-to-end renovation.',
     href: '/services',
   },
   {
@@ -90,85 +98,56 @@ const SERVICES = [
     desc: 'Curated furniture, art, and decor to perfect your space. The final touch that makes it uniquely yours.',
     href: '/services',
   },
-]
-
-const TESTIMONIALS = [
   {
-    name: 'Priya Ramachandran',
-    role: 'Homeowner, OMR Chennai',
-    quote: 'De Interio Café turned our 2BHK into a stunning modern home. The attention to detail and client-first approach is unmatched.',
-    rating: 5,
-  },
-  {
-    name: 'Karthik Sundar',
-    role: 'CEO, TechStart Solutions',
-    quote: 'Our new office is a productivity powerhouse. The team delivered on time, within budget, and beyond expectations.',
-    rating: 5,
-  },
-  {
-    name: 'Meera Iyer',
-    role: 'Restaurant Owner, Adyar',
-    quote: 'The restaurant ambience they created has become our biggest USP. Customers come for the food, but stay for the design.',
-    rating: 5,
+    icon: <MessagesSquare size={32} />,
+    title: 'Design Consultation',
+    desc: 'Clear expert guidance for layouts, finishes, budgets, and planning so both families and professionals can move forward with confidence.',
+    href: '/services',
   },
 ]
 
-/* Featured projects for the home page */
 const FEATURED_PROJECTS = PORTFOLIO_PROJECTS.slice(0, 6)
 
-const RevealText = ({ children, delay = 0 }) => {
-  return (
-    <div style={{ position: 'relative', overflow: 'hidden' }}>
-      <motion.div
-        initial={{ y: '100%' }}
-        whileInView={{ y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {children}
-      </motion.div>
-    </div>
-  )
-}
+const RevealText = ({ children, delay = 0 }) => (
+  <div style={{ position: 'relative', overflow: 'hidden' }}>
+    <motion.div
+      initial={{ y: '100%' }}
+      whileInView={{ y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
+  </div>
+)
 
 export default function Home() {
-  const { scrollYProgress } = useScroll();
-  const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
-
   return (
     <main className="home">
-      {/* ─── HERO ───────────────────────────────────────── */}
       <section className="hero">
-        <Spotlight />
-        
         <div className="container hero__content">
           <div className="hero__text">
             <RevealText delay={0.1}>
-              <p className="overline hero__overline">Chennai's Premier Interior Design Studio</p>
+              <p className="overline hero__overline">Unified Interiors For Living, Work, And Growth</p>
             </RevealText>
-            
+
             <h1 className="display hero__heading">
               <RevealText delay={0.2}>Spaces That Tell</RevealText>
               <RevealText delay={0.3}>
-                <ShinyText 
-                  text="Your Story" 
-                  className="hero__heading-em" 
-                  speed={3} 
-                />
+                <ShinyText text="Your Story" className="hero__heading-em" speed={3} />
               </RevealText>
             </h1>
 
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
               className="lead hero__lead"
             >
-              De Interio Café crafts extraordinary interiors for homes and businesses across Chennai. 
-              15+ years of transforming spaces, one dream at a time.
+              De Interio Cafe creates one seamless interior experience for homeowners, businesses, and project teams across Chennai with a design language that feels premium, practical, and beautifully resolved in 3D before execution starts.
             </motion.p>
 
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -182,14 +161,35 @@ export default function Home() {
                 Get In Touch
               </Link>
             </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.7 }}
+              className="hero__feature-strip"
+            >
+              <div className="hero__feature-pill">
+                <span className="hero__feature-dot" />
+                Everyday comfort
+              </div>
+              <div className="hero__feature-pill">
+                <span className="hero__feature-dot" />
+                Professional precision
+              </div>
+              <div className="hero__feature-pill">
+                <span className="hero__feature-dot" />
+                Immersive 3D design
+              </div>
+            </motion.div>
           </div>
 
-          <HeroVisual />
+          <Suspense fallback={<div className="interior-scene interior-scene--loading" aria-hidden="true" />}>
+            <InteriorScene />
+          </Suspense>
         </div>
 
-        {/* Stats */}
         <div className="container">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -206,7 +206,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── SERVICES ───────────────────────────────────── */}
       <section className="section home-services">
         <div className="container">
           <div className="section-label">
@@ -218,18 +217,18 @@ export default function Home() {
           </div>
 
           <div className="home-services__grid">
-            {SERVICES.map((s, i) => (
+            {SERVICES.map((service, index) => (
               <motion.div
-                key={s.title}
+                key={service.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Link to={s.href} className="service-card hoverable" id={`service-${s.title.toLowerCase().replace(/\s+/g, '-')}`}>
-                  <div className="service-card__icon">{s.icon}</div>
-                  <h3 className="heading-3 service-card__title">{s.title}</h3>
-                  <p className="body-sm service-card__desc">{s.desc}</p>
+                <Link to={service.href} className="service-card hoverable" id={`service-${service.title.toLowerCase().replace(/\s+/g, '-')}`}>
+                  <div className="service-card__icon">{service.icon}</div>
+                  <h3 className="heading-3 service-card__title">{service.title}</h3>
+                  <p className="body-sm service-card__desc">{service.desc}</p>
                   <span className="service-card__arrow">
                     <ArrowRight size={20} />
                   </span>
@@ -240,11 +239,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── ABOUT STRIP ────────────────────────────────── */}
       <section className="section home-about section-brown-soft">
         <div className="container">
           <div className="home-about__inner">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -254,18 +252,18 @@ export default function Home() {
                 <span className="overline">Our Story</span>
               </div>
               <h2 className="heading-1 home-about__heading">
-                Designing Dreams<br />Since 2008
+                Designing Dreams
+                <br />
+                Since 2008
               </h2>
               <p className="lead home-about__lead">
-                Founded with a vision to redefine interiors in Chennai, De Interio Café has grown 
-                from a boutique studio into one of the city's most trusted design firms. Every project 
-                is a collaboration — your vision, our expertise.
+                Founded with a vision to redefine interiors in Chennai, De Interio Cafe has grown from a boutique studio into one of the city&apos;s most trusted design firms. Every project is a collaboration: your vision, our expertise.
               </p>
               <ul className="home-about__pillars">
-                {['Client-First Philosophy','Timeless Design Aesthetic','On-Time, On-Budget Delivery','End-to-End Project Management'].map(p => (
-                  <li key={p}>
+                {['Client-First Philosophy', 'Timeless Design Aesthetic', 'On-Time, On-Budget Delivery', 'End-to-End Project Management'].map((pillar) => (
+                  <li key={pillar}>
                     <CheckCircle2 size={18} />
-                    {p}
+                    {pillar}
                   </li>
                 ))}
               </ul>
@@ -281,7 +279,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── PORTFOLIO PREVIEW ──────────────────────────── */}
       <section className="section home-portfolio">
         <div className="container">
           <div className="section-label">
@@ -293,16 +290,16 @@ export default function Home() {
           </div>
 
           <div className="home-portfolio__grid">
-            {FEATURED_PROJECTS.map((item, i) => (
-              <motion.div 
+            {FEATURED_PROJECTS.map((item, index) => (
+              <motion.div
                 key={item.title}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
-                className={`portfolio-item portfolio-item--${i}`}
+                transition={{ duration: 0.6, delay: (index % 3) * 0.1 }}
+                className={`portfolio-item portfolio-item--${index}`}
               >
-                <Link to={`/portfolio`} className="portfolio-card hoverable">
+                <Link to="/portfolio" className="portfolio-card hoverable">
                   <img src={item.image} alt={item.imageAlt} className="portfolio-card__img" />
                   <div className="portfolio-card__overlay" />
                   <div className="portfolio-card__content">
@@ -320,49 +317,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── TESTIMONIALS ───────────────────────────────── */}
-      <section className="section home-testimonials section-brown">
+      <section className="section home-testimonials testimonials-gradient-bg">
         <div className="container">
           <div className="section-label">
             <span className="overline">Client Stories</span>
           </div>
           <h2 className="heading-1 home-testimonials__heading">What Clients Say</h2>
-          
-          <div className="home-testimonials__grid">
-            {TESTIMONIALS.map((t, i) => (
-              <motion.div 
-                key={t.name}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: i * 0.1 }}
-                className="testimonial-card glass-card"
-              >
-                <div className="stars">
-                  {Array(t.rating).fill(0).map((_, j) => <Star key={j} size={14} fill="currentColor" />)}
-                </div>
-                <div className="testimonial-card__quote-wrapper">
-                  <Quote size={24} className="testimonial-card__quote-icon" />
-                  <p className="testimonial-card__quote">"{t.quote}"</p>
-                </div>
-                <div className="testimonial-card__author">
-                  <div className="testimonial-card__avatar">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <strong>{t.name}</strong>
-                    <span className="body-sm">{t.role}</span>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-          
-          <motion.div 
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8 }}
+          style={{ width: '100%', overflow: 'hidden', marginTop: '3.5rem' }}
+        >
+          <TestimonialsMarquee />
+        </motion.div>
+
+        <div className="container">
+          <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             className="home-testimonials__cta"
+            style={{ marginTop: '3.5rem' }}
           >
             <Link to="/testimonials" className="btn btn-outline hoverable" id="testimonials-view-all">
               Read All Reviews
@@ -371,18 +350,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── CTA BAND ───────────────────────────────────── */}
       <section className="home-cta-band section-brown">
         <div className="container">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             className="home-cta-band__inner glass-card"
           >
             <div>
-              <h2 className="heading-1 home-cta-band__heading">Ready to Transform<br />Your Space?</h2>
-              <p className="lead home-cta-band__lead">Schedule a free consultation and let's bring your vision to life.</p>
+              <h2 className="heading-1 home-cta-band__heading">
+                Ready to Transform
+                <br />
+                Your Space?
+              </h2>
+              <p className="lead home-cta-band__lead">Schedule a free consultation and let&apos;s bring your vision to life.</p>
             </div>
             <div className="home-cta-band__actions">
               <Link to="/contact" className="btn btn-primary hoverable" id="cta-band-consult">Get Free Consultation</Link>

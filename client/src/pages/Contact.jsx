@@ -15,6 +15,33 @@ export default function Contact() {
 
   const submit = e => {
     e.preventDefault()
+
+    const newInquiry = {
+      id: Date.now().toString(),
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      service: form.service || 'Design Consultation',
+      message: form.message,
+      budget: form.budget || 'N/A',
+      date: new Date().toLocaleDateString('en-IN', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      }),
+      status: 'Pending'
+    }
+
+    try {
+      const existing = localStorage.getItem('dic_inquiries')
+      const inquiries = existing ? JSON.parse(existing) : []
+      inquiries.unshift(newInquiry)
+      localStorage.setItem('dic_inquiries', JSON.stringify(inquiries))
+      window.dispatchEvent(new Event('storage-update'))
+    } catch (err) {
+      console.error('Error saving inquiry:', err)
+    }
+
     setSubmitted(true)
   }
 
@@ -49,7 +76,7 @@ export default function Contact() {
                 <div>
                   <strong>Phone</strong>
                   <a href="tel:+919500078674" className="contact-info__value">+91 95000 78674</a>
-                  <a href="tel:+919500078674" className="contact-info__value" style={{ opacity: 0.7 }}>+91 98765 43210</a>
+                  <a href="tel:+917305312201" className="contact-info__value" style={{ opacity: 0.7 }}>+91 73053 12201</a>
                 </div>
               </div>
 
@@ -59,8 +86,8 @@ export default function Contact() {
                 </div>
                 <div>
                   <strong>Email</strong>
-                  <a href="mailto:mohanaraodeinteriocafe@gmail.com" className="contact-info__value">mohanaraodeinteriocafe@gmail.com</a>
-                  <a href="mailto:info@zenith77.com" className="contact-info__value" style={{ opacity: 0.7 }}>info@zenith77.com</a>
+                  <a href="mailto:info@zenith77.com" className="contact-info__value">info@zenith77.com</a>
+                  <a href="mailto:mohanaraodeinteriocafe@gmail.com" className="contact-info__value" style={{ opacity: 0.7 }}>mohanaraodeinteriocafe@gmail.com</a>
                 </div>
               </div>
 
@@ -168,8 +195,7 @@ export default function Contact() {
                       onChange={handle}
                     >
                       <option value="">Select a service</option>
-                      <option>Residential Design</option>
-                      <option>Commercial Design</option>
+                      <option>Signature Interior Project</option>
                       <option>Renovation & Remodeling</option>
                       <option>Interior Styling</option>
                       <option>Modular Kitchen</option>

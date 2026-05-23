@@ -1,84 +1,85 @@
 import React, { useState } from 'react'
 import AnimatedSection from '../components/AnimatedSection'
+import TestimonialsMarquee from '../components/TestimonialsMarquee'
 import './Testimonials.css'
 
 const ALL_TESTIMONIALS = [
   {
-    name: 'Priya Ramachandran',
-    role: 'Homeowner, OMR Chennai',
+    name: 'Arun Prakash',
+    role: 'Homeowner, Chennai',
     type: 'Residential',
     rating: 5,
-    quote: 'De Interio Cafe turned our 2BHK into a stunning modern home. The attention to detail and client-first approach is unmatched. Every corner was designed thoughtfully and the execution was flawless.',
-    project: 'Modern 2BHK Renovation',
+    quote: 'De Interio Cafe designed our home with exceptional attention to detail. The spaces are both functional and stunning. Highly recommended!',
+    project: 'Spectra By Keystone, Chennai',
   },
   {
-    name: 'Karthik Sundar',
-    role: 'CEO, TechStart Solutions',
-    type: 'Commercial',
-    rating: 5,
-    quote: 'Our new office is a productivity powerhouse. The team delivered on time, within budget, and beyond expectations. The collaborative zones they designed have completely transformed how our team works.',
-    project: '5,000 sq ft Office, Sholinganallur',
-  },
-  {
-    name: 'Meera Iyer',
-    role: 'Restaurant Owner, Adyar',
-    type: 'Hospitality',
-    rating: 5,
-    quote: 'The restaurant ambience they created has become our biggest USP. Customers come for the food, but stay for the design. Our Instagram engagement has tripled since the renovation!',
-    project: 'Fine Dining Restaurant',
-  },
-  {
-    name: 'Ravi Kumar',
-    role: 'Homeowner, Velachery',
+    name: 'Nandhini Ramesh',
+    role: 'Homeowner, Bangalore',
     type: 'Residential',
     rating: 5,
-    quote: 'We had a tight budget but the team never made us feel like we were getting anything less. The modular kitchen they designed is efficient, beautiful and has held up perfectly for 2 years.',
-    project: 'Modular Kitchen & Living Room',
+    quote: 'They truly understood our vision and brought it to life beautifully. The team was professional, creative, and a pleasure to work with.',
+    project: 'Modern Home, Bangalore',
   },
   {
-    name: 'Anitha Sridharan',
-    role: 'Principal, Lotus Schools',
-    type: 'Commercial',
-    rating: 5,
-    quote: 'They redesigned our school reception and administrative area beautifully. Very professional, timely, and the quality of materials used is excellent. Highly recommended for any commercial project.',
-    project: 'School Administrative Complex',
-  },
-  {
-    name: 'Suresh Murugesan',
-    role: 'Villa Owner, ECR',
+    name: 'Vignesh Subramani',
+    role: 'Homeowner, Erode',
     type: 'Residential',
     rating: 5,
-    quote: 'The penthouse renovation exceeded every expectation. They worked around our schedule, maintained cleanliness throughout, and the final result is nothing short of a luxury hotel suite.',
-    project: 'Penthouse Renovation, ECR',
+    quote: 'From concept to execution, everything was seamless. Our home looks elegant, comfortable, and timeless. Thank you for the amazing work!',
+    project: 'Modern Duplex, Erode',
   },
   {
-    name: 'Deepa Venkatesh',
-    role: 'Homeowner, Mylapore',
+    name: 'Kavya Balaji',
+    role: 'Homeowner, Vellore',
+    type: 'Residential',
+    rating: 5,
+    quote: 'The design, the quality, and the finishing - everything exceeded our expectations. De Interio Cafe made our dream home a reality.',
+    project: 'Modern Duplex, Vellore',
+  },
+  {
+    name: 'Harish Kumar',
+    role: 'Villa Owner, Pondicherry',
     type: 'Renovation',
     rating: 5,
-    quote: "Renovating a heritage home is no small task, but the De Interio team balanced traditional aesthetics with modern conveniences brilliantly. They truly understand what it means to preserve a home's soul.",
-    project: 'Heritage Home Restoration',
+    quote: 'We loved the way natural light and space were blended in our villa. It feels peaceful, modern, and uniquely ours.',
+    project: 'French-Themed Home',
   },
   {
-    name: 'Ajay Krishnan',
-    role: 'Hotel Manager, Egmore',
-    type: 'Hospitality',
-    rating: 5,
-    quote: 'The boutique hotel project was executed to international standards. The guest feedback has been overwhelmingly positive and bookings have increased significantly since the redesign.',
-    project: 'Boutique Hotel, Egmore',
-  },
-  {
-    name: 'Sowmya Balakrishnan',
-    role: 'Homeowner, Anna Nagar',
+    name: 'Divya Suresh',
+    role: 'Homeowner, Bangalore',
     type: 'Residential',
     rating: 5,
-    quote: 'What sets De Interio apart is their communication. We were updated at every stage, every decision was explained, and they were genuinely interested in creating something we loved, not just something standard.',
-    project: '3BHK Complete Interior',
+    quote: 'Their creativity and design sense are outstanding. Every corner of our home feels thoughtfully designed and so inviting.',
+    project: 'Modern Villa Redesign',
   },
+  {
+    name: 'Sridhar Rajan',
+    role: 'Homeowner, Chennai',
+    type: 'Residential',
+    rating: 5,
+    quote: 'A wonderful experience working with such a dedicated team. They delivered beyond what we imagined. Truly happy with the outcome!',
+    project: 'Modular Kitchen & Living',
+  },
+  {
+    name: 'Meera Krishnan',
+    role: 'Homeowner, Erode',
+    type: 'Residential',
+    rating: 5,
+    quote: "The team's professionalism and passion for design reflect in their work. Our home is beautiful and practical - just the way we wanted.",
+    project: 'Living Room Makeover',
+  },
+  {
+    name: 'Roshini Krishnan',
+    role: 'Villa Owner, Bangalore',
+    type: 'Residential',
+    rating: 5,
+    quote: 'De Interio Cafe designed our independent villa with a perfect balance of modern luxury and nature-inspired openness. The spacious layouts, earthy textures, natural lighting, and seamless indoor-outdoor connection created a home that feels elegant, peaceful, and refreshing every single day. Their attention to detail, premium finishes, and thoughtful planning transformed the entire space into a warm and timeless living experience that truly exceeded our expectations.',
+    project: 'Independent Villa, Bangalore',
+  }
 ]
 
-const FILTERS = ['All', 'Residential', 'Commercial', 'Hospitality', 'Renovation']
-const FEATURED_NAME = 'Suresh Murugesan'
+const FILTERS = ['All', 'Residential', 'Renovation']
+const FEATURED_NAME = 'Roshini Krishnan'
 
 export default function Testimonials() {
   const [filter, setFilter] = useState('All')
@@ -164,37 +165,11 @@ export default function Testimonials() {
             </AnimatedSection>
           )}
 
-          <div className="testimonials-grid">
-            {gridReviews.map((testimonial, index) => (
-              <AnimatedSection key={testimonial.name} delay={(index % 3) + 1} className="testimonial-full-card">
-                <div className="testimonial-full-card__inner">
-                  <div className="testimonial-full-card__top">
-                    <div className="stars">
-                      {Array(testimonial.rating).fill(0).map((_, starIndex) => <span key={starIndex}>★</span>)}
-                    </div>
-                    <span className="badge">{testimonial.type}</span>
-                  </div>
-                  <blockquote className="testimonial-full-card__quote">
-                    "{testimonial.quote}"
-                  </blockquote>
-                  <div className="testimonial-full-card__project">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-                      <path d="M3 9.5L12 3L21 9.5V21H15V15H9V21H3V9.5Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-                    </svg>
-                    {testimonial.project}
-                  </div>
-                  <div className="testimonial-full-card__author">
-                    <div className="testimonial-card__avatar">{testimonial.name.charAt(0)}</div>
-                    <div>
-                      <strong>{testimonial.name}</strong>
-                      <span className="body-sm">{testimonial.role}</span>
-                    </div>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
         </div>
+
+        <AnimatedSection style={{ width: '100%', overflow: 'hidden', marginTop: '3.5rem' }}>
+          <TestimonialsMarquee reviews={filtered} />
+        </AnimatedSection>
       </section>
 
       <section className="section--sm" style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)' }}>

@@ -147,3 +147,62 @@
   .footer__grid { grid-template-columns: 1fr; gap: 2rem; }
   .footer__bottom { flex-direction: column; align-items: flex-start; }
 }
+
+/* Footer Action Buttons */
+.footer__buttons {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.footer__button-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer__button-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  transition: color var(--transition-fast);
+}
+
+.footer__button-item:hover .footer__button-label {
+  color: var(--accent);
+}
+
+.footer__round-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--accent-border);
+  color: var(--accent);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.footer__round-btn:hover {
+  background: var(--accent);
+  color: #121212;
+  border-color: var(--accent);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 24px rgba(184, 154, 66, 0.25);
+}
+
+.footer__round-btn svg {
+  transition: transform var(--transition-fast);
+}
+
+.footer__round-btn:hover svg {
+  transform: scale(1.1);
+}
+

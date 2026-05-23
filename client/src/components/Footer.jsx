@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { User, Download } from 'lucide-react'
 import './Footer.css'
 
 export default function Footer() {
@@ -19,15 +20,39 @@ export default function Footer() {
               <span>De Interio Café</span>
             </Link>
             <p className="footer__desc">
-              Chennai's premier interior design studio specializing in luxury residential and commercial spaces. Transforming visions into reality for over 15 years.
+              Chennai's interior design studio for homes, offices, retail, and lifestyle spaces, bringing everyday comfort and professional-grade execution together for over 15 years.
             </p>
+            <div className="footer__buttons">
+              <div className="footer__button-item">
+                <Link to="/admin" className="footer__round-btn" title="Admin Portal">
+                  <User size={18} />
+                </Link>
+                <span className="footer__button-label">Admin</span>
+              </div>
+              <div className="footer__button-item">
+                <a 
+                  href="/ecatalog.pdf" 
+                  download 
+                  className="footer__round-btn" 
+                  title="Download E-Catalog"
+                  onClick={() => {
+                    const current = parseInt(localStorage.getItem('dic_catalog_downloads') || '142', 10)
+                    localStorage.setItem('dic_catalog_downloads', (current + 1).toString())
+                    window.dispatchEvent(new Event('storage-update'))
+                  }}
+                >
+                  <Download size={18} />
+                </a>
+                <span className="footer__button-label">Catalog</span>
+              </div>
+            </div>
           </div>
 
           {/* Quick Links */}
           <div className="footer__col">
             <h4 className="footer__col-title">Quick Links</h4>
             <ul className="footer__links">
-              {['Home','About','Services','Portfolio','Testimonials','Insights','Contact'].map(label => (
+              {['Home','About','Services','Portfolio','Presentation','Testimonials','Insights','Contact'].map(label => (
                 <li key={label}>
                   <Link to={label === 'Home' ? '/' : label === 'Insights' ? '/blog' : `/${label.toLowerCase()}`}>
                     {label}
@@ -42,8 +67,7 @@ export default function Footer() {
             <h4 className="footer__col-title">Services</h4>
             <ul className="footer__links">
               {[
-                'Residential Design',
-                'Commercial Design',
+                'Signature Interior Projects',
                 'Renovation & Remodeling',
                 'Interior Styling',
                 'Modular Kitchens',

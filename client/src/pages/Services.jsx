@@ -1,38 +1,23 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Home, Building2, Hammer, Sparkles, ChefHat, MessagesSquare } from 'lucide-react'
+import { Layers3, Hammer, Sparkles, ChefHat, MessagesSquare } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import './Services.css'
 
 const SERVICES = [
   {
-    id: 'residential',
-    icon: Home,
-    title: 'Residential Design',
-    tagline: 'Your home, reimagined.',
-    desc: 'From apartments to villas, we craft living spaces that balance beauty and function. Our residential design service covers everything from space planning and concept development to material selection and final styling.',
+    id: 'signature-interiors',
+    icon: Layers3,
+    title: 'Signature Interior Projects',
+    tagline: 'One design system for every kind of space.',
+    desc: 'A complete interior design service for homes, offices, studios, retail spaces, hospitality venues, and mixed-use projects. We build spaces that feel refined enough for professionals and intuitive enough for everyday life.',
     features: [
-      'Full home design and planning',
-      'Bedroom and living room concepts',
-      'Kitchen and bathroom design',
-      'Lighting and color consultation',
-      'Furniture selection and sourcing',
-      '3D visualization'
-    ]
-  },
-  {
-    id: 'commercial',
-    icon: Building2,
-    title: 'Commercial Design',
-    tagline: 'Spaces that work as hard as you do.',
-    desc: 'Brand-aligned commercial spaces that drive productivity, impress clients, and tell your story. We design offices, showrooms, retail stores, restaurants, hotels, and more.',
-    features: [
-      'Office and workspace design',
-      'Retail and showroom interiors',
-      'Restaurant and cafe design',
-      'Hotel and hospitality spaces',
-      'Brand identity integration',
-      'Ergonomic planning'
+      'Homes, offices, retail, and hospitality planning',
+      'Space strategy, zoning, and circulation design',
+      '3D visualization and material storytelling',
+      'Furniture, lighting, and storage integration',
+      'Client-ready detailing for families and teams',
+      'Execution support from concept to handover'
     ]
   },
   {
@@ -106,7 +91,7 @@ const PROCESS = [
 ]
 
 export default function Services() {
-  const [active, setActive] = useState('residential')
+  const [active, setActive] = useState('signature-interiors')
   const activeService = SERVICES.find((service) => service.id === active)
   const ActiveIcon = activeService?.icon
 
@@ -119,10 +104,10 @@ export default function Services() {
             <h1 className="heading-1 page-hero-heading">
               End-to-End Interior
               <br />
-              <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Design Services</em>
+              <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Project Services</em>
             </h1>
             <p className="lead page-hero-lead">
-              From concept to completion, we handle every aspect of your interior design project.
+              One complete project flow for personal spaces, professional environments, and everything in between.
             </p>
           </AnimatedSection>
         </div>
@@ -182,7 +167,7 @@ export default function Services() {
                 </ul>
 
                 <Link to="/contact" className="btn btn-primary" id={`service-cta-${activeService.id}`}>
-                  Enquire About {activeService.title}
+                  Plan Your {activeService.title}
                 </Link>
               </div>
             )}
@@ -214,7 +199,7 @@ export default function Services() {
         <div className="container" style={{ textAlign: 'center' }}>
           <AnimatedSection>
             <h2 className="heading-1" style={{ marginBottom: '1rem' }}>Start Your Project Today</h2>
-            <p className="lead" style={{ marginBottom: '2rem' }}>Free consultation. No commitment. Just great design advice.</p>
+            <p className="lead" style={{ marginBottom: '2rem' }}>Free consultation for homeowners, founders, teams, and developers who want a clearer design direction.</p>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link to="/contact" className="btn btn-primary" id="services-contact-cta">Book Free Consultation</Link>
               <Link to="/portfolio" className="btn btn-outline" id="services-portfolio-link">See Our Portfolio</Link>

@@ -45,15 +45,15 @@ export default function RoomPage() {
           </AnimatedSection>
           <div className="room-ideas-grid">
             {room.ideas.map((idea, index) => (
-              <AnimatedSection key={idea} delay={(index % 4) + 1} className="room-idea-card">
+              <AnimatedSection key={idea.title} delay={(index % 4) + 1} className="room-idea-card">
                 <div className="room-idea-card__inner">
                   <div className="room-idea-card__img-wrap">
-                    <img src={room.img} alt={idea} loading="lazy" className="room-idea-card__img" />
+                    <img src={idea.img} alt={idea.title} loading="lazy" className="room-idea-card__img" />
                     <div className="room-idea-card__overlay" />
                     <span className="badge room-idea-card__num">{String(index + 1).padStart(2, '0')}</span>
                   </div>
                   <div className="room-idea-card__body">
-                    <h3 className="room-idea-card__title">{idea}</h3>
+                    <h3 className="room-idea-card__title">{idea.title}</h3>
                     <Link to="/contact" className="room-idea-card__link" id={`idea-${roomId}-${index}`}>
                       Enquire
                       <svg width="12" height="12" viewBox="0 0 24 24" fill="none">

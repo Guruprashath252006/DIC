@@ -337,14 +337,10 @@ body:active::-webkit-scrollbar-thumb {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: repeating-linear-gradient(
-    0deg, transparent, transparent 40px,
-    rgba(184, 154, 66, 0.02) 40px, rgba(184, 154, 66, 0.02) 41px
-  ),
-  repeating-linear-gradient(
-    90deg, transparent, transparent 40px,
-    rgba(184, 154, 66, 0.02) 40px, rgba(184, 154, 66, 0.02) 41px
-  );
+  background:
+    radial-gradient(circle at 18% 24%, rgba(184, 154, 66, 0.1), transparent 18%),
+    radial-gradient(circle at 82% 18%, rgba(143, 182, 201, 0.1), transparent 20%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), transparent 72%);
   pointer-events: none;
 }
 
@@ -360,11 +356,11 @@ body:active::-webkit-scrollbar-thumb {
   content: '';
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(90deg, rgba(184, 154, 66, 0.08) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(184, 154, 66, 0.08) 1px, transparent 1px);
-  background-size: 64px 64px;
-  opacity: 0.28;
+  background:
+    radial-gradient(circle at top left, rgba(255, 247, 229, 0.3), transparent 26%),
+    linear-gradient(120deg, rgba(184, 154, 66, 0.08), transparent 38%),
+    linear-gradient(300deg, rgba(143, 182, 201, 0.08), transparent 34%);
+  opacity: 0.8;
   pointer-events: none;
 }
 
@@ -387,10 +383,10 @@ body:active::-webkit-scrollbar-thumb {
   content: '';
   position: absolute;
   inset: 0;
-  background-image:
-    linear-gradient(90deg, rgba(244, 231, 161, 0.08) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(244, 231, 161, 0.08) 1px, transparent 1px);
-  background-size: 72px 72px;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(244, 231, 161, 0.12), transparent 18%),
+    radial-gradient(circle at 88% 80%, rgba(168, 204, 224, 0.1), transparent 22%),
+    linear-gradient(135deg, rgba(255, 248, 238, 0.05), transparent 50%);
   mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.32), rgba(0, 0, 0, 0.95));
   pointer-events: none;
 }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { motion, useScroll, useSpring } from 'framer-motion'
 
@@ -9,7 +9,7 @@ import ScrollToTop from './components/ScrollToTop'
 import ScrollReset from './components/ScrollReset'
 import WhatsAppButton from './components/WhatsAppButton'
 import Chatbot from './components/Chatbot'
-import Squares from './components/Squares'
+import AmbientBackdrop from './components/AmbientBackdrop'
 
 // Core Pages
 import Home from './pages/Home'
@@ -22,6 +22,8 @@ import RoomPage from './pages/RoomPage'
 import Testimonials from './pages/Testimonials'
 import Blog from './pages/Blog'
 import Contact from './pages/Contact'
+import Admin from './pages/Admin'
+import Presentation from './pages/Presentation'
 
 // Policy Pages
 import PrivacyPolicy from './pages/PrivacyPolicy'
@@ -38,8 +40,45 @@ export default function App() {
     restDelta: 0.001
   })
 
+  // Live Settings State
+  const [settings, setSettings] = useState({
+    whatsappActive: true,
+    chatbotActive: true
+  })
+
+  useEffect(() => {
+    // Load initial settings
+    const stored = localStorage.getItem('dic_settings')
+    if (stored) {
+      try {
+        setSettings(JSON.parse(stored))
+      } catch (e) {
+        console.error('Error loading settings:', e)
+      }
+    } else {
+      // Default seed
+      localStorage.setItem('dic_settings', JSON.stringify({ whatsappActive: true, chatbotActive: true }))
+    }
+
+    const handleSettingsUpdate = () => {
+      const updated = localStorage.getItem('dic_settings')
+      if (updated) {
+        try {
+          setSettings(JSON.parse(updated))
+        } catch (e) {
+          console.error(e)
+        }
+      }
+    }
+
+    window.addEventListener('storage-update', handleSettingsUpdate)
+    return () => window.removeEventListener('storage-update', handleSettingsUpdate)
+  }, [])
+
   return (
     <BrowserRouter>
+      <AmbientBackdrop />
+
       {/* Global Scroll Progress Bar */}
       <motion.div
         className="scroll-progress"
@@ -57,38 +96,34 @@ export default function App() {
       />
 
       <ScrollReset />
-      <Navbar />
-      
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/services/:serviceId" element={<ServiceDetail />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/design-ideas" element={<DesignIdeas />} />
-        <Route path="/design-ideas/:roomId" element={<RoomPage />} />
-        <Route path="/testimonials" element={<Testimonials />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/contact" element={<Contact />} />
+      <div className="app-shell">
+        <Navbar />
         
-        {/* Policies */}
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/cookie-policy" element={<CookiePolicy />} />
-        <Route path="/terms" element={<TermsAndConditions />} />
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/services/:serviceId" element={<ServiceDetail />} />
+          <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/design-ideas" element={<DesignIdeas />} />
+          <Route path="/design-ideas/:roomId" element={<RoomPage />} />
+          <Route path="/testimonials" element={<Testimonials />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/presentation" element={<Presentation />} />
+          
+          {/* Policies */}
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/cookie-policy" element={<CookiePolicy />} />
+          <Route path="/terms" element={<TermsAndConditions />} />
+        </Routes>
 
-      <Footer />
+        <Footer />
+      </div>
       <ScrollToTop />
-      <WhatsAppButton />
-      <Chatbot />
-      <Squares 
-        speed={0.32} 
-        squareSize={48} 
-        direction="right" 
-        borderColor="rgba(184, 154, 66, 0.09)" 
-        hoverFillColor="rgba(184, 154, 66, 0.08)"
-        accentColor="184, 154, 66"
-      />
+      {settings.whatsappActive && <WhatsAppButton />}
+      {settings.chatbotActive && <Chatbot />}
     </BrowserRouter>
   )
 }
