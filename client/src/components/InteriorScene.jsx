@@ -3,8 +3,8 @@ import * as THREE from 'three'
 
 const SCENE_COPY = {
   eyebrow: 'Live 3D Design Preview',
-  title: 'One polished space system',
-  description: 'A richer 3D concept that blends lounge warmth, work-ready geometry, and premium detailing for homes, studios, offices, and client-facing interiors.',
+  title: 'Real-time Spatial Rendering',
+  description: 'Explore layouts, finishes, and spatial flow in high fidelity. Walk through your customized space, previewing material textures and lighting before execution begins.',
   tint: '#c7a469',
 }
 
@@ -61,6 +61,12 @@ const buildSignatureSet = () => {
     metalness: 0.14,
   })
 
+  const goldMaterial = new THREE.MeshStandardMaterial({
+    color: '#d4af37',
+    roughness: 0.18,
+    metalness: 0.95,
+  })
+
   const platform = new THREE.Mesh(createRoundedBox(6.1, 0.16, 3.4, 0.14), stoneMaterial)
   platform.position.set(0.05, 0.04, 0.12)
   group.add(platform)
@@ -101,31 +107,49 @@ const buildSignatureSet = () => {
   tableTop.position.set(0.18, 0.42, 0.5)
   group.add(tableTop)
 
-  const legGeometry = new THREE.CylinderGeometry(0.05, 0.05, 0.34, 16)
+  // Coffee Table Legs (Charcoal leg + gold metal tip)
   ;[
-    [-0.34, 0.21, 0.17],
-    [0.7, 0.21, 0.17],
-    [-0.34, 0.21, 0.83],
-    [0.7, 0.21, 0.83],
-  ].forEach(([x, y, z]) => {
-    const leg = new THREE.Mesh(legGeometry, charcoalMaterial)
-    leg.position.set(x, y, z)
-    group.add(leg)
+    [-0.34, 0.17],
+    [0.7, 0.17],
+    [-0.34, 0.83],
+    [0.7, 0.83],
+  ].forEach(([x, z]) => {
+    const legCharcoal = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.26, 16), charcoalMaterial)
+    legCharcoal.position.set(x, 0.23, z)
+    group.add(legCharcoal)
+    
+    const legTip = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.08, 16), goldMaterial)
+    legTip.position.set(x, 0.06, z)
+    group.add(legTip)
   })
+
+  // Circular Nesting Coffee Table (travertine top + gold leg)
+  const nestingTop = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.36, 0.08, 24), stoneMaterial)
+  nestingTop.position.set(0.85, 0.52, 0.9)
+  group.add(nestingTop)
+  
+  const nestingLeg = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.44, 16), goldMaterial)
+  nestingLeg.position.set(0.85, 0.26, 0.9)
+  group.add(nestingLeg)
 
   const deskTop = new THREE.Mesh(createRoundedBox(1.72, 0.1, 0.72, 0.07), stoneMaterial)
   deskTop.position.set(1.9, 0.84, -0.08)
   group.add(deskTop)
 
+  // Desk Legs (Charcoal leg + gold tip)
   ;[
-    [1.2, 0.42, -0.32],
-    [2.6, 0.42, -0.32],
-    [1.2, 0.42, 0.16],
-    [2.6, 0.42, 0.16],
-  ].forEach(([x, y, z]) => {
-    const leg = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.8, 0.08), charcoalMaterial)
-    leg.position.set(x, y, z)
-    group.add(leg)
+    [1.2, -0.32],
+    [2.6, -0.32],
+    [1.2, 0.16],
+    [2.6, 0.16],
+  ].forEach(([x, z]) => {
+    const legCharcoal = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.68, 16), charcoalMaterial)
+    legCharcoal.position.set(x, 0.46, z)
+    group.add(legCharcoal)
+
+    const legTip = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.04, 0.12, 16), goldMaterial)
+    legTip.position.set(x, 0.06, z)
+    group.add(legTip)
   })
 
   const chairSeat = new THREE.Mesh(createRoundedBox(0.56, 0.14, 0.56, 0.06), charcoalMaterial)
@@ -135,6 +159,47 @@ const buildSignatureSet = () => {
   const chairBack = new THREE.Mesh(createRoundedBox(0.56, 0.76, 0.12, 0.05), charcoalMaterial)
   chairBack.position.set(1.88, 0.98, 0.84)
   group.add(chairBack)
+
+  // Designer Chair Legs (Gold metallic splayed legs)
+  ;[
+    [1.68, 0.38],
+    [2.08, 0.38],
+    [1.68, 0.78],
+    [2.08, 0.78],
+  ].forEach(([x, z]) => {
+    const chairLeg = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.48, 12), goldMaterial)
+    chairLeg.position.set(x, 0.25, z)
+    chairLeg.rotation.z = x < 1.88 ? 0.08 : -0.08
+    group.add(chairLeg)
+  })
+
+  // Open laptop on desk
+  const laptopBase = new THREE.Mesh(createRoundedBox(0.44, 0.02, 0.3, 0.01), charcoalMaterial)
+  laptopBase.position.set(1.9, 0.9, 0.1)
+  group.add(laptopBase)
+
+  const laptopScreen = new THREE.Mesh(createRoundedBox(0.44, 0.3, 0.01, 0.01), charcoalMaterial)
+  laptopScreen.position.set(1.9, 1.03, -0.03)
+  laptopScreen.rotation.x = -0.22
+  group.add(laptopScreen)
+
+  const laptopGlow = new THREE.Mesh(
+    createRoundedBox(0.41, 0.27, 0.005, 0.01),
+    new THREE.MeshStandardMaterial({
+      color: '#ffffff',
+      emissive: '#e3f2fd',
+      emissiveIntensity: 0.85,
+      roughness: 0.1,
+    })
+  )
+  laptopGlow.position.set(1.9, 1.03, -0.02)
+  laptopGlow.rotation.x = -0.22
+  group.add(laptopGlow)
+
+  // Ceramic mug on desk
+  const mug = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.08, 16), softMaterial)
+  mug.position.set(1.45, 0.93, 0.08)
+  group.add(mug)
 
   const deskScreen = new THREE.Mesh(
     createRoundedBox(0.92, 0.58, 0.05, 0.04),
@@ -337,7 +402,7 @@ export default function InteriorScene() {
     sceneSetRef.current = signatureSet
 
     const particleGeometry = new THREE.BufferGeometry()
-    const particleCount = 140
+    const particleCount = 220
     const positions = new Float32Array(particleCount * 3)
     for (let index = 0; index < particleCount; index += 1) {
       positions[index * 3] = (Math.random() - 0.5) * 8
@@ -445,7 +510,7 @@ export default function InteriorScene() {
         </div>
 
         <div className="interior-scene__panel glass-card">
-          <span className="interior-scene__panel-label">Signature project mode</span>
+          <span className="interior-scene__panel-label">Interactive 3D Engine</span>
           <h3>{SCENE_COPY.title}</h3>
           <p>{SCENE_COPY.description}</p>
         </div>
