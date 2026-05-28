@@ -281,6 +281,110 @@ const buildSignatureSet = () => {
     group.add(light)
   })
 
+  // Gold Throw Pillow on Sofa corner
+  const pillow = new THREE.Mesh(
+    createRoundedBox(0.44, 0.44, 0.18, 0.08),
+    new THREE.MeshStandardMaterial({
+      color: '#b89a42',
+      roughness: 0.65,
+      metalness: 0.1,
+    })
+  )
+  pillow.position.set(-2.25, 0.84, 0.88)
+  pillow.rotation.set(-0.1, 0.4, 0.15)
+  group.add(pillow)
+
+  // Minimalist Olive Planter Pot + branches/leaves
+  const leafMaterial = new THREE.MeshStandardMaterial({
+    color: '#4f5d3e',
+    roughness: 0.8,
+    metalness: 0.05,
+  })
+
+  const planterPot = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.2, 0.14, 0.65, 18),
+    new THREE.MeshStandardMaterial({
+      color: '#2b2a28',
+      roughness: 0.5,
+      metalness: 0.2,
+    })
+  )
+  planterPot.position.set(-2.8, 0.46, -0.62)
+  group.add(planterPot)
+
+  ;[
+    [-0.05, 0.4, 0.08, 0.1, 1.25],
+    [0.08, -0.05, -0.15, -0.08, 1.45],
+    [-0.02, -0.08, -0.05, 0.05, 1.1]
+  ].forEach(([dx, dz, rx, rz, h], bIdx) => {
+    const branchGeometry = new THREE.CylinderGeometry(0.012, 0.018, h, 8)
+    const branch = new THREE.Mesh(branchGeometry, oakMaterial)
+    branch.position.set(-2.8 + dx, 0.46 + h/2, -0.62 + dz)
+    branch.rotation.set(rx, 0, rz)
+    group.add(branch)
+
+    for (let l = 0; l < 5; l++) {
+      const progress = (l + 1) / 6
+      const leafY = 0.46 + h * progress
+      const leafScale = 0.14 * (1 - progress * 0.4)
+      
+      const leaf = new THREE.Mesh(new THREE.SphereGeometry(leafScale, 8, 8), leafMaterial)
+      leaf.scale.set(1.4, 0.2, 0.6)
+      
+      const side = l % 2 === 0 ? 1 : -1
+      leaf.position.set(-2.8 + dx + Math.sin(rz) * progress * h + side * 0.08, leafY, -0.62 + dz + side * 0.06)
+      leaf.rotation.set(0.4 * side, 0.5 * l, 0.3 * side)
+      group.add(leaf)
+    }
+  })
+
+  // Second Gallery Wall Art Frame (Asymmetric vertical layout)
+  const secondFrame = new THREE.Mesh(
+    createRoundedBox(0.68, 1.15, 0.08, 0.04),
+    new THREE.MeshStandardMaterial({ color: '#2f3440', roughness: 0.52, metalness: 0.3 })
+  )
+  secondFrame.position.set(-1.95, 1.48, -1.62)
+  group.add(secondFrame)
+
+  const secondArtPanel = new THREE.Mesh(
+    createRoundedBox(0.48, 0.95, 0.04, 0.03),
+    new THREE.MeshStandardMaterial({
+      color: '#fdfbf7',
+      roughness: 0.9,
+      metalness: 0.05,
+      emissive: '#e8d5b5',
+      emissiveIntensity: 0.06,
+    })
+  )
+  secondArtPanel.position.set(-1.95, 1.48, -1.56)
+  group.add(secondArtPanel)
+
+  // Gold Minimalist Desk Lamp
+  const lampBaseMesh = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.02, 16), goldMaterial)
+  lampBaseMesh.position.set(1.15, 0.9, 0.22)
+  group.add(lampBaseMesh)
+
+  const lampStem = new THREE.Mesh(new THREE.CylinderGeometry(0.012, 0.012, 0.32, 8), goldMaterial)
+  lampStem.position.set(1.15, 1.05, 0.22)
+  lampStem.rotation.z = -0.3
+  group.add(lampStem)
+
+  const lampHead = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.07, 0.1, 16), goldMaterial)
+  lampHead.position.set(1.1, 1.2, 0.22)
+  lampHead.rotation.z = -0.8
+  group.add(lampHead)
+
+  const lampBulb = new THREE.Mesh(
+    new THREE.SphereGeometry(0.038, 12, 12),
+    new THREE.MeshStandardMaterial({
+      color: '#fff9e6',
+      emissive: '#fff9e6',
+      emissiveIntensity: 1.2,
+    })
+  )
+  lampBulb.position.set(1.08, 1.18, 0.22)
+  group.add(lampBulb)
+
   return group
 }
 
