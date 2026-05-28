@@ -1,8 +1,61 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { Home, ScanSearch, Ruler, Layers3, Hammer } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import './ServiceDetail.css'
+
+const INCLUDE_DESCRIPTIONS = {
+  // Signature / Full Home / Specific Area
+  'Project Discovery and Design Brief': 'Initial scoping call and design consultation to establish goals, budget, design preferences, and set expectations.',
+  'Space Planning and Zoning': 'Detailed analysis of layout opportunities to create logical zones and ensure highly natural spatial movement and flow.',
+  'Mood Boards and Material Direction': 'Tactile selection of color palettes, wood species, stone finishes, and fabrics to set the aesthetic tone of the project.',
+  'Photorealistic 3D Visualization': 'Creation of photo-accurate 3D renders so you can confidently preview lighting, proportions, and finishes before execution.',
+  'Lighting, Furniture, and Storage Strategy': 'Strategic placement of lighting points, bespoke furniture selection, and space-saving smart storage layouts.',
+  'Kitchen, Workstation, and Common Area Design': 'Detailed functional design of high-activity hubs to ensure workflow efficacy and visual unity.',
+  'Brand and Lifestyle Alignment': 'Custom adjustments to tailor the space to your family routines, developer goals, or corporate culture.',
+  'Execution Drawings and Site Coordination': 'Precision blueprints detailing measurements, electrical mappings, and plumbing layouts for build teams.',
+  'Vendor and Finish Selection': 'Guided curation of raw materials, fixtures, custom paint finishes, and appliances from trusted, high-end providers.',
+  'Final Styling and Handover': 'The art of curation: placing final decorative accents, accessories, plants, and cleaning up for immediate move-in.',
+  
+  // Duplicated / variations in lists
+  'Space Planning and Layout': 'Logical floor layout generation and zoning boundaries designed to maximize circulation efficiency.',
+  'Concept and Mood Board': 'Color theme and material direction board aligning visual styles before proceeding with detailed modeling.',
+  'Material and Finish Selection': 'Physical curating of tile samples, wood finishes, paint coatings, and hardware components.',
+  'Modular Kitchen Design': 'Bespoke cabinet planning, appliance garages, countertop strategy, and kitchen workflow layouts.',
+  'Bedroom and Living Room Design': 'Custom media units, statement headboards, structural partitioning, and furniture layout.',
+  'Bathroom Design': 'Spa-style zoning, glass partitioning, premium tiling, and high-quality sanitary fixtures installation planning.',
+  'Execution and Site Management': 'Consistent on-site quality audits, team coordination, and project timeline tracking.',
+  'Furniture and Decor Sourcing': 'Direct procurement from luxury partners, custom woodwork oversight, and decorative item gathering.',
+  
+  // Specific Area
+  'Single Room Design': 'Focused design framework resolving layouts, storage, and visual concepts for one specific room.',
+  'Concept and 3D Render': 'Interactive 3D models displaying space, lighting, and textures specifically for the chosen area.',
+  'Custom Furniture Design': 'Bespoke design for study desks, customized beds, tv panels, and wardrobes unique to your room size.',
+  'Lighting Plan': 'Cove lighting, accent pendants, wall sconces, and task light mapping to build the perfect room ambiance.',
+  'Execution and Supervision': 'Complete build oversight, structural safety audits, and installation support of the room details.',
+  'Styling and Accessorizing': 'Adding decorative accents, textures, frames, and greenery to give the space a finished, cozy feel.',
+  
+  // Space Planning
+  'Existing Layout Analysis': 'In-depth audit of structural constraints, load-bearing walls, and window locations to optimize the raw space.',
+  'Traffic Flow Optimization': 'Clearing movement paths, widening entryways, and planning clean passages to eliminate bottleneck zones.',
+  'Furniture Arrangement Plans': 'Strategic scale drawing of furniture placement to secure comfortable legroom and perfect sightlines.',
+  'Multi-functional Space Design': 'Flexible zoning enabling sections of the house to adapt to dining, study, play, or rest seamlessly.',
+  'Storage Strategy': 'Bespoke vertical cabinetry, hidden nooks, and corner solutions to accommodate storage out of sight.',
+  'Zoning and Room Separation': 'Aesthetic partitions, glass dividers, or soft paneling to categorize spaces without losing light.',
+  '2D and 3D Floor Plans': 'Detailed orthogonal blueprints and interactive overhead 3D layouts for clear contractor guidance.',
+  
+  // Renovation
+  'Renovation Scope Assessment': 'On-site technical evaluation to map cosmetic improvements, demolition needs, and utility upgrades.',
+  'Structural Changes Planning': 'Detailed safety review and coordination to safely adjust walls, expand rooms, and alter doorways.',
+  'False Ceiling and Flooring': 'Sophisticated ceiling layers, profile light integrations, and floor tiles or wooden flooring selection.',
+  'Wall Treatment and Paint': 'Premium textures, wall panelings, wallpapers, and low-VOC paint coating layouts.',
+  'Electrical and Plumbing Upgrades': 'Rewiring pathways, adding modular switch points, and upgrading pipe fittings for modern safety.',
+  'Kitchen and Bathroom Renovation': 'Stripping and completely rebuilding utility zones with modern modular hardware and plumbing.',
+  'New Furniture and Fixtures': 'Procuring statement furniture pieces and modern light fixtures that complement the new theme.',
+  'Before and After Documentation': 'Side-by-side photographic tracking of the transformation, proving high execution accuracy.',
+  'Waste Disposal Management': 'Responsible clean-up of site debris, scrap materials, and packaging for safe building handoff.',
+  'Quality Inspection and Handover': 'End-to-end multi-point check of joints, locks, paint finishes, and final professional clean-up.'
+}
 
 const SERVICES = {
   'signature-interiors': {
@@ -108,15 +161,29 @@ export default function ServiceDetail() {
           <AnimatedSection className="svc-includes">
             <div className="section-label"><span className="overline">What&apos;s Included</span></div>
             <h2 className="heading-2 svc-includes__heading">Everything we handle for you</h2>
-            <div className="svc-includes__list">
+            
+            <div className="svc-includes__timeline">
               {service.includes.map((item, index) => (
-                <div key={item} className="svc-include-card">
-                  <span className="svc-include-card__index">{String(index + 1).padStart(2, '0')}</span>
-                  <div className="svc-include-card__icon">
-                    <Icon size={16} strokeWidth={1.8} />
+                <div 
+                  key={item} 
+                  className="timeline-step"
+                >
+                  <div className="timeline-step__left">
+                    <span className="timeline-step__number">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <div className="timeline-step__line-container">
+                      <div className="timeline-step__dot" />
+                      {index < service.includes.length - 1 && <div className="timeline-step__line" />}
+                    </div>
                   </div>
-                  <h3 className="svc-include-card__title">{item}</h3>
-                  <p className="svc-include-card__text">Planned and delivered with premium detailing and execution support.</p>
+                  
+                  <div className="timeline-step__content">
+                    <h3 className="timeline-step__title">{item}</h3>
+                    <p className="timeline-step__desc">
+                      {INCLUDE_DESCRIPTIONS[item] || 'Bespoke planning, curation, and delivery handled end-to-end by our expert studio team.'}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>

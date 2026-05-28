@@ -29,7 +29,9 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.85rem 1.1rem;
-  background: var(--bg-card);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   font-size: 0.875rem;
@@ -41,14 +43,17 @@
 }
 
 .services-tab:hover {
-  border-color: var(--accent-border);
+  border-color: rgba(184, 154, 66, 0.3);
   color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.75);
+  transform: translateY(-2px);
 }
 
 .services-tab.active {
-  border-color: var(--accent-border);
-  background: var(--accent-faint);
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.85);
   color: var(--accent);
+  box-shadow: 0 8px 24px rgba(184, 154, 66, 0.08);
 }
 
 .services-tab__icon { font-size: 1rem; flex-shrink: 0; }
@@ -62,13 +67,17 @@
 
 /* Detail Panel */
 .services-detail {
-  background: var(--bg-card);
-  border: 1px solid var(--accent-border);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 154, 66, 0.15);
   border-radius: var(--radius-lg);
   padding: 2.5rem;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
+  transition: all var(--transition);
 }
 
 .services-detail__header {
@@ -121,12 +130,14 @@
 .process-step {
   position: relative;
   padding: 2rem 1.5rem;
-  background: var(--bg-card);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  transition: var(--transition);
+  transition: all var(--transition);
 }
 
 .process-step:not(:last-child) {
@@ -137,9 +148,11 @@
 .process-step:last-child { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
 
 .process-step:hover {
-  background: var(--bg-card-hover);
-  border-color: var(--accent-border);
-  z-index: 1;
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(184, 154, 66, 0.35);
+  box-shadow: 0 16px 36px rgba(184, 154, 66, 0.08);
+  transform: translateY(-4px);
+  z-index: 10;
 }
 
 .process-step__num {

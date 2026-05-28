@@ -28,7 +28,16 @@
   margin-bottom: 1rem;
 }
 
-.footer__logo svg { color: var(--accent); flex-shrink: 0; }
+.footer__logo-mark {
+  color: var(--accent);
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  display: block;
+  filter: drop-shadow(0 8px 16px rgba(184, 154, 66, 0.12));
+}
+
+.footer__logo-text { line-height: 1; }
 
 .footer__logo em { font-style: italic; }
 
@@ -205,4 +214,3 @@
 .footer__round-btn:hover svg {
   transform: scale(1.1);
 }
-

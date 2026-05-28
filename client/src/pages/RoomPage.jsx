@@ -68,7 +68,7 @@ export default function RoomPage() {
         </div>
       </section>
 
-      <section className="home-cta-band">
+      <section className="home-cta-band section-brown">
         <div className="container">
           <AnimatedSection className="home-cta-band__inner">
             <div>

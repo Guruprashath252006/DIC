@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import { PORTFOLIO_PROJECTS } from '../data/portfolio'
-import ourStoryImage from '../assets/home/our-story.png'
+import ourStoryImage from '../assets/home/our-story.webp'
 import './About.css'
 
 const TEAM = [
@@ -74,11 +74,11 @@ const MILESTONES = [
     progress: 82,
   },
   {
-    year: '2024',
-    title: 'Prestige Recognition',
-    event: 'Recognized and awarded as the Top Interior Studio in Chennai for quality and design excellence.',
+    year: '2026',
+    title: 'Future-Ready Leadership',
+    event: 'Expanded into a more mature design brand with stronger execution systems, refined client journeys, and a roadmap built for the next phase of premium interiors.',
     iconName: 'Trophy',
-    stage: 'Leadership',
+    stage: '2026 Vision',
     progress: 100,
   },
 ]
@@ -230,35 +230,68 @@ export default function About() {
           </AnimatedSection>
 
           <div className="roadmap">
-            <div className="roadmap__line" />
-            <div className="roadmap__progress">
-              <span className="roadmap__progress-label">Growth trajectory</span>
-              <span className="roadmap__progress-value">2008 to 2024</span>
-            </div>
-            <div className="roadmap__particles" aria-hidden="true">
-              {Array.from({ length: 18 }).map((_, index) => (
-                <span key={index} className={`roadmap__particle roadmap__particle--${(index % 6) + 1}`} />
-              ))}
-            </div>
+            <aside className="roadmap__intro">
+              <span className="roadmap__intro-label">Studio Board</span>
+              <h3 className="roadmap__intro-title">A design journey presented like a premium project strip.</h3>
+              <p className="roadmap__intro-copy">
+                From a boutique Chennai studio in 2008 to a future-ready interior brand in 2026, each phase reflects how the practice matured in scale, trust, and design ambition.
+              </p>
 
-            {MILESTONES.map((milestone) => (
-              <div key={milestone.year} className="roadmap__item">
-                <div className="roadmap__dot-container">
-                  <div className="roadmap__dot" />
+              <div className="roadmap__intro-meta">
+                <div className="roadmap__meta-card">
+                  <span className="roadmap__meta-value">2008 - 2026</span>
+                  <span className="roadmap__meta-label">Timeline Span</span>
                 </div>
-
-                <div className="roadmap__card">
-                  <div className="roadmap__header">
-                    <div className="roadmap__badge">
-                      {getMilestoneIcon(milestone.iconName)}
-                    </div>
-                    <div className="roadmap__year">{milestone.year}</div>
-                  </div>
-                  <h3 className="roadmap__title">{milestone.title}</h3>
-                  <p className="roadmap__desc">{milestone.event}</p>
+                <div className="roadmap__meta-card">
+                  <span className="roadmap__meta-value">06</span>
+                  <span className="roadmap__meta-label">Major Milestones</span>
                 </div>
               </div>
-            ))}
+            </aside>
+
+            <div className="roadmap__board">
+              <div className="roadmap__rail" aria-hidden="true">
+                <span className="roadmap__rail-line" />
+              </div>
+
+              <div className="roadmap__boxes" aria-hidden="true">
+                {Array.from({ length: 10 }).map((_, index) => (
+                  <span key={index} className={`roadmap__box roadmap__box--${(index % 5) + 1}`} />
+                ))}
+              </div>
+
+              <div className="roadmap__cards">
+                {MILESTONES.map((milestone, index) => (
+                  <article key={milestone.year} className="roadmap__card">
+                    <span className="roadmap__watermark">{milestone.year}</span>
+
+                    <div className="roadmap__card-top">
+                      <span className="roadmap__index">{String(index + 1).padStart(2, '0')}</span>
+                      <span className="roadmap__stage">{milestone.stage}</span>
+                    </div>
+
+                    <div className="roadmap__card-main">
+                      <div className="roadmap__badge">
+                        {getMilestoneIcon(milestone.iconName)}
+                      </div>
+                      <div className="roadmap__headline">
+                        <div className="roadmap__year">{milestone.year}</div>
+                        <h3 className="roadmap__title">{milestone.title}</h3>
+                      </div>
+                    </div>
+
+                    <p className="roadmap__desc">{milestone.event}</p>
+
+                    <div className="roadmap__footer">
+                      <div className="roadmap__meter" aria-hidden="true">
+                        <span className="roadmap__meter-bar" style={{ width: `${milestone.progress}%` }} />
+                      </div>
+                      <span className="roadmap__progress-note">{milestone.progress}% evolution</span>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>

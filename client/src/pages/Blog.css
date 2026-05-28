@@ -8,8 +8,10 @@
   grid-template-columns: 1fr 1fr;
   gap: 3rem;
   align-items: center;
-  background: var(--bg-card);
-  border: 1px solid var(--accent-border);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 154, 66, 0.15);
   border-radius: var(--radius-xl);
   overflow: hidden;
   margin-bottom: 1rem;
@@ -89,8 +91,10 @@
 }
 
 .blog-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 154, 66, 0.12);
   border-radius: var(--radius-lg);
   overflow: hidden;
   display: flex;
@@ -99,9 +103,10 @@
 }
 
 .blog-card:hover {
-  border-color: var(--accent-border);
+  border-color: rgba(184, 154, 66, 0.3);
+  background: rgba(255, 255, 255, 0.85);
   transform: translateY(-4px);
-  box-shadow: var(--shadow-card);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.05), var(--shadow-gold);
 }
 
 .blog-card__visual {
@@ -185,8 +190,10 @@
 .blog-newsletter {
   margin-top: 4rem;
   padding: 2.5rem;
-  background: linear-gradient(135deg, var(--bg-card), rgba(184, 154, 66, 0.06));
-  border: 1px solid var(--accent-border);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 154, 66, 0.15);
   border-radius: var(--radius-xl);
   display: grid;
   grid-template-columns: 1fr 1fr;

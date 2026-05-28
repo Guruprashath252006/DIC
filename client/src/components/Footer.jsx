@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { User, Download } from 'lucide-react'
+import BrandLogo from './BrandLogo'
 import './Footer.css'
 
 export default function Footer() {
@@ -10,17 +11,12 @@ export default function Footer() {
     <footer className="footer">
       <div className="container">
         <div className="footer__grid">
-          {/* Brand Column */}
           <div className="footer__col footer__col--brand">
             <Link to="/" className="footer__logo">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M9 21V12h6v9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              <span>De Interio Café</span>
+              <BrandLogo markClassName="footer__logo-mark" textClassName="footer__logo-text" />
             </Link>
             <p className="footer__desc">
-              Chennai's interior design studio for homes, offices, retail, and lifestyle spaces, bringing everyday comfort and professional-grade execution together for over 15 years.
+              Chennai&apos;s interior design studio for homes, offices, retail, and lifestyle spaces, bringing everyday comfort and professional-grade execution together for over 15 years.
             </p>
             <div className="footer__buttons">
               <div className="footer__button-item">
@@ -30,10 +26,10 @@ export default function Footer() {
                 <span className="footer__button-label">Admin</span>
               </div>
               <div className="footer__button-item">
-                <a 
-                  href="/ecatalog.pdf" 
-                  download 
-                  className="footer__round-btn" 
+                <a
+                  href="/ecatalog.pdf"
+                  download
+                  className="footer__round-btn"
                   title="Download E-Catalog"
                   onClick={() => {
                     const current = parseInt(localStorage.getItem('dic_catalog_downloads') || '142', 10)
@@ -48,11 +44,10 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div className="footer__col">
             <h4 className="footer__col-title">Quick Links</h4>
             <ul className="footer__links">
-              {['Home','About','Services','Portfolio','Presentation','Testimonials','Insights','Contact'].map(label => (
+              {['Home', 'About', 'Services', 'Portfolio', 'Presentation', 'Testimonials', 'Insights', 'Contact'].map((label) => (
                 <li key={label}>
                   <Link to={label === 'Home' ? '/' : label === 'Insights' ? '/blog' : `/${label.toLowerCase()}`}>
                     {label}
@@ -62,7 +57,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Services */}
           <div className="footer__col">
             <h4 className="footer__col-title">Services</h4>
             <ul className="footer__links">
@@ -73,26 +67,25 @@ export default function Footer() {
                 'Modular Kitchens',
                 'Bedroom Planning',
                 'Balcony Designs',
-              ].map(s => (
-                <li key={s}><Link to="/services">{s}</Link></li>
+              ].map((service) => (
+                <li key={service}><Link to="/services">{service}</Link></li>
               ))}
             </ul>
           </div>
 
-          {/* Contact */}
           <div className="footer__col">
             <h4 className="footer__col-title">Contact</h4>
             <ul className="footer__contact-list">
               <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke="currentColor" strokeWidth="1.5"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke="currentColor" strokeWidth="1.5" /></svg>
                 <span>Chennai, Tamil Nadu, India</span>
               </li>
               <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5"/><path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
-                <span>Mon – Sat: 9:00 AM – 7:00 PM</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.5" /><path d="M12 6v6l4 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
+                <span>Mon - Sat: 9:00 AM - 7:00 PM</span>
               </li>
               <li>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 8l9 5 9-5V18a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm18-2H3l9 5 9-5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"/></svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 8l9 5 9-5V18a1 1 0 01-1 1H4a1 1 0 01-1-1V8zm18-2H3l9 5 9-5z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" /></svg>
                 <span>mohanaraodeinteriocafe@gmail.com</span>
               </li>
             </ul>
@@ -105,7 +98,7 @@ export default function Footer() {
         <div className="divider" style={{ margin: '3rem 0 2rem' }} />
 
         <div className="footer__bottom">
-          <p>© {currentYear} De Interio Café. All rights reserved. A group company of Zenith77 Multi Business Pvt Ltd.</p>
+          <p>&copy; {currentYear} De Interio Cafe. All rights reserved. A group company of Zenith77 Multi Business Pvt Ltd.</p>
           <div className="footer__legal">
             <Link to="#">Privacy Policy</Link>
             <Link to="#">Terms of Service</Link>

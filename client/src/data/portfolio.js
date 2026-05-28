@@ -1,12 +1,12 @@
-import modernVillaImage from '../assets/portfolio/modern-villa-boat-club-road.png'
-import corporateHqImage from '../assets/portfolio/corporate-hq-anna-salai.png'
-import boutiqueCafeImage from '../assets/portfolio/boutique-cafe-nungambakkam.png'
-import penthouseRenovationImage from '../assets/portfolio/penthouse-renovation-ecr.png'
-import luxury3BhkImage from '../assets/portfolio/luxury-3bhk-velachery.png'
-import restaurantImage from '../assets/portfolio/restaurant-t-nagar.png'
-import techOfficeImage from '../assets/portfolio/tech-office-sholinganallur.png'
-import heritageHomeImage from '../assets/portfolio/heritage-home-mylapore.png'
-import modularKitchenImage from '../assets/portfolio/modular-kitchen-adyar.png'
+import modernVillaImage from '../assets/portfolio/modern-villa-boat-club-road.webp'
+import corporateHqImage from '../assets/portfolio/corporate-hq-anna-salai.webp'
+import boutiqueCafeImage from '../assets/portfolio/boutique-cafe-nungambakkam.webp'
+import penthouseRenovationImage from '../assets/portfolio/penthouse-renovation-ecr.webp'
+import luxury3BhkImage from '../assets/portfolio/luxury-3bhk-velachery.webp'
+import restaurantImage from '../assets/portfolio/restaurant-t-nagar.webp'
+import techOfficeImage from '../assets/portfolio/tech-office-sholinganallur.webp'
+import heritageHomeImage from '../assets/portfolio/heritage-home-mylapore.webp'
+import modularKitchenImage from '../assets/portfolio/modular-kitchen-adyar.webp'
 
 export const PORTFOLIO_CATEGORIES = ['All', 'Residential', 'Renovation']
 

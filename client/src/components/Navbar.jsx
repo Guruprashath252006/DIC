@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { NavLink, Link, useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import BrandLogo from './BrandLogo'
 import './Navbar.css'
 
 const SERVICES_LINKS = [
@@ -51,11 +52,7 @@ export default function Navbar() {
       <div className="container navbar__inner">
         {/* Logo */}
         <Link to="/" className="navbar__logo" id="nav-logo">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M9 21V12h6v9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <span>De Interio Café</span>
+          <BrandLogo markClassName="navbar__logo-mark" textClassName="navbar__logo-text" />
         </Link>
 
         {/* Desktop Links */}

@@ -1,13 +1,13 @@
-import kitchenImage from '../assets/design-ideas/kitchen.png'
-import masterBedroomImage from '../assets/design-ideas/master-bedroom.png'
-import livingRoomImage from '../assets/design-ideas/living-room.png'
-import bathroomImage from '../assets/design-ideas/bathroom.png'
-import kidsBedroomImage from '../assets/design-ideas/kids-bedroom.png'
-import guestBedroomImage from '../assets/design-ideas/guest-bedroom.png'
-import balconyImage from '../assets/design-ideas/balcony.png'
-import diningAreaImage from '../assets/design-ideas/dining-area.png'
-import foyerAreaImage from '../assets/design-ideas/foyer-area.png'
-import homeOfficeImage from '../assets/design-ideas/home-office.png'
+import kitchenImage from '../assets/design-ideas/kitchen.webp'
+import masterBedroomImage from '../assets/design-ideas/master-bedroom.webp'
+import livingRoomImage from '../assets/design-ideas/living-room.webp'
+import bathroomImage from '../assets/design-ideas/bathroom.webp'
+import kidsBedroomImage from '../assets/design-ideas/kids-bedroom.webp'
+import guestBedroomImage from '../assets/design-ideas/guest-bedroom.webp'
+import balconyImage from '../assets/design-ideas/balcony.webp'
+import diningAreaImage from '../assets/design-ideas/dining-area.webp'
+import foyerAreaImage from '../assets/design-ideas/foyer-area.webp'
+import homeOfficeImage from '../assets/design-ideas/home-office.webp'
 
 const parentsBedroomImage = new URL('../assets/design-ideas/parents-bedroom/idea-1.jpg', import.meta.url).href;
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import residentialImage from '../assets/portfolio/modern-villa-boat-club-road.png'
-import commercialImage from '../assets/portfolio/corporate-hq-anna-salai.png'
+import residentialImage from '../assets/portfolio/modern-villa-boat-club-road.webp'
+import commercialImage from '../assets/portfolio/corporate-hq-anna-salai.webp'
 
 const HeroVisual = () => {
   const { scrollY } = useScroll()

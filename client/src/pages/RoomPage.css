@@ -79,17 +79,20 @@
 }
 
 .room-idea-card__inner {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(184, 154, 66, 0.12);
   border-radius: var(--radius-lg);
   overflow: hidden;
   transition: var(--transition);
 }
 
 .room-idea-card__inner:hover {
-  border-color: var(--accent-border);
+  border-color: rgba(184, 154, 66, 0.3);
+  background: rgba(255, 255, 255, 0.85);
   transform: translateY(-4px);
-  box-shadow: var(--shadow-card), var(--shadow-gold);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.05), var(--shadow-gold);
 }
 
 .room-idea-card__img-wrap {

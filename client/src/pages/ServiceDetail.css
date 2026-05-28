@@ -33,80 +33,117 @@
   margin: 1rem 0 2rem;
 }
 
-.svc-includes__list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-}
-
-.svc-include-card {
-  position: relative;
-  min-height: 180px;
-  padding: 1.5rem;
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(184, 154, 66, 0.14);
-  background:
-    linear-gradient(180deg, rgba(184, 154, 66, 0.06), rgba(255, 255, 255, 0.96)),
-    var(--bg-card);
+/* Premium Typographic Timeline */
+.svc-includes__timeline {
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
-  overflow: hidden;
-  transition: var(--transition);
+  gap: 3rem;
+  margin-top: 2rem;
 }
 
-.svc-include-card::before {
-  content: '';
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 3px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  transform: scaleX(0.45);
-  transform-origin: center;
-  transition: transform var(--transition);
-}
-
-.svc-include-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--accent-border);
-  box-shadow: var(--shadow-card), var(--shadow-gold);
-}
-
-.svc-include-card:hover::before {
-  transform: scaleX(1);
-}
-
-.svc-include-card__index {
-  font-family: var(--font-display);
-  font-size: 0.8rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-}
-
-.svc-include-card__icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  background: rgba(184, 154, 66, 0.1);
-  color: var(--text-primary);
+.timeline-step {
   display: flex;
+  gap: 2rem;
+  align-items: stretch;
+  position: relative;
+}
+
+.timeline-step__left {
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  width: 60px;
+  flex-shrink: 0;
 }
 
-.svc-include-card__title {
+.timeline-step__number {
   font-family: var(--font-display);
-  font-size: 1.1rem;
-  color: var(--text-primary);
-  line-height: 1.35;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  opacity: 0.85;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.svc-include-card__text {
-  font-size: 0.9rem;
+.timeline-step__line-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
+.timeline-step__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  background: var(--bg);
+  position: relative;
+  z-index: 2;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-step__line {
+  position: absolute;
+  top: 12px;
+  bottom: -3rem; /* Extends down to connect to the next dot */
+  width: 1px;
+  border-left: 1px dashed rgba(184, 154, 66, 0.25);
+  z-index: 1;
+  transition: border-color 0.3s ease;
+}
+
+.timeline-step__content {
+  flex: 1;
+  padding-bottom: 0.5rem;
+}
+
+.timeline-step__title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.timeline-step__desc {
+  font-size: 1.02rem;
+  line-height: 1.75;
   color: var(--text-secondary);
-  line-height: 1.65;
   margin: 0;
+  max-width: 58ch;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover Interactivity for Text-Oriented Stream */
+.timeline-step:hover .timeline-step__number {
+  transform: translateY(-2px);
+  color: var(--text-primary);
+}
+
+.timeline-step:hover .timeline-step__title {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+.timeline-step:hover .timeline-step__dot {
+  background: var(--accent);
+  box-shadow: 0 0 12px var(--accent);
+  transform: scale(1.25);
+}
+
+.timeline-step:hover .timeline-step__line {
+  border-left-style: solid;
+  border-left-color: var(--accent);
+}
+
+.timeline-step:hover .timeline-step__desc {
+  color: var(--text-primary);
 }
 
 .svc-meta {
@@ -177,5 +214,25 @@
 
   .service-hero {
     min-height: 72vh;
+  }
+
+  .svc-includes__timeline {
+    gap: 2.25rem;
+  }
+
+  .timeline-step {
+    gap: 1.25rem;
+  }
+
+  .timeline-step__left {
+    width: 45px;
+  }
+
+  .timeline-step__number {
+    font-size: 1.4rem;
+  }
+
+  .timeline-step__title {
+    font-size: 1.2rem;
   }
 }

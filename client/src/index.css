@@ -228,8 +228,8 @@ body:active::-webkit-scrollbar-thumb {
 
 .btn-primary:hover {
   background: var(--accent-dark);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(244, 231, 161, 0.25);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 8px 30px rgba(184, 154, 66, 0.3);
 }
 
 .btn-outline {
@@ -239,8 +239,9 @@ body:active::-webkit-scrollbar-thumb {
 
 .btn-outline:hover {
   border-color: var(--accent);
-  background: var(--accent-faint);
-  transform: translateY(-2px);
+  background: rgba(184, 154, 66, 0.08);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 20px rgba(184, 154, 66, 0.12);
 }
 
 .btn-ghost {
@@ -348,8 +349,8 @@ body:active::-webkit-scrollbar-thumb {
   position: relative;
   background:
     radial-gradient(circle at top right, rgba(184, 154, 66, 0.14), transparent 32%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.32), rgba(255, 255, 255, 0.08)),
-    var(--bg-warm);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.05)),
+    rgba(244, 236, 225, 0.72); /* Semi-transparent warm cream to let grid show through */
 }
 
 .section-brown-soft::before {
@@ -377,6 +378,25 @@ body:active::-webkit-scrollbar-thumb {
     radial-gradient(circle at 80% 80%, rgba(184, 154, 66, 0.16), transparent 28%),
     linear-gradient(135deg, var(--bg-warm-strong), var(--bg-warm-strong-2));
   overflow: hidden;
+}
+
+.section-brown::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image: 
+    linear-gradient(rgba(244, 231, 161, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 231, 161, 0.06) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridMoveDark 25s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes gridMoveDark {
+  0% { background-position: 0 0; }
+  100% { background-position: 60px 60px; }
 }
 
 .section-brown::before {
@@ -486,13 +506,14 @@ body:active::-webkit-scrollbar-thumb {
   border-radius: var(--radius);
   color: var(--text-primary);
   font-size: 0.9rem;
-  transition: var(--transition-fast);
+  transition: all var(--transition-fast);
   outline: none;
 }
 
 .form-control:focus {
-  border-color: var(--accent-border);
-  box-shadow: 0 0 0 3px rgba(244, 231, 161, 0.06);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(184, 154, 66, 0.12);
+  background: #ffffff;
 }
 
 .form-control::placeholder {

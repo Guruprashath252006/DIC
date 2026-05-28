@@ -1,6 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
-import ourStoryImage from '../assets/home/our-story.png'
+import ourStoryImage from '../assets/home/our-story.webp'
 
 export default function StoryVisual() {
   return (
@@ -27,6 +27,7 @@ export default function StoryVisual() {
         src={ourStoryImage}
         alt="Elegant premium interior reflecting the De Interio Cafe design philosophy"
         className="story-marquee__image"
+        loading="lazy"
         whileHover={{ scale: 1.05 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         style={{

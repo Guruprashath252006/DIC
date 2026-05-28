@@ -1,10 +1,10 @@
-import trends2024Image from '../assets/blog/insight-trends-2024.png'
-import colorPaletteImage from '../assets/blog/insight-color-palette.png'
-import penthouseRenovationImage from '../assets/blog/insight-penthouse-renovation.png'
-import officeWellbeingImage from '../assets/blog/insight-office-wellbeing.png'
-import modularKitchenImage from '../assets/blog/insight-modular-kitchen.png'
-import smallSpaceImage from '../assets/blog/insight-small-space.png'
-import sustainableMaterialsImage from '../assets/blog/insight-sustainable-materials.png'
+import trends2024Image from '../assets/blog/insight-trends-2024.webp'
+import colorPaletteImage from '../assets/blog/insight-color-palette.webp'
+import penthouseRenovationImage from '../assets/blog/insight-penthouse-renovation.webp'
+import officeWellbeingImage from '../assets/blog/insight-office-wellbeing.webp'
+import modularKitchenImage from '../assets/blog/insight-modular-kitchen.webp'
+import smallSpaceImage from '../assets/blog/insight-small-space.webp'
+import sustainableMaterialsImage from '../assets/blog/insight-sustainable-materials.webp'
 
 export const BLOG_POSTS = [
   {

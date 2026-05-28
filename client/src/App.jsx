@@ -11,24 +11,51 @@ import WhatsAppButton from './components/WhatsAppButton'
 import Chatbot from './components/Chatbot'
 import AmbientBackdrop from './components/AmbientBackdrop'
 
-// Core Pages
-import Home from './pages/Home'
-import About from './pages/About'
-import Services from './pages/Services'
-import ServiceDetail from './pages/ServiceDetail'
-import Portfolio from './pages/Portfolio'
-import DesignIdeas from './pages/DesignIdeas'
-import RoomPage from './pages/RoomPage'
-import Testimonials from './pages/Testimonials'
-import Blog from './pages/Blog'
-import Contact from './pages/Contact'
-import Admin from './pages/Admin'
-import Presentation from './pages/Presentation'
+import { Suspense } from 'react'
 
-// Policy Pages
-import PrivacyPolicy from './pages/PrivacyPolicy'
-import CookiePolicy from './pages/CookiePolicy'
-import TermsAndConditions from './pages/Terms'
+// Core Pages (Dynamic Imports)
+const Home = React.lazy(() => import('./pages/Home'))
+const About = React.lazy(() => import('./pages/About'))
+const Services = React.lazy(() => import('./pages/Services'))
+const ServiceDetail = React.lazy(() => import('./pages/ServiceDetail'))
+const Portfolio = React.lazy(() => import('./pages/Portfolio'))
+const DesignIdeas = React.lazy(() => import('./pages/DesignIdeas'))
+const RoomPage = React.lazy(() => import('./pages/RoomPage'))
+const Testimonials = React.lazy(() => import('./pages/Testimonials'))
+const Blog = React.lazy(() => import('./pages/Blog'))
+const Contact = React.lazy(() => import('./pages/Contact'))
+const Admin = React.lazy(() => import('./pages/Admin'))
+const Presentation = React.lazy(() => import('./pages/Presentation'))
+
+// Policy Pages (Dynamic Imports)
+const PrivacyPolicy = React.lazy(() => import('./pages/PrivacyPolicy'))
+const CookiePolicy = React.lazy(() => import('./pages/CookiePolicy'))
+const TermsAndConditions = React.lazy(() => import('./pages/Terms'))
+
+const PageLoader = () => (
+  <div style={{
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '60vh',
+    width: '100%',
+  }}>
+    <div style={{
+      width: '40px',
+      height: '40px',
+      border: '3px solid rgba(184, 154, 66, 0.1)',
+      borderTopColor: 'var(--accent)',
+      borderRadius: '50%',
+      animation: 'spin 1s linear infinite'
+    }} />
+    <style>{`
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+    `}</style>
+  </div>
+)
 
 import './App.css'
 
@@ -99,25 +126,27 @@ export default function App() {
       <div className="app-shell">
         <Navbar />
         
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/services/:serviceId" element={<ServiceDetail />} />
-          <Route path="/portfolio" element={<Portfolio />} />
-          <Route path="/design-ideas" element={<DesignIdeas />} />
-          <Route path="/design-ideas/:roomId" element={<RoomPage />} />
-          <Route path="/testimonials" element={<Testimonials />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/presentation" element={<Presentation />} />
-          
-          {/* Policies */}
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/cookie-policy" element={<CookiePolicy />} />
-          <Route path="/terms" element={<TermsAndConditions />} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/services/:serviceId" element={<ServiceDetail />} />
+            <Route path="/portfolio" element={<Portfolio />} />
+            <Route path="/design-ideas" element={<DesignIdeas />} />
+            <Route path="/design-ideas/:roomId" element={<RoomPage />} />
+            <Route path="/testimonials" element={<Testimonials />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/presentation" element={<Presentation />} />
+            
+            {/* Policies */}
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/cookie-policy" element={<CookiePolicy />} />
+            <Route path="/terms" element={<TermsAndConditions />} />
+          </Routes>
+        </Suspense>
 
         <Footer />
       </div>

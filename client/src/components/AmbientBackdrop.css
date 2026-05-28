@@ -1,0 +1,179 @@
+/* =====================================================
+   DE INTERIO CAFÉ — AMBIENT BACKDROP
+   A premium, static CSS background inspired by warm
+   Italian marble, aged linen, and luxury gold leaf.
+   ===================================================== */
+
+/* ── Container ───────────────────────────────────── */
+.amb {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* ── 1. Base Warm Wash ───────────────────────────── */
+/* A silky, diagonal cream → warm beige → champagne sand gradient
+   reminiscent of Italian travertine marble slabs */
+.amb__base {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      148deg,
+      #fdfaf4 0%,      /* ivory silk */
+      #f8f0e3 28%,     /* warm linen */
+      #f2e5d0 55%,     /* champagne sand */
+      #ecdcca 78%,     /* warm sand beige */
+      #e6d4bc 100%     /* aged travertine */
+    );
+}
+
+/* ── 2. Organic Gold-Glow Blobs ──────────────────── */
+/* Inspired by sunlight pooling through sheer curtains
+   onto marble — the kind of scene found in luxury
+   interior design photoshoots */
+.amb__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 1;
+}
+
+/* Top-left: warm sunrise gold */
+.amb__blob--gold-top {
+  width: 75vw;
+  height: 65vh;
+  top: -20vh;
+  left: -20vw;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(205, 170, 80, 0.28) 0%,
+    rgba(215, 183, 105, 0.16) 40%,
+    transparent 70%
+  );
+  animation: ambDrift1 22s ease-in-out infinite alternate;
+}
+
+/* Top-right: warm champagne / cream */
+.amb__blob--champagne-right {
+  width: 60vw;
+  height: 55vh;
+  top: -10vh;
+  right: -18vw;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(235, 210, 165, 0.32) 0%,
+    rgba(245, 225, 185, 0.18) 40%,
+    transparent 68%
+  );
+  animation: ambDrift2 26s ease-in-out infinite alternate;
+}
+
+/* Bottom-center: warm amber, like afternoon light
+   hitting a polished oak floor */
+.amb__blob--amber-bottom {
+  width: 80vw;
+  height: 60vh;
+  bottom: -25vh;
+  left: 10vw;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(210, 165, 100, 0.24) 0%,
+    rgba(200, 155, 90, 0.12) 40%,
+    transparent 68%
+  );
+  animation: ambDrift3 30s ease-in-out infinite alternate;
+}
+
+/* Mid-left: soft warm clay / terracotta accent
+   adding depth and the feeling of textured plaster walls */
+.amb__blob--clay-left {
+  width: 50vw;
+  height: 70vh;
+  top: 25vh;
+  left: -15vw;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(195, 148, 112, 0.15) 0%,
+    rgba(205, 158, 118, 0.08) 45%,
+    transparent 70%
+  );
+  animation: ambDrift4 18s ease-in-out infinite alternate;
+}
+
+/* ── 3. Edge Vignette ────────────────────────────── */
+/* Darkens the corners slightly, mimicking the depth of
+   a high-quality interior photography composition */
+.amb__vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    transparent 42%,
+    rgba(160, 120, 72, 0.06) 68%,
+    rgba(140, 100, 55, 0.12) 100%
+  );
+}
+
+/* ── 4. Linen / Paper Grain Texture ──────────────── */
+/* A very subtle noise overlay that gives the background
+   the tactile quality of premium art paper or woven linen,
+   hallmarks of luxury interior design materials */
+.amb__grain {
+  position: absolute;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  opacity: 0.048;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  animation: grainShift 8s steps(2) infinite;
+}
+
+/* ── Animations ──────────────────────────────────── */
+
+/* Gentle, slow undulation — like light shifting through
+   sheer linen drapes in a sunlit interior */
+@keyframes ambDrift1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(3vw, -2vh) scale(1.04); }
+  66%  { transform: translate(-2vw, 3vh) scale(0.97); }
+  100% { transform: translate(2vw, 1vh) scale(1.02); }
+}
+
+@keyframes ambDrift2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-4vw, 3vh) scale(1.06); }
+  100% { transform: translate(2vw, -2vh) scale(0.98); }
+}
+
+@keyframes ambDrift3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  40%  { transform: translate(2vw, -3vh) scale(1.03); }
+  100% { transform: translate(-3vw, 2vh) scale(1.05); }
+}
+
+@keyframes ambDrift4 {
+  0%   { transform: translate(0, 0) scale(1); }
+  60%  { transform: translate(3vw, 2vh) scale(1.08); }
+  100% { transform: translate(-1vw, -3vh) scale(0.96); }
+}
+
+/* Very subtle grain animation to avoid static appearance */
+@keyframes grainShift {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-1%, -2%); }
+  50%  { transform: translate(1%, 1%); }
+  75%  { transform: translate(-2%, 0.5%); }
+  100% { transform: translate(0.5%, -1%); }
+}
+
+/* ── Reduced Motion Respect ──────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .amb__blob,
+  .amb__grain {
+    animation: none;
+  }
+}

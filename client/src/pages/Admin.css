@@ -102,6 +102,7 @@
   font-size: 0.75rem;
   padding: 0.6rem 1.2rem;
   border-color: rgba(0, 0, 0, 0.15);
+  transition: all var(--transition-fast);
 }
 
 .admin-logout-btn:hover {
@@ -186,12 +187,13 @@
 }
 
 .admin-nav-btn:hover {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
+  background: rgba(184, 154, 66, 0.08);
+  color: var(--accent);
+  transform: translateX(4px);
 }
 
 .admin-nav-btn.active {
-  background: var(--accent-faint);
+  background: rgba(184, 154, 66, 0.12);
   color: var(--accent);
   font-weight: 600;
   border-left: 3px solid var(--accent);
@@ -244,7 +246,7 @@
 }
 
 .admin-table tbody tr:hover {
-  background: rgba(184, 154, 66, 0.02);
+  background: rgba(184, 154, 66, 0.05);
 }
 
 .resolved-row {
@@ -368,7 +370,9 @@
 }
 
 .action-btn:hover {
-  background: var(--bg-secondary);
+  background: rgba(184, 154, 66, 0.08);
+  color: var(--accent);
+  border-color: var(--accent-border);
 }
 
 .action-btn.delete:hover {
@@ -405,7 +409,9 @@
 }
 
 .admin-setting-item:hover {
-  border-color: var(--accent-border);
+  background: rgba(255, 255, 255, 0.45);
+  border-color: var(--accent);
+  box-shadow: 0 8px 24px rgba(184, 154, 66, 0.06);
 }
 
 .setting-description {
@@ -494,6 +500,9 @@
   .admin-nav-btn {
     white-space: nowrap;
     width: auto;
+  }
+  .admin-nav-btn:hover {
+    transform: none;
   }
   .admin-nav-btn.active {
     border-left: none;
