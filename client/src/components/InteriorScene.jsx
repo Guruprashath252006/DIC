@@ -611,7 +611,6 @@ export default function InteriorScene() {
   const frameRef = useRef(0)
   const pointerRef = useRef({ x: 0, y: 0 })
   const targetRef = useRef({ x: 0, y: 0 })
-  const [sceneReady, setSceneReady] = useState(false)
 
   // Studio Configurator states
   const [lightingMode, setLightingMode] = useState('day')
@@ -927,7 +926,6 @@ export default function InteriorScene() {
     scene.add(particles)
 
     const clock = new THREE.Clock()
-    setSceneReady(true)
 
     const resize = () => {
       const { clientWidth, clientHeight } = mount
@@ -1267,27 +1265,17 @@ export default function InteriorScene() {
       {/* Overlay HUD Panel Details */}
       <div className="interior-scene__hud">
         <div className="interior-scene__eyebrow">{SCENE_COPY.eyebrow}</div>
-        <div className="interior-scene__metrics" aria-label="Interior scene highlights">
-          <span className={`interior-scene__metric ${sceneReady ? 'is-active' : ''}`}>Spatial Rendering</span>
-          <span className="interior-scene__metric">Textured Geometry</span>
-          <span className="interior-scene__metric">Configurator Active</span>
-        </div>
-
-        <div className="interior-scene__panel glass-card">
-          <span className="interior-scene__panel-label">Interactive 3D Engine</span>
-          <h3>{SCENE_COPY.title}</h3>
-          <p>{SCENE_COPY.description}</p>
-        </div>
       </div>
 
-      {/* Collapsed customizer toggle cog button */}
+      {/* Collapsed customizer toggle button */}
       {!customizerOpen && (
         <button
           className="interior-scene__toggle-btn"
           onClick={() => setCustomizerOpen(true)}
           title="Open Customizer"
         >
-          <Settings size={16} />
+          <Settings size={14} />
+          <span>Change Design</span>
         </button>
       )}
 

@@ -97,6 +97,11 @@
   box-shadow: 0 0 16px rgba(184, 154, 66, 0.45);
 }
 
+.interior-scene-container {
+  position: relative;
+  width: 100%;
+}
+
 .interior-scene {
   position: relative;
   width: 100%;
@@ -404,7 +409,7 @@
   position: absolute;
   top: 1.25rem;
   right: 1.25rem;
-  width: 220px;
+  width: 240px;
   background: rgba(255, 255, 255, 0.72);
   border: 1px solid rgba(184, 154, 66, 0.18);
   border-radius: 18px;
@@ -417,7 +422,18 @@
   z-index: 10;
   pointer-events: auto;
   box-shadow: 0 16px 40px rgba(40, 26, 13, 0.1);
-  transition: all var(--transition);
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.45s ease,
+              background 0.8s ease,
+              border-color 0.8s ease,
+              box-shadow 0.8s ease;
+}
+
+.interior-scene__customizer.is-open {
+  transform: translateX(0);
+  opacity: 1;
 }
 
 .interior-scene__customizer:hover {
@@ -1445,6 +1461,7 @@
     border-left: 1px solid rgba(184, 154, 66, 0.2);
     box-shadow: -10px 0 30px rgba(0,0,0,0.15);
   }
+
   .theme-night .interior-scene__customizer {
     border-left-color: rgba(74, 123, 181, 0.25);
   }
@@ -1513,49 +1530,41 @@
   }
 }
 
-/* ─── CUSTOMIZER SLIDE ANIMATION & TOGGLE BUTTON ─── */
-.interior-scene__customizer {
-  transform: translateX(120%);
-  opacity: 0;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease, background 0.8s ease, border-color 0.8s ease, box-shadow 0.8s ease;
-}
-
-.interior-scene__customizer.is-open {
-  transform: translateX(0);
-  opacity: 1;
-}
+/* Customizer animation removed to avoid duplication */
 
 .interior-scene__toggle-btn {
   position: absolute;
   top: 1.25rem;
   right: 1.25rem;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: rgba(18, 12, 8, 0.68);
-  border: 1px solid rgba(255, 232, 186, 0.18);
+  padding: 0.65rem 1.2rem;
+  border-radius: 999px;
+  background: rgba(18, 12, 8, 0.72);
+  border: 1px solid rgba(255, 232, 186, 0.22);
   color: rgba(255, 247, 232, 0.96);
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
   cursor: pointer;
   pointer-events: auto;
   z-index: 12;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   transition: all var(--transition);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 .interior-scene__toggle-btn:hover {
   background: rgba(18, 12, 8, 0.85);
   border-color: rgba(255, 232, 186, 0.35);
-  transform: scale(1.08);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
 }
 
 .theme-night .interior-scene__toggle-btn {
-  background: rgba(20, 25, 40, 0.72);
-  border-color: rgba(74, 123, 181, 0.22);
+  background: rgba(20, 25, 40, 0.76);
+  border-color: rgba(74, 123, 181, 0.35);
 }
 
 .theme-night .interior-scene__toggle-btn:hover {
