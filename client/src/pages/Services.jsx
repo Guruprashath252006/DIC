@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Layers3, Hammer, Sparkles, ChefHat, MessagesSquare } from 'lucide-react'
+import { Layers3, Hammer, Sparkles, ChefHat, MessagesSquare, ArrowRight, Check } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import './Services.css'
+
+import signaturesImg from '../assets/portfolio/luxury-3bhk-velachery.webp'
+import renovationImg from '../assets/portfolio/heritage-home-mylapore.webp'
+import stylingImg from '../assets/portfolio/boutique-cafe-nungambakkam.webp'
+import kitchenImg from '../assets/portfolio/modular-kitchen-adyar.webp'
+import consultationImg from '../assets/portfolio/tech-office-sholinganallur.webp'
 
 const SERVICES = [
   {
@@ -18,7 +24,8 @@ const SERVICES = [
       'Furniture, lighting, and storage integration',
       'Client-ready detailing for families and teams',
       'Execution support from concept to handover'
-    ]
+    ],
+    image: signaturesImg
   },
   {
     id: 'renovation',
@@ -33,7 +40,8 @@ const SERVICES = [
       'Wall treatments and painting',
       'Before and after documentation',
       'Project timeline management'
-    ]
+    ],
+    image: renovationImg
   },
   {
     id: 'styling',
@@ -48,7 +56,8 @@ const SERVICES = [
       'Plant and greenery styling',
       'Photography preparation',
       'Seasonal refresh packages'
-    ]
+    ],
+    image: stylingImg
   },
   {
     id: 'modular',
@@ -63,7 +72,8 @@ const SERVICES = [
       'Countertop and backsplash design',
       'Appliance integration',
       'Custom cabinetry'
-    ]
+    ],
+    image: kitchenImg
   },
   {
     id: 'consultation',
@@ -78,7 +88,8 @@ const SERVICES = [
       'Budget planning guidance',
       'Contractor recommendations',
       'Virtual walkthroughs'
-    ]
+    ],
+    image: consultationImg
   }
 ]
 
@@ -92,48 +103,50 @@ const PROCESS = [
 
 export default function Services() {
   const [active, setActive] = useState('signature-interiors')
-  const activeService = SERVICES.find((service) => service.id === active)
+  const activeService = SERVICES.find((s) => s.id === active)
   const ActiveIcon = activeService?.icon
 
   return (
-    <main>
-      <section className="page-hero">
-        <div className="container">
+    <main className="services-page">
+
+      {/* PAGE HERO — same content as before, new class names */}
+      <section className="svc-page-hero">
+        <div className="svc-container">
           <AnimatedSection>
-            <p className="overline">What We Offer</p>
-            <h1 className="heading-1 page-hero-heading">
+            <p className="svc-eyebrow">What We Offer</p>
+            <h1 className="svc-hero-heading">
               End-to-End Interior
               <br />
-              <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Project Services</em>
+              <em>Project Services</em>
             </h1>
-            <p className="lead page-hero-lead">
+            <p className="svc-hero-lead">
               One complete project flow for personal spaces, professional environments, and everything in between.
             </p>
           </AnimatedSection>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
+      {/* SERVICES OVERVIEW — same layout: left tabs, right detail panel */}
+      <section className="svc-section">
+        <div className="svc-container">
           <AnimatedSection>
-            <div className="section-label"><span className="overline">Services Overview</span></div>
-            <h2 className="heading-1" style={{ marginBottom: '3rem' }}>Our Expertise</h2>
+            <p className="svc-eyebrow">Services Overview</p>
+            <h2 className="svc-heading-2" style={{ marginBottom: '3rem' }}>Our Expertise</h2>
           </AnimatedSection>
 
-          <div className="services-overview">
-            <div className="services-tabs">
+          <div className="svc-overview">
+            <div className="svc-tabs">
               {SERVICES.map((service) => {
                 const Icon = service.icon
-
                 return (
                   <button
                     key={service.id}
                     id={`service-tab-${service.id}`}
-                    className={`services-tab${active === service.id ? ' active' : ''}`}
+                    className={`svc-tab${active === service.id ? ' svc-tab--active' : ''}`}
                     onClick={() => setActive(service.id)}
                   >
-                    <span className="services-tab__icon">
-                      <Icon size={18} strokeWidth={1.8} />
+                    <span className="svc-tab__icon">
+                      <Icon size={17} strokeWidth={1.8} />
                     </span>
                     <span>{service.title}</span>
                   </button>
@@ -142,67 +155,84 @@ export default function Services() {
             </div>
 
             {activeService && ActiveIcon && (
-              <div className="services-detail">
-                <div className="services-detail__header">
-                  <span className="services-tab__icon services-detail__icon">
-                    <ActiveIcon size={28} strokeWidth={1.8} />
-                  </span>
-                  <div>
-                    <span className="overline">{activeService.tagline}</span>
-                    <h2 className="heading-2" style={{ marginTop: '0.5rem' }}>{activeService.title}</h2>
-                  </div>
+              <div className="svc-detail" key={activeService.id}>
+                <div className="svc-detail__img-wrap">
+                  <img src={activeService.image} alt={activeService.title} className="svc-detail__img" />
                 </div>
 
-                <p className="lead services-detail__desc">{activeService.desc}</p>
+                <div className="svc-detail__body">
+                  <div className="svc-detail__header">
+                    <span className="svc-detail__icon-wrap">
+                      <ActiveIcon size={22} strokeWidth={1.6} />
+                    </span>
+                    <div>
+                      <p className="svc-eyebrow" style={{ marginBottom: '0.25rem' }}>{activeService.tagline}</p>
+                      <h2 className="svc-detail__title">{activeService.title}</h2>
+                    </div>
+                  </div>
 
-                <ul className="services-detail__features">
-                  {activeService.features.map((feature) => (
-                    <li key={feature}>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                        <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+                  <p className="svc-detail__desc">{activeService.desc}</p>
 
-                <Link to="/contact" className="btn btn-primary" id={`service-cta-${activeService.id}`}>
-                  Plan Your {activeService.title}
-                </Link>
+                  <ul className="svc-detail__features">
+                    {activeService.features.map((feat) => (
+                      <li key={feat} className="svc-detail__feature-item">
+                        <Check size={14} strokeWidth={2.5} className="svc-detail__check" />
+                        {feat}
+                      </li>
+                    ))}
+                  </ul>
+
+                  <Link
+                    to="/contact"
+                    className="svc-btn-accent"
+                    id={`service-cta-${activeService.id}`}
+                  >
+                    Plan Your {activeService.title}
+                    <ArrowRight size={15} />
+                  </Link>
+                </div>
               </div>
             )}
           </div>
         </div>
       </section>
 
-      <section className="section section-brown">
-        <div className="container">
+      {/* PROCESS — same 5 steps */}
+      <section className="svc-section svc-process-section">
+        <div className="svc-container">
           <AnimatedSection>
-            <div className="section-label"><span className="overline">How We Work</span></div>
-            <h2 className="heading-1" style={{ marginBottom: '3rem' }}>Our Design Process</h2>
+            <p className="svc-eyebrow">How We Work</p>
+            <h2 className="svc-heading-2" style={{ marginBottom: '3rem' }}>Our Design Process</h2>
           </AnimatedSection>
 
-          <div className="services-process">
+          <div className="svc-process">
             {PROCESS.map((item, index) => (
-              <AnimatedSection key={item.step} delay={(index % 3) + 1} className="process-step">
-                <div className="process-step__num">{item.step}</div>
-                <h3 className="process-step__title">{item.title}</h3>
-                <p className="process-step__desc body-sm">{item.desc}</p>
-                {index < PROCESS.length - 1 && <div className="process-step__arrow">{'->'}</div>}
+              <AnimatedSection key={item.step} delay={(index % 3) + 1} className="svc-process-step">
+                <div className="svc-process-step__num">{item.step}</div>
+                <div className="svc-process-step__divider" />
+                <h3 className="svc-process-step__title">{item.title}</h3>
+                <p className="svc-process-step__desc">{item.desc}</p>
               </AnimatedSection>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="section--sm section-brown">
-        <div className="container" style={{ textAlign: 'center' }}>
+      {/* CTA — same content */}
+      <section className="svc-cta-section">
+        <div className="svc-cta-inner">
           <AnimatedSection>
-            <h2 className="heading-1" style={{ marginBottom: '1rem' }}>Start Your Project Today</h2>
-            <p className="lead" style={{ marginBottom: '2rem' }}>Free consultation for homeowners, founders, teams, and developers who want a clearer design direction.</p>
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Link to="/contact" className="btn btn-primary" id="services-contact-cta">Book Free Consultation</Link>
-              <Link to="/portfolio" className="btn btn-outline" id="services-portfolio-link">See Our Portfolio</Link>
+            <h2 className="svc-cta__heading">Start Your Project Today</h2>
+            <p className="svc-cta__sub">
+              Free consultation for homeowners, founders, teams, and developers who want a clearer design direction.
+            </p>
+            <div className="svc-cta__actions">
+              <Link to="/contact" className="svc-btn-primary" id="services-contact-cta">
+                Book Free Consultation
+              </Link>
+              <Link to="/portfolio" className="svc-btn-outline-dark" id="services-portfolio-link">
+                See Our Portfolio
+              </Link>
             </div>
           </AnimatedSection>
         </div>

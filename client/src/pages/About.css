@@ -1,213 +1,581 @@
 /* =====================================================
-   ABOUT PAGE
+   ABOUT PAGE — cream / gold / dark editorial theme
+   (restyled to match client reference design)
    ===================================================== */
-.about-hero__heading {
-  margin: 1rem 0 1.5rem;
+
+.about-page {
+  --a-cream:        #F6EFE2;
+  --a-cream-soft:   #FBF6EB;
+  --a-cream-deep:   #EFE4D0;
+  --a-ink:          #2A2016;
+  --a-ink-soft:     #756753;
+  --a-ink-faint:    #9C8E78;
+  --a-gold:         #B9925A;
+  --a-gold-deep:    #8C6B3E;
+  --a-line:         rgba(185, 146, 90, 0.28);
+  --a-dark:         #0D0906;
+  --a-dark-alt:     #17110A;
+  --a-cream-on-dark:#F1E6D3;
+  --a-muted-on-dark:#B7A88E;
+  --a-radius-lg:    28px;
+  --a-radius-md:    22px;
+  --a-serif:        var(--font-display, 'Playfair Display', 'Cormorant Garamond', serif);
+
+  background: var(--a-cream);
+  color: var(--a-ink);
+  /* Prevents the 100vw full-bleed sections below (.roadmap-section,
+     .a-cta-section) from ever creating a horizontal scrollbar / gap
+     that exposes the cream page background at the edge. */
+  overflow-x: hidden;
 }
 
-.about-hero__lead {
-  max-width: 60ch;
-  margin-inline: auto;
+.about-page section {
+  background: transparent;
 }
 
-.about-hero {
+.about-page .overline {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--a-gold-deep);
+  margin-bottom: 0.75rem;
+}
+
+.about-page .heading-1,
+.about-page .heading-2,
+.about-page .heading-3 {
+  font-family: var(--a-serif);
+  letter-spacing: -0.01em;
+  /* color intentionally NOT set here — it inherits var(--a-ink) from
+     .about-page by default (light sections), and dark sections override
+     it explicitly via their own selector (e.g. .roadmap-section__title,
+     .a-cta-section .heading-1). Setting it here previously beat those
+     overrides on specificity and made dark-section headings invisible. */
+}
+
+.about-page em {
+  font-style: italic;
+  color: var(--a-gold-deep) !important;
+}
+
+/* brighter, richer gold for accent words sitting on dark backgrounds —
+   the muted --a-gold-deep reads flat/dull against near-black */
+.roadmap-section em,
+.a-cta-section em,
+.a-process-card em {
+  color: var(--a-gold) !important;
+  text-shadow: 0 2px 18px rgba(185, 146, 90, 0.35);
+}
+
+/* small gold underline accent used beneath key headings, like the reference */
+.a-underline {
+  display: block;
+  width: 46px;
+  height: 2px;
+  margin-top: 1.1rem;
+  margin-bottom: 1.5rem;
+  background: var(--a-gold);
+  border-radius: 2px;
+}
+
+.roadmap-section .a-underline,
+.a-cta-section .a-underline {
+  background: var(--a-gold);
+  box-shadow: 0 0 10px rgba(185, 146, 90, 0.5);
+}
+
+/* ---------- decorative leaf / branch motif ---------- */
+.a-leaf {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+  color: var(--a-gold-deep);
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+.a-leaf--top-right {
+  top: -2rem;
+  right: 6%;
+  width: 150px;
+  opacity: 0.6;
+}
+
+.a-leaf--bottom-right {
+  bottom: -1.5rem;
+  right: 4%;
+  width: 130px;
+  opacity: 0.85;
+}
+
+.a-leaf--cta {
+  bottom: -1rem;
+  left: 4%;
+  width: 120px;
+  opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+  .a-leaf { width: 90px !important; opacity: 0.45 !important; }
+}
+
+/* ============ HERO ============ */
+.a-hero {
+  position: relative;
+  padding-top: 2.5rem;
+  overflow: hidden;
+}
+
+.a-hero__grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 1fr 1.05fr;
   gap: 3.5rem;
   align-items: center;
 }
 
-.about-hero__content {
-  text-align: left;
+.a-hero__content { text-align: left; position: relative; }
+
+.a-hero__heading {
+  margin: 1rem 0 1.5rem;
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1.08;
 }
 
-.about-hero__lead {
-  margin-inline: 0;
+.a-hero__lead {
+  max-width: 46ch;
+  color: var(--a-ink-soft);
+  font-size: 1.08rem;
+  line-height: 1.7;
 }
 
-.about-hero__visuals {
+.a-hero__visuals {
   position: relative;
-  min-height: 520px;
+  min-height: 460px;
 }
 
-.about-hero__frame {
+.a-hero__frame {
   position: absolute;
   overflow: hidden;
-  border-radius: 22px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.08);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+  border-radius: var(--a-radius-lg);
+  border: 1px solid rgba(185, 146, 90, 0.25);
+  background: var(--a-cream-soft);
+  box-shadow: 0 24px 50px rgba(42, 32, 22, 0.16);
 }
 
-.about-hero__frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.a-hero__frame img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.a-hero__frame--primary { inset: 0 14% 12% 0; }
+.a-hero__frame--secondary { right: 0; top: 4%; width: 40%; height: 36%; }
+.a-hero__frame--accent { right: 6%; bottom: 0; width: 32%; height: 26%; }
+
+.a-hero__caption {
+  position: absolute;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.9rem 1.05rem;
+  border-radius: 16px;
+  background: rgba(23, 17, 10, 0.68);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
 }
 
-.about-hero__frame--primary {
-  inset: 0 16% 10% 0;
+.a-hero__caption span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(241, 224, 190, 0.85);
 }
 
-.about-hero__frame--secondary {
-  right: 0;
-  top: 6%;
-  width: 38%;
-  height: 38%;
+.a-hero__caption strong {
+  font-family: var(--a-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
 }
 
-.about-hero__frame--accent {
+/* floating stat cluster — real glassmorphism: translucent + blurred */
+.a-hero__stats {
+  position: absolute;
+  left: -2rem;
+  bottom: -1.75rem;
+  display: flex;
+  gap: 0.9rem;
+  background: rgba(251, 246, 235, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  padding: 1.1rem 1.3rem;
+  box-shadow: 0 20px 44px rgba(42, 32, 22, 0.18);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  z-index: 2;
+}
+
+.a-hero__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: 0.9rem;
+  border-right: 1px solid var(--a-line);
+}
+
+.a-hero__stat:last-child { border-right: none; padding-right: 0; }
+
+.a-hero__stat-icon {
+  color: var(--a-gold-deep);
+  margin-bottom: 0.35rem;
+}
+
+.a-hero__stat-num {
+  font-family: var(--a-serif);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--a-ink);
+  line-height: 1;
+}
+
+.a-hero__stat-label {
+  font-size: 0.66rem;
+  color: var(--a-ink-soft);
+  letter-spacing: 0.02em;
+  margin-top: 0.15rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .a-hero__grid { grid-template-columns: 1fr; }
+  .a-hero__content { text-align: center; }
+  .a-hero__lead { margin-inline: auto; }
+  .a-hero__stats { left: 50%; transform: translateX(-50%); bottom: -2.25rem; }
+}
+
+@media (max-width: 560px) {
+  .a-hero__stats { flex-wrap: wrap; justify-content: center; row-gap: 0.6rem; }
+  .a-hero__stat { border-right: none; padding-right: 0; }
+}
+
+/* ============ AESTHETICS / MISSION & VISION ============ */
+.a-aesthetics {
+  position: relative;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* soft blurred colour blobs so the glass cards have something visible to refract */
+.a-aesthetics::before,
+.a-aesthetics::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+.a-aesthetics::before {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(185, 146, 90, 0.28), transparent 70%);
+  top: -10%;
+  right: -6%;
+}
+
+.a-aesthetics::after {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(185, 146, 90, 0.22), transparent 70%);
+  bottom: -12%;
+  left: 4%;
+}
+
+.a-aesthetics__grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.92fr 1.08fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.a-aesthetics__visual {
+  position: relative;
+  min-height: 380px;
+}
+
+.a-aesthetics__img {
+  position: absolute;
+  overflow: hidden;
+  border-radius: var(--a-radius-lg);
+  border: 1px solid var(--a-line);
+  box-shadow: 0 20px 44px rgba(42, 32, 22, 0.14);
+}
+
+.a-aesthetics__img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.a-aesthetics__img--main { inset: 0 12% 0 0; }
+.a-aesthetics__img--sub  { left: 0; bottom: -8%; width: 46%; height: 42%; border: 4px solid var(--a-cream); }
+
+.a-aesthetics__ring {
+  position: absolute;
+  top: 40%;
   right: 4%;
-  bottom: 0;
-  width: 34%;
-  height: 28%;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: rgba(251, 246, 235, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: grid;
+  place-items: center;
+  text-align: center;
+  box-shadow: 0 14px 30px rgba(42, 32, 22, 0.14);
+  color: var(--a-ink);
+  padding: 0.75rem;
 }
 
-.about-hero__caption {
+.a-aesthetics__ring span {
+  font-family: var(--a-serif);
+  font-style: italic;
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+/* decorative arc behind the copy, echoing the reference's abstract swoosh */
+.a-aesthetics__arc {
+  position: absolute;
+  top: -6%;
+  right: -8%;
+  width: 60%;
+  height: 140%;
+  color: rgba(185, 146, 90, 0.18);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.a-aesthetics__copy { position: relative; z-index: 1; }
+.a-aesthetics__copy .heading-1 { margin-bottom: 1rem; }
+
+.a-aesthetics__lead {
+  color: var(--a-ink-soft);
+  line-height: 1.7;
+  max-width: 54ch;
+}
+
+.a-aesthetics__checklist {
+  list-style: none;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.a-aesthetics__checklist li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.95rem;
+  color: var(--a-ink);
+}
+
+.a-aesthetics__check {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(185, 146, 90, 0.14);
+  color: var(--a-gold-deep);
+}
+
+/* Mission & Vision — real glassmorphism */
+.about-mv {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 3.5rem;
+}
+
+.about-mv__card {
+  padding: 2.25rem;
+  border-radius: var(--a-radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  background: rgba(251, 246, 235, 0.5) !important;
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: 0 18px 40px rgba(42, 32, 22, 0.1);
+}
+
+.about-mv__card .overline { display: block; margin-bottom: 0.9rem; }
+
+.about-mv__card .heading-2 {
+  font-size: 1.35rem;
+  line-height: 1.4;
+}
+
+.about-mv__text {
+  color: var(--a-ink-soft);
+  line-height: 1.7;
+  margin-top: 0.6rem;
+}
+
+/* dried-flower vase — given its own reserved grid column (see the
+   min-width:1300px rule below) so it can NEVER overlap the Mission/Vision
+   card text: the grid track is empty space set aside specifically for it,
+   not a guess at pixel offsets. Hidden below that breakpoint, where there
+   isn't a spare column's worth of room to give it. */
+.a-story-vase {
+  display: none;
+  align-self: end;
+  width: 100%;
+  max-width: 150px;
+  height: auto;
+  filter: drop-shadow(0 18px 26px rgba(42, 32, 22, 0.22));
+  pointer-events: none;
+}
+
+@media (min-width: 1300px) {
+  .about-mv {
+    grid-template-columns: 170px 1fr 1fr;
+    align-items: end;
+  }
+  .a-story-vase { display: block; }
+}
+
+@media (max-width: 900px) {
+  .a-aesthetics__grid { grid-template-columns: 1fr; }
+  .a-aesthetics__visual { min-height: 320px; margin-bottom: 2.5rem; }
+  .about-mv { grid-template-columns: 1fr; }
+}
+
+/* ============ VALUES ============ */
+.a-values-section {
+  position: relative;
+  padding-top: 4rem;
+  padding-bottom: 5rem;
+  background: var(--a-cream-deep);
+}
+
+.a-values__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.a-values__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 1.75rem;
+  margin-top: 2rem;
+}
+
+.about-value-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+  padding: 0;
+}
+
+.about-value-card__icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  background: rgba(185, 146, 90, 0.16);
+  color: var(--a-gold-deep);
+  margin-bottom: 0;
+}
+
+.about-value-card .heading-3 {
+  font-size: 1.02rem;
+  margin-bottom: 0.3rem;
+}
+
+.about-value-card__desc {
+  color: var(--a-ink-soft);
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.a-values__visual {
+  position: relative;
+  border-radius: var(--a-radius-lg);
+  overflow: hidden;
+  min-height: 360px;
+  border: 1px solid var(--a-line);
+  box-shadow: 0 20px 44px rgba(42, 32, 22, 0.14);
+}
+
+.a-values__visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.a-values__quote {
   position: absolute;
   left: 1.25rem;
   right: 1.25rem;
   bottom: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  padding: 1rem 1.1rem;
+  padding: 1.1rem 1.25rem;
   border-radius: 16px;
-  background: rgba(18, 12, 8, 0.62);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  color: white;
+  background: rgba(246, 239, 226, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
 }
 
-.about-hero__caption span {
+.a-values__quote p {
+  font-family: var(--a-serif);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--a-ink);
+  margin-bottom: 0.4rem;
+}
+
+.a-values__quote span {
   font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255, 236, 192, 0.88);
+  color: var(--a-gold-deep);
+  font-weight: 700;
 }
 
-.about-hero__caption strong {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 600;
+@media (max-width: 900px) {
+  .a-values__grid { grid-template-columns: 1fr; }
+  .a-values__list { grid-template-columns: 1fr; }
+  .a-values__visual { min-height: 300px; order: -1; }
 }
 
-/* Mission & Vision */
-.about-mv {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
-}
-
-.about-mv__card {
-  padding: 2.5rem;
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(184, 154, 66, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.about-mv__card .overline { display: block; margin-bottom: 1rem; }
-
-.about-mv__text {
-  color: var(--text-muted);
-  line-height: 1.7;
-  margin-top: 0.5rem;
-}
-
-.about-mv__card--mission {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%) !important;
-}
-
-.about-mv__card--vision {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%) !important;
-}
-
-.about-gallery-section {
-  padding-top: 1rem;
-}
-
-.about-gallery {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 2rem;
-  align-items: center;
-}
-
-.about-gallery__copy .heading-1 {
-  margin-bottom: 1rem;
-}
-
-.about-gallery__grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 1rem;
-}
-
-.about-gallery__card {
+/* ============ JOURNEY — full-bleed dark band (stats + timeline) ============ */
+.about-page .roadmap-section {
   position: relative;
-  min-height: 240px;
   overflow: hidden;
-  border-radius: 20px;
-  border: 1px solid rgba(184, 154, 66, 0.16);
-  box-shadow: 0 20px 48px rgba(39, 23, 9, 0.1);
-}
-
-.about-gallery__card img {
+  background: var(--a-dark) !important;
+  /* Full-bleed breakout: width:100% + negative margins computed from vw is
+     more resilient to scrollbar-width mismatches than width:100vw directly.
+     Combined with `overflow-x: hidden` on .about-page above, this should
+     always paint edge-to-edge. If it's still clipped to container width,
+     an ANCESTOR of .about-page (layout wrapper, <main>, <body>) has
+     `overflow: hidden` or a max-width that's cutting off this breakout —
+     that has to be fixed in that outer file, not here. */
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.about-gallery__card--tall {
-  grid-row: span 2;
-  min-height: 100%;
-}
-
-.about-gallery__overlay {
-  position: absolute;
-  inset: auto 0 0 0;
-  padding: 1.25rem;
-  background: linear-gradient(180deg, transparent, rgba(12, 8, 5, 0.82));
-  color: white;
-}
-
-.about-gallery__overlay .badge {
-  margin-bottom: 0.7rem;
-}
-
-.about-gallery__overlay h3 {
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-/* Values */
-.about-values.grid-3 { gap: 1.25rem; }
-
-.about-value-card {
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.about-value-card__icon {
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-}
-
-.about-value-card__desc {
-  line-height: 1.65;
-}
-
-.roadmap-section {
-  position: relative;
-  overflow: hidden;
-  background: transparent;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
 }
 
 .roadmap-section::before {
@@ -215,35 +583,381 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(184, 154, 66, 0.025) 1px, transparent 1px),
-    linear-gradient(180deg, rgba(184, 154, 66, 0.025) 1px, transparent 1px);
+    linear-gradient(90deg, rgba(185, 146, 90, 0.05) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(185, 146, 90, 0.05) 1px, transparent 1px);
   background-size: 52px 52px;
-  opacity: 0.4;
+  opacity: 0.5;
   pointer-events: none;
 }
 
-.roadmap-section .section-label,
+.roadmap-section::after {
+  content: '';
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  right: -10%;
+  top: 10%;
+  background: radial-gradient(circle, rgba(185, 146, 90, 0.16), transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+}
+
+.a-journey-dots {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.a-journey-dots--top {
+  top: -1rem;
+  left: 0;
+  width: 68%;
+  height: 92%;
+  opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .a-journey-dots--top { opacity: 0.55; }
+}
+
+/* ambient room photo bleeding in on the right, like the reference */
+.a-journey-ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.a-journey-ambient img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 52%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  filter: saturate(1.15) brightness(0.7) contrast(1.08);
+}
+
+.a-journey-ambient__fade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, var(--a-dark) 0%, var(--a-dark) 32%, rgba(35, 22, 10, 0.72) 52%, rgba(35, 22, 10, 0.3) 75%, rgba(20, 13, 7, 0.15) 100%),
+    linear-gradient(180deg, var(--a-dark) 0%, transparent 16%, transparent 80%, var(--a-dark) 100%);
+}
+
+/* warm gold color-cast directly on the photo, like a light spilling across it */
+.a-journey-ambient::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 72% 42%, rgba(230, 175, 100, 0.3), transparent 55%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.a-journey-ambient__glow {
+  position: absolute;
+  width: 460px;
+  height: 460px;
+  right: 4%;
+  top: 4%;
+  background: radial-gradient(circle, rgba(230, 175, 100, 0.42), transparent 70%);
+  filter: blur(55px);
+  mix-blend-mode: screen;
+}
+
+/* second, lower glow pooling near the base of the photo for extra warmth */
+.a-journey-ambient__glow--low {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  right: 10%;
+  bottom: 6%;
+  background: radial-gradient(circle, rgba(200, 140, 70, 0.3), transparent 70%);
+  filter: blur(50px);
+  mix-blend-mode: screen;
+}
+
+/* Small gold-framed photo, top-left of the dark band — mirrors the larger
+   ambient photo bleeding in on the right, per the reference design. */
+.a-journey-frame {
+  position: absolute;
+  top: 3rem;
+  left: 3rem;
+  z-index: 2;
+  width: 190px;
+  height: 140px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 2px solid var(--a-gold);
+  box-shadow:
+    0 20px 44px rgba(0, 0, 0, 0.5),
+    0 0 26px rgba(185, 146, 90, 0.25);
+  pointer-events: none;
+}
+
+.a-journey-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.1) brightness(0.9);
+}
+
+@media (max-width: 900px) {
+  .a-journey-frame {
+    width: 130px;
+    height: 100px;
+    top: 1.5rem;
+    left: 1.5rem;
+    opacity: 0.85;
+  }
+}
+
+@media (max-width: 560px) {
+  /* avoid clutter once the stats/heading stack full-width on small screens */
+  .a-journey-frame { display: none; }
+}
+
+.roadmap-section__inner {
+  position: relative;
+  z-index: 1;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  /* Redundant solid black, independent of the parent's full-bleed breakout.
+     Guarantees the milestone/roadmap text always sits on black even if the
+     100vw trick on .roadmap-section is clipped by something further up
+     the tree. */
+  background: var(--a-dark);
+}
+
+.roadmap-section .section-label .overline,
 .roadmap-section .overline {
-  color: var(--accent);
+  color: var(--a-gold);
 }
 
 .roadmap-section__title {
   margin-bottom: 1rem;
-  color: var(--text-primary);
+  color: var(--a-cream-on-dark) !important;
 }
 
 .roadmap-section__lead {
   margin-bottom: 4rem;
   max-width: 640px;
-  color: var(--text-secondary);
+  color: var(--a-muted-on-dark) !important;
 }
 
-/* Timeline / Roadmap */
+/* Numbers — minimal inline row: heading beside stats, thin dividers, no boxes */
+.a-journey-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.a-journey-heading { flex: 1 1 320px; max-width: 480px; }
+.a-journey-heading .roadmap-section__title { margin-bottom: 0; }
+
+.a-journey-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  flex: 1 1 420px;
+  justify-content: flex-end;
+}
+
+.a-journey-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0 1.6rem;
+  border-left: 1px solid rgba(241, 224, 190, 0.16);
+}
+
+.a-journey-stat:first-child { border-left: none; padding-left: 0; }
+
+.a-journey-stat__icon {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--a-gold);
+  border: 1px solid rgba(185, 146, 90, 0.35);
+  background: rgba(185, 146, 90, 0.08);
+}
+
+.a-journey-stat__num {
+  font-family: var(--a-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--a-cream-on-dark);
+  line-height: 1;
+}
+
+.a-journey-stat__label {
+  font-size: 0.72rem;
+  color: var(--a-muted-on-dark);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .a-journey-row { flex-direction: column; align-items: flex-start; }
+  .a-journey-stats { justify-content: flex-start; width: 100%; }
+}
+
+@media (max-width: 560px) {
+  .a-journey-stats { flex-wrap: wrap; row-gap: 1.5rem; }
+  .a-journey-stat { flex: 1 1 45%; border-left: none; padding: 0; }
+}
+
+/* Process — royal gold-bordered glass cards with a glowing connector line */
+.a-process-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2.5rem;
+  margin-top: 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.a-process-heading { flex: 1 1 280px; max-width: 380px; }
+.a-process-lead { margin-bottom: 0; color: var(--a-muted-on-dark); }
+
+.a-process-cards {
+  position: relative;
+  flex: 2 1 560px;
+  display: flex;
+  gap: 1.6rem;
+  padding-top: 1.75rem;
+}
+
+/* warm light pooling beneath the card row, like the reference */
+.a-process-cards::after {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  bottom: -30px;
+  height: 100px;
+  background: radial-gradient(ellipse, rgba(185, 146, 90, 0.28), transparent 72%);
+  filter: blur(28px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.a-process-connector {
+  position: absolute;
+  top: -0.5rem;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  color: rgba(185, 146, 90, 0.5);
+  pointer-events: none;
+}
+
+.a-process-card {
+  position: relative;
+  flex: 1 1 0;
+  padding: 1.75rem 1.4rem 1.5rem;
+  border-radius: 20px;
+  text-align: left;
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.045) 100%);
+  border: 1px solid rgba(185, 146, 90, 0.6);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  box-shadow:
+    0 22px 46px rgba(0, 0, 0, 0.55),
+    0 0 38px rgba(185, 146, 90, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.a-process-card:nth-child(2) { transform: translateY(10px); }
+.a-process-card:nth-child(3) { transform: translateY(-16px); }
+.a-process-card:nth-child(4) { transform: translateY(2px); }
+
+.a-process-card:hover {
+  transform: translateY(-12px) scale(1.03);
+  border-color: var(--a-gold);
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 100%);
+  box-shadow:
+    0 32px 60px rgba(0, 0, 0, 0.5),
+    0 0 50px rgba(185, 146, 90, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  z-index: 2;
+}
+
+.a-process-card__dot {
+  position: absolute;
+  top: -1.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--a-gold);
+  box-shadow: 0 0 12px rgba(185, 146, 90, 0.7), 0 0 24px rgba(185, 146, 90, 0.35);
+}
+
+.a-process-card__num {
+  display: block;
+  font-family: var(--a-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--a-cream-on-dark);
+  line-height: 1;
+  margin-bottom: 0.6rem;
+}
+
+.a-process-card__title {
+  font-family: var(--a-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--a-cream-on-dark);
+  margin: 0 0 0.4rem;
+}
+
+.a-process-card__desc {
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--a-muted-on-dark);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .a-process-row { flex-direction: column; margin-top: 3.5rem; }
+  .a-process-cards { flex-wrap: wrap; }
+  .a-process-card { flex: 1 1 45%; }
+  .a-process-card:nth-child(2),
+  .a-process-card:nth-child(3),
+  .a-process-card:nth-child(4) { transform: none; }
+}
+
+@media (max-width: 560px) {
+  .a-process-cards { flex-direction: column; }
+  .a-process-connector { display: none; }
+}
+
 .roadmap {
   position: relative;
   max-width: 1200px;
   margin: 0 auto;
   padding: 3rem 0;
+  /* Extra safety layer: solid black directly behind the milestone cards,
+     so this area can never show through to a lighter background. */
+  background: var(--a-dark);
+  border-radius: var(--a-radius-lg);
 }
 
 .roadmap__line {
@@ -252,11 +966,11 @@
   top: 0;
   bottom: 0;
   width: 2px;
-  background: linear-gradient(180deg, 
-    rgba(184, 154, 66, 0) 0%, 
-    rgba(184, 154, 66, 0.45) 8%, 
-    rgba(184, 154, 66, 0.45) 92%, 
-    rgba(184, 154, 66, 0) 100%
+  background: linear-gradient(180deg,
+    rgba(185, 146, 90, 0) 0%,
+    rgba(185, 146, 90, 0.45) 8%,
+    rgba(185, 146, 90, 0.45) 92%,
+    rgba(185, 146, 90, 0) 100%
   );
   transform: translateX(-50%);
   z-index: 1;
@@ -270,21 +984,9 @@
   z-index: 2;
 }
 
-.roadmap__item {
-  position: relative;
-  display: flex;
-  width: 100%;
-}
-
-.roadmap__item--left {
-  justify-content: flex-start;
-  padding-right: calc(50% + 2.5rem);
-}
-
-.roadmap__item--right {
-  justify-content: flex-end;
-  padding-left: calc(50% + 2.5rem);
-}
+.roadmap__item { position: relative; display: flex; width: 100%; }
+.roadmap__item--left { justify-content: flex-start; padding-right: calc(50% + 2.5rem); }
+.roadmap__item--right { justify-content: flex-end; padding-left: calc(50% + 2.5rem); }
 
 .roadmap__node {
   position: absolute;
@@ -294,14 +996,14 @@
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: var(--bg-primary);
-  border: 2px solid rgba(184, 154, 66, 0.35);
+  background: var(--a-dark);
+  border: 2px solid rgba(185, 146, 90, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 10;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 0 0 4px #0c0a09;
+  box-shadow: 0 0 0 4px var(--a-dark);
 }
 
 .roadmap__node-dot {
@@ -309,37 +1011,34 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--a-gold);
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .roadmap__item:hover .roadmap__node {
-  border-color: var(--accent);
-  box-shadow: 
-    0 0 0 4px #0c0a09,
-    0 0 15px rgba(184, 154, 66, 0.4);
+  border-color: var(--a-gold);
+  box-shadow: 0 0 0 4px var(--a-dark), 0 0 15px rgba(185, 146, 90, 0.4);
 }
 
-.roadmap__item:hover .roadmap__node-dot {
-  transform: scale(1.3);
-  background: #ffffff;
-}
+.roadmap__item:hover .roadmap__node-dot { transform: scale(1.3); background: #ffffff; }
 
+/* glassy roadmap cards — visible frosted-glass over the dark band */
 .roadmap__card {
   position: relative;
   width: 100%;
   max-width: 520px;
-  background: linear-gradient(135deg, rgba(18, 14, 12, 0.88) 0%, rgba(12, 9, 8, 0.94) 100%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  background: rgba(255, 255, 255, 0.07) !important;
+  border: 1px solid rgba(185, 146, 90, 0.5) !important;
   border-radius: 28px;
   padding: 1.8rem;
-  box-shadow: 
-    0 20px 48px rgba(0, 0, 0, 0.45),
+  box-shadow:
+    0 20px 48px rgba(0, 0, 0, 0.5),
+    0 0 26px rgba(185, 146, 90, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
   animation: roadmapCardReveal 0.9s ease both;
 }
 
@@ -354,28 +1053,28 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(184, 154, 66, 0.05), transparent 45%);
-  opacity: 0.8;
+  background: linear-gradient(135deg, rgba(185, 146, 90, 0.08), transparent 45%);
+  opacity: 0.9;
   pointer-events: none;
 }
 
 .roadmap__card:hover {
   transform: translateY(-6px);
-  border-color: rgba(184, 154, 66, 0.45) !important;
+  border-color: rgba(185, 146, 90, 0.4) !important;
   box-shadow:
-    0 28px 56px rgba(0, 0, 0, 0.55),
-    0 0 25px rgba(184, 154, 66, 0.16),
-    inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+    0 28px 56px rgba(0, 0, 0, 0.45),
+    0 0 25px rgba(185, 146, 90, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
 }
 
 .roadmap__watermark {
   position: absolute;
   top: 1.1rem;
   right: 1.25rem;
-  font-family: var(--font-display);
+  font-family: var(--a-serif);
   font-size: 4.5rem;
   line-height: 1;
-  color: rgba(184, 154, 66, 0.06);
+  color: rgba(185, 146, 90, 0.1);
   pointer-events: none;
   font-weight: 800;
   font-style: italic;
@@ -403,23 +1102,18 @@
 }
 
 .roadmap__index {
-  color: #8fb6c9;
-  background: rgba(143, 182, 201, 0.12);
-  border: 1px solid rgba(143, 182, 201, 0.18);
+  color: var(--a-muted-on-dark);
+  background: rgba(241, 224, 190, 0.08);
+  border: 1px solid rgba(241, 224, 190, 0.12);
 }
 
 .roadmap__stage {
-  color: var(--accent-dark);
-  background: rgba(184, 154, 66, 0.1);
-  border: 1px solid rgba(184, 154, 66, 0.14);
+  color: var(--a-gold);
+  background: rgba(185, 146, 90, 0.12);
+  border: 1px solid rgba(185, 146, 90, 0.18);
 }
 
-.roadmap__card-main {
-  display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  margin-bottom: 1.2rem;
-}
+.roadmap__card-main { display: flex; align-items: center; gap: 1.1rem; margin-bottom: 1.2rem; }
 
 .roadmap__badge {
   display: flex;
@@ -428,52 +1122,36 @@
   width: 52px;
   height: 52px;
   border-radius: 18px;
-  background: linear-gradient(135deg, rgba(184, 154, 66, 0.14), rgba(143, 182, 201, 0.16));
-  border: 1px solid rgba(184, 154, 66, 0.14);
-  color: var(--accent-dark);
-  transition: all var(--transition-fast);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  background: linear-gradient(135deg, rgba(185, 146, 90, 0.18), rgba(185, 146, 90, 0.06));
+  border: 1px solid rgba(185, 146, 90, 0.2);
+  color: var(--a-gold);
+  transition: all 0.3s ease;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .roadmap__card:hover .roadmap__badge {
-  background: linear-gradient(135deg, rgba(184, 154, 66, 0.22), rgba(143, 182, 201, 0.22));
-  color: var(--text-primary);
-  border-color: rgba(184, 154, 66, 0.3);
+  background: linear-gradient(135deg, rgba(185, 146, 90, 0.28), rgba(185, 146, 90, 0.12));
+  color: #fff;
+  border-color: rgba(185, 146, 90, 0.4);
   transform: scale(1.05);
 }
 
-.roadmap__headline {
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-}
+.roadmap__headline { display: flex; flex-direction: column; gap: 0.2rem; }
 
 .roadmap__year {
-  font-family: var(--font-display);
+  font-family: var(--a-serif);
   font-size: 2.2rem;
   font-style: italic;
   font-weight: 700;
   letter-spacing: 0.04em;
-  color: var(--accent);
+  color: var(--a-gold);
   line-height: 0.95;
-  text-shadow: 0 10px 24px rgba(184, 154, 66, 0.16);
-  font-variant-numeric: lining-nums;
+  text-shadow: 0 10px 24px rgba(185, 146, 90, 0.2);
 }
 
-.roadmap__title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0;
-  letter-spacing: -0.01em;
-}
+.roadmap__title { font-size: 1.1rem; font-weight: 600; color: var(--a-cream-on-dark); margin: 0; letter-spacing: -0.01em; }
 
-.roadmap__desc {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  margin: 0 0 1.6rem;
-}
+.roadmap__desc { font-size: 0.9rem; color: var(--a-muted-on-dark); line-height: 1.7; margin: 0 0 1.6rem; }
 
 .roadmap__footer {
   display: flex;
@@ -481,7 +1159,7 @@
   justify-content: space-between;
   gap: 1.25rem;
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  border-top: 1px solid rgba(241, 224, 190, 0.1);
 }
 
 .roadmap__meter {
@@ -489,8 +1167,8 @@
   flex: 1;
   height: 6px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  background: rgba(241, 224, 190, 0.1);
+  border: 1px solid rgba(241, 224, 190, 0.05);
   overflow: hidden;
 }
 
@@ -498,10 +1176,8 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #b89a42 0%, #8fb6c9 100%);
-  box-shadow:
-    0 0 12px rgba(184, 154, 66, 0.25),
-    0 0 18px rgba(143, 182, 201, 0.15);
+  background: linear-gradient(90deg, var(--a-gold) 0%, var(--a-gold-deep) 100%);
+  box-shadow: 0 0 12px rgba(185, 146, 90, 0.35);
 }
 
 .roadmap__progress-note {
@@ -509,102 +1185,147 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  color: var(--a-muted-on-dark);
   white-space: nowrap;
 }
 
-/* Founder Section Layout */
+@keyframes roadmapCardReveal {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 900px) {
+  .roadmap-section__inner { padding: 3.5rem 1.25rem; }
+  .roadmap { padding: 2rem 0; }
+  .roadmap__items { gap: 3.5rem; }
+  .a-journey-ambient img { width: 100%; opacity: 0.18; }
+}
+
+@media (max-width: 768px) {
+  .roadmap__line { left: 16px; transform: none; }
+  .roadmap__items { gap: 3rem; }
+  .roadmap__item,
+  .roadmap__item--left,
+  .roadmap__item--right {
+    justify-content: flex-start;
+    padding-left: 3rem;
+    padding-right: 0;
+  }
+  .roadmap__node { left: 16px; top: 3.5rem; }
+  .roadmap__card { max-width: 100%; padding: 1.5rem; }
+  .roadmap__watermark { font-size: 3.8rem; }
+  .roadmap__year { font-size: 1.9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roadmap__card { animation: none; }
+  .a-leaf { transition: none; }
+}
+
+/* ============ FOUNDER ============ */
+.a-founder-section { position: relative; padding-top: 5rem; }
+
+/* Heading + decorative image sit as flex siblings — the image gets its
+   own reserved space to the right, it can never sit on top of the text
+   because flex items lay out side by side, not stacked. */
+.a-founder-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 2.5rem;
+}
+
+.a-founder-top__text { flex: 1 1 auto; min-width: 0; }
+
+.a-founder-decor {
+  position:absolute;
+    right:0;
+    top:0.2px;
+    bottom:40px;      /* pushes it downward */
+    transform:none;
+}
+
+@media (min-width: 1100px) {
+  .a-founder-decor { display: block; }
+}
+
 .about-founder-layout {
   display: grid;
   grid-template-columns: 1.15fr 0.85fr;
   gap: 4rem;
   align-items: center;
   margin-top: 2rem;
+  position: relative;
 }
 
 .about-founder__card {
-  padding: 3.5rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 28px;
-  box-shadow: var(--shadow-card);
+  padding: 3rem;
+  background: var(--a-cream-soft) !important;
+  border: 1px solid var(--a-line) !important;
+  border-radius: var(--a-radius-lg);
+  box-shadow: 0 20px 44px rgba(42, 32, 22, 0.1);
   position: relative;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  transition: var(--transition);
+  transition: all 0.3s ease;
 }
 
 .about-founder__card:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.15) 100%) !important;
-  border-color: rgba(255, 255, 255, 0.45) !important;
+  border-color: var(--a-gold) !important;
   transform: translateY(-4px);
-  box-shadow: 
-    0 0 15px rgba(255, 255, 255, 0.15),
-    0 16px 40px rgba(0, 0, 0, 0.4), 
-    var(--shadow-gold);
+  box-shadow: 0 24px 52px rgba(42, 32, 22, 0.16);
 }
 
 .about-founder__avatar {
-  width: 72px;
-  height: 72px;
-  border-radius: 22px;
-  background: var(--accent-faint);
-  border: 1px solid var(--accent-border);
+  width: 68px;
+  height: 68px;
+  border-radius: 20px;
+  background: rgba(185, 146, 90, 0.14);
+  border: 1px solid var(--a-line);
   display: grid;
   place-items: center;
-  font-family: var(--font-display);
-  font-size: 1.8rem;
+  font-family: var(--a-serif);
+  font-size: 1.7rem;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--a-gold-deep);
 }
 
-.about-founder__meta {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-}
+.about-founder__meta { display: flex; flex-direction: column; gap: 0.35rem; }
 
 .about-founder__name {
-  font-family: var(--font-display);
-  font-size: 2rem;
+  font-family: var(--a-serif);
+  font-size: 1.9rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--a-ink);
   margin: 0;
 }
 
 .about-founder__role {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--a-gold-deep);
 }
 
 .about-founder__bio {
-  font-size: 1.05rem;
-  color: var(--text-secondary);
+  font-size: 1.02rem;
+  color: var(--a-ink-soft);
   line-height: 1.75;
   margin: 0;
 }
 
-/* Right Side: Photo & Quote */
-.about-founder__right {
-  display: flex;
-  flex-direction: column;
-  gap: 2.25rem;
-}
+.about-founder__right { display: flex; flex-direction: column; gap: 2rem; }
 
 .about-founder__image-wrap {
   width: 100%;
   max-width: 320px;
   height: 220px;
-  border-radius: 22px;
+  border-radius: var(--a-radius-md);
   overflow: hidden;
-  border: 1px solid var(--accent-border);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--a-line);
+  box-shadow: 0 16px 36px rgba(42, 32, 22, 0.12);
 }
 
 .about-founder__image-wrap img {
@@ -614,174 +1335,83 @@
   transition: transform 0.8s ease;
 }
 
-.about-founder__image-wrap:hover img {
-  transform: scale(1.05);
-}
+.about-founder__image-wrap:hover img { transform: scale(1.05); }
 
 .about-founder__quote-card {
   position: relative;
-  padding: 2.25rem 2rem;
-  border-left: 4px solid var(--accent);
-  background: rgba(255, 255, 255, 0.02);
-  border-radius: 0 24px 24px 0;
-  box-shadow: inset 1px 0 0 rgba(255, 255, 255, 0.05);
+  padding: 2rem 1.85rem;
+  border-left: 4px solid var(--a-gold);
+  background: var(--a-cream-deep);
+  border-radius: 0 22px 22px 0;
 }
 
 .about-founder__quote-text {
-  font-family: var(--font-display);
+  font-family: var(--a-serif);
   font-style: italic;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   line-height: 1.6;
-  color: var(--text-primary);
-  margin-bottom: 0.85rem;
+  color: var(--a-ink);
+  margin-bottom: 0.8rem;
 }
 
 .about-founder__quote-author {
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--text-muted);
+  color: var(--a-gold-deep);
 }
 
-/* Responsive */
 @media (max-width: 900px) {
-  .about-mv { grid-template-columns: 1fr; }
-  .about-hero {
-    grid-template-columns: 1fr;
-  }
-  .about-hero__content {
-    text-align: center;
-  }
-  .about-hero__lead {
-    margin-inline: auto;
-  }
-  .about-gallery {
-    grid-template-columns: 1fr;
-  }
-  .roadmap {
-    padding: 2rem 0;
-  }
-  .roadmap__items {
-    gap: 3.5rem;
-  }
-  .about-founder-layout {
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
-  }
-  .about-founder__image-wrap {
-    max-width: 100%;
-    height: 280px;
-  }
+  .about-founder-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-founder__image-wrap { max-width: 100%; height: 260px; }
 }
 
 @media (max-width: 768px) {
-  .about-hero__visuals {
-    min-height: 420px;
-  }
-  .about-gallery__grid {
-    grid-template-columns: 1fr;
-  }
-  .about-gallery__card--tall {
-    grid-row: auto;
-    min-height: 320px;
-  }
-  .roadmap__line {
-    left: 16px;
-    transform: none;
-  }
-  .roadmap__items {
-    gap: 3rem;
-  }
-  .roadmap__item {
-    padding-left: 3rem;
-    padding-right: 0;
-  }
-  .roadmap__item--left,
-  .roadmap__item--right {
-    justify-content: flex-start;
-    padding-left: 3rem;
-    padding-right: 0;
-  }
-  .roadmap__node {
-    left: 16px;
-    top: 3.5rem;
-  }
-  .roadmap__card {
-    max-width: 100%;
-    padding: 1.5rem;
-  }
-  .roadmap__watermark {
-    font-size: 3.8rem;
-  }
-  .roadmap__year {
-    font-size: 1.9rem;
-  }
-  .about-founder__card {
-    padding: 2rem;
-  }
-  .about-founder__quote-card {
-    padding: 1.5rem;
-  }
+  .about-founder__card { padding: 2rem; }
+  .about-founder__quote-card { padding: 1.4rem; }
 }
 
-@keyframes roadmapLineGlow {
-  0%, 100% {
-    opacity: 0.72;
-    filter: blur(6px);
-  }
-  50% {
-    opacity: 1;
-    filter: blur(10px);
-  }
+/* ============ CTA — full-bleed dark band ============ */
+.about-page .a-cta-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--a-dark) !important;
+  /* Same resilient full-bleed technique as .roadmap-section above. */
+  width: 100%;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  margin-top: 5rem;
+  padding: 4.5rem 1.5rem;
 }
 
-@keyframes roadmapPulse {
-  0%, 100% {
-    transform: scale(1);
-    box-shadow:
-      0 0 0 5px rgba(184, 154, 66, 0.08),
-      0 0 18px rgba(184, 154, 66, 0.22),
-      0 0 30px rgba(143, 182, 201, 0.14);
-  }
-  50% {
-    transform: scale(1.14);
-    box-shadow:
-      0 0 0 8px rgba(184, 154, 66, 0.05),
-      0 0 24px rgba(184, 154, 66, 0.3),
-      0 0 36px rgba(143, 182, 201, 0.2);
-  }
+.a-cta-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(185, 146, 90, 0.05) 1px, transparent 1px),
+    linear-gradient(180deg, rgba(185, 146, 90, 0.05) 1px, transparent 1px);
+  background-size: 52px 52px;
+  opacity: 0.4;
+  pointer-events: none;
 }
 
-@keyframes roadmapBoxFloat {
-  0% {
-    transform: translate3d(0, 0, 0);
-    opacity: 0.35;
-  }
-  50% {
-    transform: translate3d(18px, -14px, 0);
-    opacity: 0.52;
-  }
-  100% {
-    transform: translate3d(0, 0, 0);
-    opacity: 0.35;
-  }
+.a-cta-section .container { position: relative; z-index: 1; }
+
+.a-cta-section .heading-1 { color: var(--a-cream-on-dark) !important; }
+.a-cta-section .lead { color: var(--a-muted-on-dark) !important; }
+
+.a-cta-section .btn-primary {
+  background: var(--a-gold) !important;
+  color: var(--a-dark) !important;
+  border: none !important;
 }
 
-@keyframes roadmapCardReveal {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.a-cta-section .btn-primary:hover {
+  background: var(--a-cream-on-dark) !important;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .roadmap__box,
-  .roadmap__card {
-    animation: none;
-  }
+@media (max-width: 900px) {
+  .a-cta-section { padding: 3.5rem 1.25rem; }
 }

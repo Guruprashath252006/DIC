@@ -4,6 +4,40 @@ import { Home, ScanSearch, Ruler, Layers3, Hammer } from 'lucide-react'
 import AnimatedSection from '../components/AnimatedSection'
 import './ServiceDetail.css'
 
+// Generated step images
+import imgMoodBoard from '../assets/service-steps/mood-board.png'
+
+// Existing design-ideas / portfolio images
+import imgResidential from '../assets/portfolio/modern-villa-boat-club-road.webp'
+import imgCommercial from '../assets/portfolio/corporate-hq-anna-salai.webp'
+import imgBathroom from '../assets/design-ideas/bathroom.webp'
+import imgMasterBedroom from '../assets/design-ideas/master-bedroom.webp'
+import imgFalseCeiling from '../assets/design-ideas/false-ceiling.webp'
+import imgWallDecor from '../assets/design-ideas/wall-decor.webp'
+import imgWardrobes from '../assets/design-ideas/wardrobes.webp'
+import imgHomeOffice from '../assets/design-ideas/home-office.webp'
+import imgSpaceSaving from '../assets/design-ideas/space-saving.webp'
+import imgLightings from '../assets/design-ideas/lightings.webp'
+import imgFoyerArea from '../assets/design-ideas/foyer-area.webp'
+import imgDiningArea from '../assets/design-ideas/dining-area.webp'
+import imgKitchen from '../assets/design-ideas/kitchen.webp'
+
+// Images placed in the specific order requested by the user:
+// 1. Residential Interior Design
+// 2. Commercial Interior Design
+// 3. Modular Kitchen Design
+// 4. Turnkey Interior Solutions
+// 5. Space Planning & Layout
+// 6. Material & Finishes Selection
+const TIMELINE_IMAGES = [
+  imgResidential,
+  imgCommercial,
+  imgKitchen,
+  imgMasterBedroom,
+  imgDiningArea,
+  imgMoodBoard
+]
+
 const INCLUDE_DESCRIPTIONS = {
   // Signature / Full Home / Specific Area
   'Project Discovery and Design Brief': 'Initial scoping call and design consultation to establish goals, budget, design preferences, and set expectations.',
@@ -135,7 +169,7 @@ export default function ServiceDetail() {
   const Icon = service.icon
 
   return (
-    <main>
+    <main className="service-detail-page">
       <section className="room-hero service-hero">
         <img src={service.img} alt={service.title} className="room-hero__img" />
         <div className="room-hero__overlay service-hero__overlay" />
@@ -157,50 +191,66 @@ export default function ServiceDetail() {
       </section>
 
       <section className="section">
-        <div className="container svc-detail-grid">
-          <AnimatedSection className="svc-includes">
+        <div className="container">
+          {/* Overview Row */}
+          <div className="svc-detail-overview">
+            <AnimatedSection className="svc-detail-intro">
+              <div className="section-label"><span className="overline">Service Overview</span></div>
+              <h2 className="heading-2">Bespoke Design & Precision Execution</h2>
+              <p className="lead-text">
+                Every project is backed by meticulous planning, select vendor curation, and high-quality on-site coordination. We ensure every detail is handled from start to finish, matching your lifestyle and vision perfectly.
+              </p>
+            </AnimatedSection>
+
+            <AnimatedSection delay={2} className="svc-meta-row">
+              <div className="svc-meta__card">
+                <h3 className="svc-meta__title">Project Info</h3>
+                <div className="svc-meta__row"><span>Duration</span><strong>{service.duration}</strong></div>
+                <div className="svc-meta__row"><span>Suitable For</span><strong>{service.suitable}</strong></div>
+                <div className="svc-meta__row"><span>Starting From</span><strong style={{ color: '#9b7a4a' }}>{service.start}</strong></div>
+              </div>
+              <div className="svc-meta__cta-card">
+                <h3>Start Your Project</h3>
+                <p className="body-sm">Get a free consultation and custom quote for your project.</p>
+                <div className="svc-meta__buttons">
+                  <Link to="/contact" className="btn btn-primary" id={`svc-detail-cta-${normalizedServiceId}`}>Book Free Consultation</Link>
+                  <a href="https://wa.me/919500078674" target="_blank" rel="noreferrer" className="btn btn-outline">WhatsApp Us</a>
+                </div>
+              </div>
+            </AnimatedSection>
+          </div>
+
+          {/* Grid of Includes */}
+          <AnimatedSection className="svc-includes-section">
             <div className="section-label"><span className="overline">What&apos;s Included</span></div>
             <h2 className="heading-2 svc-includes__heading">Everything we handle for you</h2>
             
-            <div className="svc-includes__timeline">
+            <div className="svc-includes__grid">
               {service.includes.map((item, index) => (
                 <div 
                   key={item} 
-                  className="timeline-step"
+                  className="svc-include-card"
                 >
-                  <div className="timeline-step__left">
-                    <span className="timeline-step__number">
+                  {TIMELINE_IMAGES[index % TIMELINE_IMAGES.length] && (
+                    <div className="svc-include-card__img-wrap">
+                      <img 
+                        src={TIMELINE_IMAGES[index % TIMELINE_IMAGES.length]} 
+                        alt={item} 
+                        className="svc-include-card__img" 
+                      />
+                    </div>
+                  )}
+                  <div className="svc-include-card__content">
+                    <span className="svc-include-card__number">
                       {String(index + 1).padStart(2, '0')}
                     </span>
-                    <div className="timeline-step__line-container">
-                      <div className="timeline-step__dot" />
-                      {index < service.includes.length - 1 && <div className="timeline-step__line" />}
-                    </div>
-                  </div>
-                  
-                  <div className="timeline-step__content">
-                    <h3 className="timeline-step__title">{item}</h3>
-                    <p className="timeline-step__desc">
+                    <h3 className="svc-include-card__title">{item}</h3>
+                    <p className="svc-include-card__desc">
                       {INCLUDE_DESCRIPTIONS[item] || 'Bespoke planning, curation, and delivery handled end-to-end by our expert studio team.'}
                     </p>
                   </div>
                 </div>
               ))}
-            </div>
-          </AnimatedSection>
-
-          <AnimatedSection delay={2} className="svc-meta">
-            <div className="svc-meta__card">
-              <h3 className="svc-meta__title">Project Info</h3>
-              <div className="svc-meta__row"><span>Duration</span><strong>{service.duration}</strong></div>
-              <div className="svc-meta__row"><span>Suitable For</span><strong>{service.suitable}</strong></div>
-              <div className="svc-meta__row"><span>Starting From</span><strong style={{ color: 'var(--accent)' }}>{service.start}</strong></div>
-            </div>
-            <div className="svc-meta__cta-card">
-              <h3>Start Your Project</h3>
-              <p className="body-sm">Get a free consultation and custom quote for your project.</p>
-              <Link to="/contact" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center' }} id={`svc-detail-cta-${normalizedServiceId}`}>Book Free Consultation</Link>
-              <a href="https://wa.me/919500078674" target="_blank" rel="noreferrer" className="btn btn-outline" style={{ width: '100%', justifyContent: 'center', marginTop: '0.75rem' }}>WhatsApp Us</a>
             </div>
           </AnimatedSection>
         </div>
