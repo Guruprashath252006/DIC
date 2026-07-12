@@ -1,178 +1,218 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Layers3, Home, Grid2X2, LayoutPanelTop, Hammer, Sparkles, ChefHat, MessagesSquare, ArrowRight } from 'lucide-react'
-import AnimatedSection from '../components/AnimatedSection'
-import './Services.css'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import BrandLogo from './BrandLogo'
+import './Navbar.css'
 
-import signaturesImg from '../assets/portfolio/luxury-3bhk-velachery.webp'
-import heroImg from '../assets/portfolio/modern-villa-boat-club-road.webp'
-import renovationImg from '../assets/portfolio/heritage-home-mylapore.webp'
-import stylingImg from '../assets/portfolio/boutique-cafe-nungambakkam.webp'
-import kitchenImg from '../assets/portfolio/modular-kitchen-adyar.webp'
-import consultationImg from '../assets/portfolio/tech-office-sholinganallur.webp'
 
-const SERVICES = [
+const DESIGN_IDEAS_GROUPS = [
   {
-    id: 'signature-interiors',
-    icon: Layers3,
-    title: 'Signature Interior Projects',
-    desc: 'A complete interior design service for homes, offices, studios, retail spaces, hospitality venues, and mixed-use projects. We build spaces that feel refined enough for professionals and intuitive enough for everyday life.',
-    image: signaturesImg
+    title: 'Living Spaces',
+    className: 'group--living',
+    links: [
+      { path: '/design-ideas/kitchen', label: 'Kitchen' },
+      { path: '/design-ideas/living-room', label: 'Living Room' },
+      { path: '/design-ideas/dining-area', label: 'Dining Area' },
+      { path: '/design-ideas/foyer-area', label: 'Foyer Area' },
+    ],
   },
   {
-    id: 'full-home',
-    icon: Home,
-    title: 'Full Home Interiors',
-    desc: 'End-to-end interior design for every room in your home. We handle layout planning, material selection, furniture procurement, and complete execution under one roof.',
-    image: renovationImg
+    title: 'Bedroom Suites',
+    className: 'group--bedrooms',
+    links: [
+      { path: '/design-ideas/kids-bedroom', label: 'Kids Bedroom' },
+      { path: '/design-ideas/master-bedroom', label: 'Master Bedroom' },
+      { path: '/design-ideas/parents-bedroom', label: 'Parents Bedroom' },
+      { path: '/design-ideas/guest-bedroom', label: 'Guest Bedroom' },
+    ],
   },
   {
-    id: 'specific-area',
-    icon: Grid2X2,
-    title: 'Specific Area Interiors',
-    desc: 'Focused design solutions for individual rooms — living rooms, bedrooms, bathrooms, or any area you want to transform without a full-home commitment.',
-    image: stylingImg
+    title: 'Work & Leisure',
+    className: 'group--work',
+    links: [
+      { path: '/design-ideas/home-office', label: 'Home Office Room' },
+      { path: '/design-ideas/balcony', label: 'Balcony / Sit-out Areas' },
+      { path: '/design-ideas/bathroom', label: 'Bathroom' },
+    ],
   },
-  {
-    id: 'space-planning',
-    icon: LayoutPanelTop,
-    title: 'Space Planning',
-    desc: 'Optimised layouts that ensure seamless flow, maximum space utilisation, and ergonomic living. Ideal for new builds, renovations, and commercial fit-outs.',
-    image: kitchenImg
-  },
-  {
-    id: 'renovation-interior',
-    icon: Hammer,
-    title: 'Renovation Interior',
-    desc: 'Transform your existing space without starting from scratch. We handle full structural renovations, aesthetic remodels, and everything in between with minimal disruption.',
-    image: consultationImg
-  },
-  {
-    id: 'modular-kitchens',
-    icon: ChefHat,
-    title: 'Modular Kitchens',
-    desc: 'Bespoke modular kitchen solutions that combine smart storage, ergonomic workflow, and stunning aesthetics. From contemporary to traditional, we design kitchens you will love.',
-    image: signaturesImg
-  }
 ]
 
-const PROCESS = [
-  { step: '01', title: 'Discovery Call', desc: 'We understand your vision, needs, and budget through a detailed consultation.' },
-  { step: '02', title: 'Concept Design', desc: 'Our designers create initial concepts with mood boards, layouts, and material palettes.' },
-  { step: '03', title: '3D Visualization', desc: 'Photorealistic renders help you visualize the final space before execution begins.' },
-  { step: '04', title: 'Execution', desc: 'Our skilled team brings the design to life with precision, on time and on budget.' },
-  { step: '05', title: 'Styling and Handover', desc: 'We add the final touches and hand over a move-in ready, beautifully styled space.' }
-]
+export default function Navbar() {
+  const [scrolled, setScrolled] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [activeDropdown, setActiveDropdown] = useState(null)
+  const { pathname } = useLocation()
 
-export default function Services() {
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    setMobileMenuOpen(false)
+    setActiveDropdown(null)
+  }, [pathname])
+
+  const isActive = (path) => pathname === path ? 'active' : ''
+  const isPartiallyActive = (path) => pathname.startsWith(path) ? 'active' : ''
+  const solidNavbar = scrolled || pathname !== '/'
+
   return (
-    <main className="services-page">
+    <nav className={`navbar ${solidNavbar ? 'scrolled' : ''}`}>
+      <div className="container navbar__inner">
+        {/* Logo */}
+        <Link to="/" className="navbar__logo" id="nav-logo">
+          <BrandLogo markWrapperClassName="navbar__logo-mark-hidden" markClassName="navbar__logo-mark" textClassName="navbar__logo-text" />
+        </Link>
 
-      {/* PAGE HERO */}
-      <section className="svc-page-hero">
-        <img src={heroImg} alt="" className="svc-page-hero__bg" aria-hidden="true" />
-        <div className="svc-page-hero__overlay" aria-hidden="true" />
-        <div className="svc-container svc-page-hero__content">
-          <div className="svc-page-hero__text">
-            <AnimatedSection>
-              <p className="svc-eyebrow svc-eyebrow--light">What We Offer</p>
-              <h1 className="svc-hero-heading svc-hero-heading--light">
-                End-to-End Interior
-                <br />
-                <em>Project Services</em>
-              </h1>
-              <p className="svc-hero-lead svc-hero-lead--light">
-                One complete project flow for personal spaces, professional environments, and everything in between.
-              </p>
-            </AnimatedSection>
-          </div>
-        </div>
-      </section>
+        {/* Desktop Links */}
+        <div className="navbar__links">
+          <Link to="/" className={`navbar__link ${isActive('/')}`}>
+            {isActive('/') === 'active' && (
+              <motion.span
+                className="navbar__link-active-bg"
+                layoutId="activeNavIndicator"
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              />
+            )}
+            Home
+          </Link>
+          <Link to="/about" className={`navbar__link ${isActive('/about')}`}>
+            {isActive('/about') === 'active' && (
+              <motion.span
+                className="navbar__link-active-bg"
+                layoutId="activeNavIndicator"
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              />
+            )}
+            About
+          </Link>
 
+          <Link to="/services" className={`navbar__link ${isPartiallyActive('/services')}`}>
+            {isPartiallyActive('/services') === 'active' && (
+              <motion.span
+                className="navbar__link-active-bg"
+                layoutId="activeNavIndicator"
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              />
+            )}
+            Services
+          </Link>
 
-      {/* SERVICES CARDS GRID */}
-      <section className="svc-section svc-cards-section">
-        <div className="svc-container">
-          <AnimatedSection>
-            <p className="svc-eyebrow">What We Do</p>
-            <div className="svc-cards-header">
-              <h2 className="svc-heading-2">Comprehensive Interior<br />Design Services</h2>
-              <p className="svc-cards-intro">We combine creativity, functionality, and attention to detail to deliver timeless interiors that enhance the way you live and work.</p>
+          <Link to="/portfolio" className={`navbar__link ${isActive('/portfolio')}`}>
+            {isActive('/portfolio') === 'active' && (
+              <motion.span
+                className="navbar__link-active-bg"
+                layoutId="activeNavIndicator"
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              />
+            )}
+            Portfolio
+          </Link>
+
+          <Link to="/presentation" className={`navbar__link ${isActive('/presentation')}`}>
+            {isActive('/presentation') === 'active' && (
+              <motion.span
+                className="navbar__link-active-bg"
+                layoutId="activeNavIndicator"
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              />
+            )}
+            3D Experience
+          </Link>
+
+          {/* Design Ideas Dropdown */}
+          <div
+            className={`navbar__dropdown-wrap ${isPartiallyActive('/design-ideas')}`}
+            onMouseEnter={() => setActiveDropdown('ideas')}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            <Link to="/design-ideas" className={`navbar__link ${isPartiallyActive('/design-ideas')}`}>
+              {isPartiallyActive('/design-ideas') === 'active' && (
+                <motion.span
+                  className="navbar__link-active-bg"
+                  layoutId="activeNavIndicator"
+                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                />
+              )}
+              Design Ideas
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </Link>
+            <div className={`navbar__dropdown ${activeDropdown === 'ideas' ? 'open' : ''}`}>
+              {DESIGN_IDEAS_GROUPS.map((group) => (
+                <div key={group.title} className={`navbar__dropdown-group ${group.className}`}>
+                  <span className="navbar__dropdown-group-title">{group.title}</span>
+                  {group.links.map((link) => (
+                    <Link key={link.path} to={link.path} className="navbar__dropdown-link">{link.label}</Link>
+                  ))}
+                </div>
+              ))}
+              <div className="navbar__dropdown-divider" />
+              <Link to="/design-ideas" className="navbar__dropdown-link navbar__dropdown-link--all">View All Ideas</Link>
             </div>
-          </AnimatedSection>
-
-          <div className="svc-cards-grid">
-            {SERVICES.map((service, index) => {
-              const Icon = service.icon
-              return (
-                <AnimatedSection key={service.id} delay={(index % 3) + 1} className="svc-card-wrapper">
-                  <Link
-                    to={`/services/${service.id}`}
-                    className="svc-card"
-                    id={`service-card-${service.id}`}
-                    aria-label={`View ${service.title} details`}
-                  >
-                    <div className="svc-card__img-wrap">
-                      <img src={service.image} alt={service.title} className="svc-card__img" />
-                      <span className="svc-card__icon-badge">
-                        <Icon size={18} strokeWidth={1.6} />
-                      </span>
-                    </div>
-                    <div className="svc-card__body">
-                      <h3 className="svc-card__title">{service.title}</h3>
-                      <p className="svc-card__desc">{service.desc}</p>
-                      <span className="svc-card__arrow">
-                        <ArrowRight size={16} strokeWidth={2} />
-                      </span>
-                    </div>
-                  </Link>
-                </AnimatedSection>
-              )
-            })}
           </div>
-        </div>
-      </section>
 
-      {/* PROCESS — same 5 steps */}
-      <section className="svc-section svc-process-section">
-        <div className="svc-container">
-          <AnimatedSection>
-            <p className="svc-eyebrow">How We Work</p>
-            <h2 className="svc-heading-2" style={{ marginBottom: '3rem' }}>Our Design Process</h2>
-          </AnimatedSection>
+          <Link to="/testimonials" className={`navbar__link ${isActive('/testimonials')}`}>
+            {isActive('/testimonials') === 'active' && (
+              <motion.span
+                className="navbar__link-active-bg"
+                layoutId="activeNavIndicator"
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              />
+            )}
+            Testimonials
+          </Link>
 
-          <div className="svc-process">
-            {PROCESS.map((item, index) => (
-              <AnimatedSection key={item.step} delay={(index % 3) + 1} className="svc-process-step">
-                <div className="svc-process-step__num">{item.step}</div>
-                <div className="svc-process-step__divider" />
-                <h3 className="svc-process-step__title">{item.title}</h3>
-                <p className="svc-process-step__desc">{item.desc}</p>
-              </AnimatedSection>
-            ))}
-          </div>
+          <Link to="/blog" className={`navbar__link ${isActive('/blog')}`}>
+            {isActive('/blog') === 'active' && (
+              <motion.span
+                className="navbar__link-active-bg"
+                layoutId="activeNavIndicator"
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              />
+            )}
+            Insights
+          </Link>
         </div>
-      </section>
 
-      {/* CTA — same content */}
-      <section className="svc-cta-section">
-        <div className="svc-cta-inner">
-          <AnimatedSection>
-            <h2 className="svc-cta__heading">Start Your Project Today</h2>
-            <p className="svc-cta__sub">
-              Free consultation for homeowners, founders, teams, and developers who want a clearer design direction.
-            </p>
-            <div className="svc-cta__actions">
-              <Link to="/contact" className="svc-btn-primary" id="services-contact-cta">
-                Book Free Consultation
-              </Link>
-              <Link to="/portfolio" className="svc-btn-outline-dark" id="services-portfolio-link">
-                See Our Portfolio
-              </Link>
-            </div>
-          </AnimatedSection>
+        {/* Actions */}
+        <div className="navbar__actions">
+          {/* Contact button in capsule black pill */}
+          <Link to="/contact" className="navbar__contact-btn" id="nav-contact">
+            <span>Contact</span>
+            <span className="navbar__contact-icon">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
+              </svg>
+            </span>
+          </Link>
+
+          {/* Mobile Toggle */}
+          <button
+            className={`navbar__mobile-toggle ${mobileMenuOpen ? 'active' : ''}`}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <span /> <span /> <span />
+          </button>
         </div>
-      </section>
-    </main>
+      </div>
+
+      {/* Mobile Drawer */}
+      <div className={`navbar__mobile-drawer ${mobileMenuOpen ? 'open' : ''}`}>
+        <div className="navbar__mobile-links">
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+          <Link to="/services">Services</Link>
+          <Link to="/portfolio">Portfolio</Link>
+          <Link to="/design-ideas">Design Ideas</Link>
+          <Link to="/presentation">3D Experience</Link>
+          <Link to="/testimonials">Testimonials</Link>
+          <Link to="/blog">Insights</Link>
+          <Link to="/contact">Contact</Link>
+        </div>
+      </div>
+    </nav>
   )
 }
