@@ -50,7 +50,7 @@ const INCLUDE_DESCRIPTIONS = {
   'Execution Drawings and Site Coordination': 'Precision blueprints detailing measurements, electrical mappings, and plumbing layouts for build teams.',
   'Vendor and Finish Selection': 'Guided curation of raw materials, fixtures, custom paint finishes, and appliances from trusted, high-end providers.',
   'Final Styling and Handover': 'The art of curation: placing final decorative accents, accessories, plants, and cleaning up for immediate move-in.',
-  
+
   // Duplicated / variations in lists
   'Space Planning and Layout': 'Logical floor layout generation and zoning boundaries designed to maximize circulation efficiency.',
   'Concept and Mood Board': 'Color theme and material direction board aligning visual styles before proceeding with detailed modeling.',
@@ -60,7 +60,7 @@ const INCLUDE_DESCRIPTIONS = {
   'Bathroom Design': 'Spa-style zoning, glass partitioning, premium tiling, and high-quality sanitary fixtures installation planning.',
   'Execution and Site Management': 'Consistent on-site quality audits, team coordination, and project timeline tracking.',
   'Furniture and Decor Sourcing': 'Direct procurement from luxury partners, custom woodwork oversight, and decorative item gathering.',
-  
+
   // Specific Area
   'Single Room Design': 'Focused design framework resolving layouts, storage, and visual concepts for one specific room.',
   'Concept and 3D Render': 'Interactive 3D models displaying space, lighting, and textures specifically for the chosen area.',
@@ -68,7 +68,7 @@ const INCLUDE_DESCRIPTIONS = {
   'Lighting Plan': 'Cove lighting, accent pendants, wall sconces, and task light mapping to build the perfect room ambiance.',
   'Execution and Supervision': 'Complete build oversight, structural safety audits, and installation support of the room details.',
   'Styling and Accessorizing': 'Adding decorative accents, textures, frames, and greenery to give the space a finished, cozy feel.',
-  
+
   // Space Planning
   'Existing Layout Analysis': 'In-depth audit of structural constraints, load-bearing walls, and window locations to optimize the raw space.',
   'Traffic Flow Optimization': 'Clearing movement paths, widening entryways, and planning clean passages to eliminate bottleneck zones.',
@@ -77,7 +77,7 @@ const INCLUDE_DESCRIPTIONS = {
   'Storage Strategy': 'Bespoke vertical cabinetry, hidden nooks, and corner solutions to accommodate storage out of sight.',
   'Zoning and Room Separation': 'Aesthetic partitions, glass dividers, or soft paneling to categorize spaces without losing light.',
   '2D and 3D Floor Plans': 'Detailed orthogonal blueprints and interactive overhead 3D layouts for clear contractor guidance.',
-  
+
   // Renovation
   'Renovation Scope Assessment': 'On-site technical evaluation to map cosmetic improvements, demolition needs, and utility upgrades.',
   'Structural Changes Planning': 'Detailed safety review and coordination to safely adjust walls, expand rooms, and alter doorways.',
@@ -146,6 +146,17 @@ const SERVICES = {
     duration: '4 to 12 weeks',
     suitable: 'Apartments, villas, commercial spaces',
     start: 'Rs. 3L onwards'
+  },
+  'modular-kitchens': {
+    title: 'Modular Kitchens',
+    icon: Layers3,
+    img: '/images/services/renovation.png',
+    tagline: 'Where cooking meets refined design.',
+    desc: 'Bespoke modular kitchen solutions that combine smart storage, ergonomic workflow, and stunning aesthetics. From sleek contemporary to warm traditional styles, we design kitchens you will love cooking in every day.',
+    includes: ['Kitchen Layout Planning', 'Modular Cabinet Design', 'Countertop and Backsplash Selection', 'Appliance Integration', 'Smart Storage Solutions', 'Lighting Design', 'Material and Finish Selection', 'Execution and Site Management', 'Quality Inspection and Handover'],
+    duration: '3 to 6 weeks',
+    suitable: 'New homes, renovations, commercial kitchens',
+    start: 'Rs. 2L onwards'
   }
 }
 
@@ -154,6 +165,7 @@ export default function ServiceDetail() {
   const normalizedServiceId = {
     commercial: 'signature-interiors',
     residential: 'signature-interiors',
+    'renovation-interior': 'renovation',
   }[serviceId] || serviceId
   const service = SERVICES[normalizedServiceId]
 
@@ -224,19 +236,19 @@ export default function ServiceDetail() {
           <AnimatedSection className="svc-includes-section">
             <div className="section-label"><span className="overline">What&apos;s Included</span></div>
             <h2 className="heading-2 svc-includes__heading">Everything we handle for you</h2>
-            
+
             <div className="svc-includes__grid">
               {service.includes.map((item, index) => (
-                <div 
-                  key={item} 
+                <div
+                  key={item}
                   className="svc-include-card"
                 >
                   {TIMELINE_IMAGES[index % TIMELINE_IMAGES.length] && (
                     <div className="svc-include-card__img-wrap">
-                      <img 
-                        src={TIMELINE_IMAGES[index % TIMELINE_IMAGES.length]} 
-                        alt={item} 
-                        className="svc-include-card__img" 
+                      <img
+                        src={TIMELINE_IMAGES[index % TIMELINE_IMAGES.length]}
+                        alt={item}
+                        className="svc-include-card__img"
                       />
                     </div>
                   )}

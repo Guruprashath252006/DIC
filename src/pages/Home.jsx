@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { Link } from 'react-router-dom'
 
@@ -19,8 +19,6 @@ import {
   CheckCircle2,
 
 } from 'lucide-react'
-
-import ShinyText from '../components/ShinyText'
 
 import StoryVisual from '../components/StoryVisual'
 
@@ -165,41 +163,6 @@ import renovationImg from '../assets/portfolio/penthouse-renovation-ecr.webp'
 import stylingImg from '../assets/portfolio/boutique-cafe-nungambakkam.webp'
 import consultationImg from '../assets/portfolio/corporate-hq-anna-salai.webp'
 
-import luxury3BhkImage from '../assets/portfolio/luxury-3bhk-velachery.webp'
-import modularKitchenImage from '../assets/portfolio/modular-kitchen-adyar.webp'
-import techOfficeImage from '../assets/portfolio/tech-office-sholinganallur.webp'
-import boutiqueCafeImage from '../assets/portfolio/boutique-cafe-nungambakkam.webp'
-
-const HERO_PROJECTS = [
-  {
-    image1: signatureImg,
-    image2: renovationImg,
-    testimonial: "De Interio Cafe turned our villa into a design landmark. Their vision is simply unmatched.",
-    author: "Dr. Karthick",
-    stars: 5,
-    title: "Design Luxury Spaces in Chennai",
-    desc: "We blend timeless elegance with modern comfort to create bespoke, sophisticated residences that reflect your personal legacy."
-  },
-  {
-    image1: luxury3BhkImage,
-    image2: modularKitchenImage,
-    testimonial: "Highly functional layout with a gorgeous aesthetic. Our home has never felt more premium.",
-    author: "Nihitha Sinha",
-    stars: 5,
-    title: "Timeless Residential Masterpieces",
-    desc: "Curating sleek, modular spaces designed for modern living. Tailor-made storage solutions and state-of-the-art styling."
-  },
-  {
-    image1: techOfficeImage,
-    image2: boutiqueCafeImage,
-    testimonial: "Outstanding execution-ready designs. Complete 3D resolution before standard building starts.",
-    author: "Srinivasan Spectra",
-    stars: 5,
-    title: "Premium Commercial Spaces",
-    desc: "Functional corporate and hospitality interiors crafted to inspire work, collaboration, and customer connection."
-  }
-]
-
 const SERVICES = [
   {
     icon: <Layers3 size={24} />,
@@ -237,32 +200,6 @@ const FEATURED_PROJECTS = PORTFOLIO_PROJECTS.slice(0, 6)
 
 
 
-const RevealText = ({ children, delay = 0 }) => (
-
-  <div style={{ position: 'relative', overflow: 'hidden' }}>
-
-    <motion.div
-
-      initial={{ y: '100%' }}
-
-      whileInView={{ y: 0 }}
-
-      viewport={{ once: true }}
-
-      transition={{ duration: 0.8, delay, ease: [0.16, 1, 0.3, 1] }}
-
-    >
-
-      {children}
-
-    </motion.div>
-
-  </div>
-
-)
-
-
-
 export default function Home() {
   const [activeSection, setActiveSection] = useState(0)
 
@@ -295,24 +232,6 @@ export default function Home() {
       <section className="hero">
         {/* Background Overlay */}
         <div className="hero__overlay" />
-
-        {/* Tile design sliding from left - 7 tiles with backdrop-filter blur */}
-        <div className="hero__vertical-tiles">
-          {Array.from({ length: 7 }).map((_, i) => (
-            <motion.div
-              key={i}
-              className="hero__vertical-tile"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{
-                duration: 1.6,
-                delay: i * 0.12,
-                ease: [0.25, 1, 0.5, 1]
-              }}
-              style={{ originX: 0 }}
-            />
-          ))}
-        </div>
 
         <div className="container hero__layout">
           {/* Headline & Subtitle */}
@@ -437,8 +356,8 @@ export default function Home() {
             {/* Left side: decor image */}
             <div className="proven-excellence__decor-img-container">
               <img 
-                src="/images/proven_excellence_decor.png" 
-                alt="Travertine and ceramic interior detailing" 
+                src={renovationImg} 
+                alt="Renovated living space showcasing De Interio Cafe craftsmanship" 
                 className="proven-excellence__decor-img" 
               />
             </div>

@@ -4,13 +4,6 @@ import { motion } from 'framer-motion'
 import BrandLogo from './BrandLogo'
 import './Navbar.css'
 
-const SERVICES_LINKS = [
-  { path: '/services/signature-interiors', label: 'Signature Interior Projects' },
-  { path: '/services/full-home', label: 'Full Home Interiors' },
-  { path: '/services/specific-area', label: 'Specific Area Interiors' },
-  { path: '/services/space-planning', label: 'Space Planning' },
-  { path: '/services/renovation', label: 'Renovation Interior' },
-]
 
 const DESIGN_IDEAS_GROUPS = [
   {
@@ -77,8 +70,8 @@ export default function Navbar() {
         <div className="navbar__links">
           <Link to="/" className={`navbar__link ${isActive('/')}`}>
             {isActive('/') === 'active' && (
-              <motion.span 
-                className="navbar__link-active-bg" 
+              <motion.span
+                className="navbar__link-active-bg"
                 layoutId="activeNavIndicator"
                 transition={{ type: 'spring', stiffness: 380, damping: 30 }}
               />
@@ -87,43 +80,30 @@ export default function Navbar() {
           </Link>
           <Link to="/about" className={`navbar__link ${isActive('/about')}`}>
             {isActive('/about') === 'active' && (
-              <motion.span 
-                className="navbar__link-active-bg" 
+              <motion.span
+                className="navbar__link-active-bg"
                 layoutId="activeNavIndicator"
                 transition={{ type: 'spring', stiffness: 380, damping: 30 }}
               />
             )}
             About
           </Link>
-          
-          {/* Services Dropdown */}
-          <div 
-            className={`navbar__dropdown-wrap ${isPartiallyActive('/services')}`}
-            onMouseEnter={() => setActiveDropdown('services')}
-            onMouseLeave={() => setActiveDropdown(null)}
-          >
-            <Link to="/services" className={`navbar__link ${isPartiallyActive('/services')}`}>
-              {isPartiallyActive('/services') === 'active' && (
-                <motion.span 
-                  className="navbar__link-active-bg" 
-                  layoutId="activeNavIndicator"
-                  transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                />
-              )}
-              Services
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </Link>
-            <div className={`navbar__dropdown navbar__dropdown--services ${activeDropdown === 'services' ? 'open' : ''}`}>
-              {SERVICES_LINKS.map(link => (
-                <Link key={link.path} to={link.path} className="navbar__dropdown-link">{link.label}</Link>
-              ))}
-            </div>
-          </div>
+
+          <Link to="/services" className={`navbar__link ${isPartiallyActive('/services')}`}>
+            {isPartiallyActive('/services') === 'active' && (
+              <motion.span
+                className="navbar__link-active-bg"
+                layoutId="activeNavIndicator"
+                transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+              />
+            )}
+            Services
+          </Link>
 
           <Link to="/portfolio" className={`navbar__link ${isActive('/portfolio')}`}>
             {isActive('/portfolio') === 'active' && (
-              <motion.span 
-                className="navbar__link-active-bg" 
+              <motion.span
+                className="navbar__link-active-bg"
                 layoutId="activeNavIndicator"
                 transition={{ type: 'spring', stiffness: 380, damping: 30 }}
               />
@@ -133,8 +113,8 @@ export default function Navbar() {
 
           <Link to="/presentation" className={`navbar__link ${isActive('/presentation')}`}>
             {isActive('/presentation') === 'active' && (
-              <motion.span 
-                className="navbar__link-active-bg" 
+              <motion.span
+                className="navbar__link-active-bg"
                 layoutId="activeNavIndicator"
                 transition={{ type: 'spring', stiffness: 380, damping: 30 }}
               />
@@ -143,21 +123,21 @@ export default function Navbar() {
           </Link>
 
           {/* Design Ideas Dropdown */}
-          <div 
+          <div
             className={`navbar__dropdown-wrap ${isPartiallyActive('/design-ideas')}`}
             onMouseEnter={() => setActiveDropdown('ideas')}
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <Link to="/design-ideas" className={`navbar__link ${isPartiallyActive('/design-ideas')}`}>
               {isPartiallyActive('/design-ideas') === 'active' && (
-                <motion.span 
-                  className="navbar__link-active-bg" 
+                <motion.span
+                  className="navbar__link-active-bg"
                   layoutId="activeNavIndicator"
                   transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                 />
               )}
               Design Ideas
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </Link>
             <div className={`navbar__dropdown ${activeDropdown === 'ideas' ? 'open' : ''}`}>
               {DESIGN_IDEAS_GROUPS.map((group) => (
@@ -175,19 +155,19 @@ export default function Navbar() {
 
           <Link to="/testimonials" className={`navbar__link ${isActive('/testimonials')}`}>
             {isActive('/testimonials') === 'active' && (
-              <motion.span 
-                className="navbar__link-active-bg" 
+              <motion.span
+                className="navbar__link-active-bg"
                 layoutId="activeNavIndicator"
                 transition={{ type: 'spring', stiffness: 380, damping: 30 }}
               />
             )}
             Testimonials
           </Link>
-          
+
           <Link to="/blog" className={`navbar__link ${isActive('/blog')}`}>
             {isActive('/blog') === 'active' && (
-              <motion.span 
-                className="navbar__link-active-bg" 
+              <motion.span
+                className="navbar__link-active-bg"
                 layoutId="activeNavIndicator"
                 transition={{ type: 'spring', stiffness: 380, damping: 30 }}
               />
@@ -203,14 +183,14 @@ export default function Navbar() {
             <span>Contact</span>
             <span className="navbar__contact-icon">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"/>
-                <polyline points="7 7 17 7 17 17"/>
+                <line x1="7" y1="17" x2="17" y2="7" />
+                <polyline points="7 7 17 7 17 17" />
               </svg>
             </span>
           </Link>
 
           {/* Mobile Toggle */}
-          <button 
+          <button
             className={`navbar__mobile-toggle ${mobileMenuOpen ? 'active' : ''}`}
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           >

@@ -15,56 +15,20 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  background-image: url('/images/hero-1.png');
+  background-image: url('/images/hero-2.png');
   background-size: cover;
   background-position: center;
   padding-bottom: 2rem;
 }
 
 .hero__overlay {
-  display: none;
-}
-
-.hero__vertical-tiles {
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 46%;
-  display: flex;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(20, 16, 12, 0.55) 0%, rgba(20, 16, 12, 0.25) 42%, rgba(20, 16, 12, 0.05) 65%, rgba(20, 16, 12, 0) 100%),
+    rgba(0, 0, 0, 0.28);
   pointer-events: none;
-  z-index: 2;
-}
-
-.hero__vertical-tile {
-  height: 100%;
-  flex: 1;
-  border-right: 1px solid rgba(255, 255, 255, 0.18);
-  box-shadow: 
-    inset 1.5px 0 0 rgba(255, 255, 255, 0.12),
-    inset -1px 0 0 rgba(0, 0, 0, 0.08);
-}
-
-.hero__vertical-tile:nth-child(odd) {
-  background: linear-gradient(180deg, rgba(45, 37, 30, 0.12) 0%, rgba(45, 37, 30, 0.05) 100%);
-  backdrop-filter: blur(8px) saturate(120%);
-  -webkit-backdrop-filter: blur(8px) saturate(120%);
-}
-
-.hero__vertical-tile:nth-child(even) {
-  background: linear-gradient(180deg, rgba(45, 37, 30, 0.18) 0%, rgba(45, 37, 30, 0.07) 100%);
-  backdrop-filter: blur(10px) saturate(125%);
-  -webkit-backdrop-filter: blur(10px) saturate(125%);
-}
-
-.hero__vertical-tile:nth-child(3n) {
-  background: linear-gradient(180deg, rgba(45, 37, 30, 0.09) 0%, rgba(45, 37, 30, 0.03) 100%);
-  backdrop-filter: blur(6px) saturate(115%);
-  -webkit-backdrop-filter: blur(6px) saturate(115%);
-}
-
-.hero__vertical-tile:last-child {
-  border-right: none;
 }
 
 .hero__layout {
@@ -161,28 +125,22 @@
   transform: translateX(4px);
 }
 
-/* Scroll-spy fixed pager dots */
+/* Scroll-spy pager dots, centered under the Explore Projects button */
 .hero__pager-dots {
-  position: fixed;
-  bottom: 3.5rem;
-  right: 4rem;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
-  gap: 12px;
-  z-index: 999;
-  background: rgba(45, 37, 30, 0.4);
-  padding: 8px 16px;
-  border-radius: 999px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  gap: 8px;
+  z-index: 10;
 }
 
 .hero__pager-dot {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.35);
+  background: rgba(255, 255, 255, 0.4);
   cursor: pointer;
   border: none;
   padding: 0;
@@ -195,9 +153,9 @@
 }
 
 .hero__pager-dot.active {
-  background: #b89a42;
+  background: #ffffff;
   transform: scale(1.3);
-  box-shadow: 0 0 12px #b89a42;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
 }
 
 /* Right-side vertical socials */
@@ -216,22 +174,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.06) 100%);
   color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   transition: all 0.3s ease;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  box-shadow:
+    0 4px 14px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .hero__social-link:hover {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.95);
   color: #2d251e;
   transform: scale(1.1);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 /* Bottom right widget card */
@@ -244,11 +205,13 @@
   gap: 1.25rem;
   padding: 1rem 1.25rem;
   border-radius: 20px;
-  background: rgba(45, 37, 30, 0.65) !important;
-  border: 1px solid rgba(255, 255, 255, 0.25) !important;
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(135deg, rgba(58, 48, 39, 0.75) 0%, rgba(30, 24, 19, 0.65) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  box-shadow:
+    0 14px 38px rgba(0, 0, 0, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
   z-index: 10;
   max-width: 320px;
 }
@@ -315,9 +278,6 @@
 }
 
 @media (max-width: 991px) {
-  .hero__vertical-tiles {
-    width: 100%;
-  }
   .hero__layout {
     flex-direction: column;
     justify-content: flex-start;
@@ -3498,7 +3458,7 @@
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
   background-image: 
     linear-gradient(180deg, rgba(8, 8, 8, 0.85) 0%, rgba(8, 8, 8, 0.92) 100%),
-    url('/images/hero-1.png');
+    url('/images/hero-2.png');
   background-size: cover;
   background-position: center;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -3513,13 +3473,15 @@
 
 /* Glass Tile Stats Card inside Container */
 .proven-excellence__stat-card.glass-tile {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  position: relative;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.04) 60%, rgba(255, 255, 255, 0.09) 100%);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
   box-shadow: 
-    0 10px 24px rgba(0, 0, 0, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    0 12px 30px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.04);
   border-radius: 14px;
   padding: 1.75rem 1rem;
   text-align: center;
@@ -3528,11 +3490,24 @@
   align-items: center;
   justify-content: center;
   gap: 0.65rem;
+  overflow: hidden;
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+.proven-excellence__stat-card.glass-tile::before {
+  content: '';
+  position: absolute;
+  top: -60%;
+  left: -30%;
+  width: 70%;
+  height: 220%;
+  background: linear-gradient(115deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 60%);
+  transform: rotate(20deg);
+  pointer-events: none;
+}
+
 .proven-excellence__stat-card.glass-tile:hover {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.24) 0%, rgba(255, 255, 255, 0.07) 60%, rgba(255, 255, 255, 0.14) 100%);
   border-color: rgba(255, 255, 255, 0.24) !important;
   transform: translateY(-4px);
   box-shadow: 
